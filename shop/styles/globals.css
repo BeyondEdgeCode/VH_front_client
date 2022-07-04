@@ -1,6 +1,9 @@
 
 :root {
-  --grey: #EAECEE
+  --white: #FFFFFF;
+  --grey: #EAECEE;
+  --violet: #A520E3;
+  --violet-light: rgba(165, 32, 227, 0.15);
 }
 
 @font-face {

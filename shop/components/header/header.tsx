@@ -1,8 +1,12 @@
 import { ReactNode } from 'react';
 import Image from 'next/image';
+import { Search } from '../svg/search';
+import { useCurrentPathname } from '../../utilsFunctions/routerUtils';
+import { isExists } from '../../utilsFunctions/checkType';
+import cn from 'classnames';
+
 import css from './header.module.css';
 import logo from '../../public/img/vh_logo.png';
-import { Search } from '../svg/search';
 
 type RadioButtonProps = {
     children: ReactNode,
@@ -11,10 +15,18 @@ type RadioButtonProps = {
 }
 
 const RadioButton = (props: RadioButtonProps) => {
-    const {children} = props;
+    const {children, count, isActive} = props;
+
     return (
-        <div className={css.button}>
-            {children}
+        <div >
+            <div className={cn(css.button, {[css.button_active]: isActive} )}>
+                {children}
+            </div>
+            {isExists(count) 
+                ? <div className={css['button-count-wrap']}>
+                    {count}
+                </div>
+                : null}
         </div>
     )
 }
@@ -23,6 +35,11 @@ RadioButton.defaultProps = {
 }
 
 export const Header = () => {
+    const router = useCurrentPathname();
+    const isActiveBasket = router == 'basket';
+    const isActiveProfile = router == 'profile';
+    const isActiveFavorites = router == 'favorites';
+
     return (
         <header className={css.header}>
             <div className={css['search-logo-wrap']}>
@@ -49,13 +66,13 @@ export const Header = () => {
                 </div>
             </div>
             <div className={css['button-group']}>
-                <RadioButton>
+                <RadioButton isActive={isActiveFavorites}>
                     <i className="fa-regular fa-heart fa-xl"></i>
                 </RadioButton>
-                <RadioButton>
+                <RadioButton isActive={isActiveProfile}>
                     <i className="fa-regular fa-user fa-xl"></i>
                 </RadioButton>
-                <RadioButton>
+                <RadioButton isActive={isActiveBasket}>
                     <i className="fa-solid fa-store fa-xl"></i>
                 </RadioButton>
             </div>

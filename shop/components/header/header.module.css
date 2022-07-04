@@ -67,3 +67,23 @@
     border-radius: 50%;
     background-color: var(--grey);
 }
+
+.button_active {
+    border: 1px solid var(--violet);
+    background: var(--violet-light)
+}
+
+.button-count-wrap {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--violet);
+    border-radius: 50%;
+    right: -37px;
+    top: -60px;
+    color: var(--white);
+    font-size: 12px;
+}

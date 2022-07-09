@@ -2,8 +2,10 @@
 :root {
   --white: #FFFFFF;
   --grey: #EAECEE;
+  --grey-light: rgba(234, 236, 238, 0.31);
   --violet: #A520E3;
   --violet-light: rgba(165, 32, 227, 0.15);
+  --violet-durk: #291720;
 }
 
 @font-face {
@@ -25,10 +27,21 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.ml-1{
+  margin-left: 8px;
+}
+.mr-1 {
+  margin-right: 8px;
+}
+.mt-1{
+  margin-top: 8px;
 }

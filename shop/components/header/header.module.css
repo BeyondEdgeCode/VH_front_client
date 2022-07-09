@@ -49,12 +49,10 @@
 }
 
 .button-group {
-    display: flex;
-}
-.button-group {
     width: 205px;
     display: flex;
     justify-content: space-between;
+    margin-left: 32px;
 }
 /* Button - mb need to moowe to separate file */
 .button {

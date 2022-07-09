@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Search } from '../svg/search';
 import { useCurrentPathname } from '../../utilsFunctions/routerUtils';
 import { isExists } from '../../utilsFunctions/checkType';
+import { SHOP_NAME } from '../../GlobalVarible/global';
 import cn from 'classnames';
 
 import css from './header.module.css';
@@ -51,7 +52,7 @@ export const Header = () => {
                         height={120}
                     />
                     <span className={css['logo-text']}>
-                        VAPE&HOOKAH
+                        {SHOP_NAME}
                     </span>
                 </div>
                 <div className={css['input-wrap']}>

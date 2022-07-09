@@ -1,0 +1,39 @@
+.wrap {
+    width: 75%;
+    margin: 60px auto 0;
+}
+.swiper {
+    height: 500px;
+    padding: 0 0 50px;
+    border-radius: 12px;
+
+}
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;	
+    border-radius: 12px;
+
+}
+.btn__wrap {
+    display: flex;
+    flex-direction: row-reverse;
+    max-width: 400px;
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 30%;
+}
+.swipper__next {
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+.swipper__prev {
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 50%;
+    margin-top: 10px;
+}

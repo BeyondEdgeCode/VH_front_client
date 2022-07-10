@@ -1,0 +1,12 @@
+.swipper__next {
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 50%;
+}
+.swipper__prev {
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 50%;
+}

@@ -36,6 +36,11 @@ a {
   padding: 0;
 }
 
+.pagination__active {
+  background-color: var(--violet) !important;
+  opacity: 1 !important;
+}
+
 .ml-1{
   margin-left: 8px;
 }

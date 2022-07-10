@@ -37,3 +37,8 @@
     border-radius: 50%;
     margin-top: 10px;
 }
+
+.pagination__active {
+    background-color: var(--violet) !important;
+    opacity: 1 !important;
+}

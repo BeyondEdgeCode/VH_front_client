@@ -48,8 +48,8 @@ export const SelectboxFilter = () => {
     };
     
     return (
-        <div className={css.wrap} onClick={() => setCollapse(c => !c)}>
-            <span className={css.label}>Срок доставки</span>
+        <div className={css.wrap} >
+            <span className={css.label} onClick={() => setCollapse(c => !c)}>Срок доставки</span>
             <div className={css.radio_wrap}>
                 <div className={cn(css.radio_wrap_animate, {[css.radio_wrap_active]: collapse})}>
                     { MOKED_RADIO_BUTTONS.map(el => <RadioBitton label={el.label} onClick={() => handleChange} name={name}/>)}

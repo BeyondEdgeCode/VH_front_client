@@ -1,4 +1,5 @@
-import { SyntheticEvent } from 'react';
+import cn from 'classnames';
+import { SyntheticEvent, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import css from './selectboxFilter.module.css';
 
@@ -39,15 +40,21 @@ const MOKED_RADIO_BUTTONS = [
 export const SelectboxFilter = () => {
     const name = uuidv4();
 
+    const [collapse, setCollapse] = useState<boolean>(false);
+
     const handleChange = (event: SyntheticEvent) => {
         // @ts-ignore
         console.log(event.target.value);
     };
     
     return (
-        <div className={css.wrap}>
-            <span>Срок доставки</span>
-           { MOKED_RADIO_BUTTONS.map(el => <RadioBitton label={el.label} onClick={() => handleChange} name={name}/>)}
+        <div className={css.wrap} onClick={() => setCollapse(c => !c)}>
+            <span className={css.label}>Срок доставки</span>
+            <div className={css.radio_wrap}>
+                <div className={cn(css.radio_wrap_animate, {[css.radio_wrap_active]: collapse})}>
+                    { MOKED_RADIO_BUTTONS.map(el => <RadioBitton label={el.label} onClick={() => handleChange} name={name}/>)}
+                </div>
+            </div>
         </div>
     );
 }

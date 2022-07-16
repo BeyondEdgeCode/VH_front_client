@@ -1,0 +1,30 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    max-width: 288px;
+    width: 100%;
+}
+
+.label {
+    margin-left: 12px;
+    font-size: 16px;
+}
+
+.input__wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.input {
+    max-width: 132px;
+    height: 50px;
+    border-radius: 4px;
+    border: 1px solid var(--grey);
+    padding-left: 16px;
+    outline: none;
+}
+
+.input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}

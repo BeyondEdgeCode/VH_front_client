@@ -2,6 +2,7 @@
     background-color: var(--violet-durk);
     width: 100%;
     height: 572px;
+    margin-top: 64px;
 }
 .wrap {
     max-width: 1394px;

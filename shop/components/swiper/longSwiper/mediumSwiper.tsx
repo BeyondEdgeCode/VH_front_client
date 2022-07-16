@@ -37,9 +37,7 @@ export const MediumSwiper = ({slides, widthSlide, label}: MediumSwiperProps) => 
             modules={
                 [Pagination, Navigation, Scrollbar, A11y, Autoplay]
             }
-            // spaceBetween={30}
             slidesPerView={slidesCount}
-            // loop
             navigation
             className={css.swiper}
         >
@@ -49,8 +47,8 @@ export const MediumSwiper = ({slides, widthSlide, label}: MediumSwiperProps) => 
                 </SwiperSlide>
             ))}
             <div className={css.btn__wrap}>
-                <SwiperButtonPrev>Prev</SwiperButtonPrev>
-                <SwiperButtonNext>next</SwiperButtonNext>
+                <SwiperButtonPrev />
+                <SwiperButtonNext />
             </div>
         </Swiper>
     </section>

@@ -10,3 +10,14 @@
     padding-bottom: 32px;
     margin-left: 5%;
 }
+
+.btn__wrap {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100px;
+    width: 100%;
+    float: right;
+    margin-right: 5%;
+    margin-top: 32px;
+
+}

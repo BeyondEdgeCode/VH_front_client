@@ -10,7 +10,6 @@ import kat2 from '../../../public/img/kat2.jpg';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import css from './baseSwiper.module.css';
-import { SwiperButtonNext, SwiperButtonPrev } from '../swiperKit/buttons';
 
 const MOKE_IMGS_TO_SWIPER = [
     {

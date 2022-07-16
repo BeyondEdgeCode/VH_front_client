@@ -1,9 +1,8 @@
 import type { NextPage } from 'next';
-import { Layout } from '../components/layout/layout';
-import { ProductCard } from '../components/ProductCard/productCard';
-import { BaseSwiper } from '../components/swiper/bigSwiper/BaseSwiper';
-import { MediumSwiper } from '../components/swiper/longSwiper/mediumSwiper';
-import img from '../public/img/tovar1.jpg';
+import { BaseFilter } from '../../components/filters/baseFilter';
+import { Layout } from '../../components/layout/layout';
+import { ProductCard } from '../../components/ProductCard/productCard';
+import img from '../../public/img/tovar1.jpg';
 
 
 const MOKE_SLIDE_EL = [
@@ -66,10 +65,7 @@ const MOKE_SLIDE_EL = [
 const Home: NextPage = () => {
   return (
     <Layout>
-      <BaseSwiper />
-
-      <MediumSwiper slides={MOKE_SLIDE_EL} widthSlide={225} label={'Распродажа'}/>
-      <MediumSwiper slides={MOKE_SLIDE_EL} widthSlide={225} label={'Хиты продаж'}/>
+        <BaseFilter />
     </Layout>
   )
 }

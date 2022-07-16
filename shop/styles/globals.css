@@ -6,6 +6,7 @@
   --violet: #A520E3;
   --violet-light: rgba(165, 32, 227, 0.15);
   --violet-durk: #291720;
+  --light-durk: rgba(0, 0, 0, 0.2);
 }
 
 @font-face {
@@ -34,6 +35,19 @@ a {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body::-webkit-scrollbar {
+  width: 6px;     
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--grey-light);        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--violet);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
 }
 
 .pagination__active {

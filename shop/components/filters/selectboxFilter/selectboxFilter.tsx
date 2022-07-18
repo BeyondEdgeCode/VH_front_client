@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { SyntheticEvent, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { SmallArro } from '../../svg/smallArrow';
 import css from './selectboxFilter.module.css';
 
 type RadioBittonProps = {
@@ -49,7 +50,12 @@ export const SelectboxFilter = () => {
     
     return (
         <div className={css.wrap} >
-            <span className={css.label} onClick={() => setCollapse(c => !c)}>Срок доставки</span>
+            <span className={css.label} onClick={() => setCollapse(c => !c)}>
+                Срок доставки 
+                <div className={cn(css.arrow, {[css.arrow_active]: collapse})}>
+                    <SmallArro />
+                </div>
+            </span>
             <div className={css.radio_wrap}>
                 <div className={cn(css.radio_wrap_animate, {[css.radio_wrap_active]: collapse})}>
                     { MOKED_RADIO_BUTTONS.map(el => <RadioBitton label={el.label} onClick={() => handleChange} name={name}/>)}

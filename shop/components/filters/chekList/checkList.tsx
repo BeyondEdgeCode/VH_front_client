@@ -1,7 +1,10 @@
 import css from './checkList.module.css';
+import cn from 'classnames';
+
 import { v4 as uuidv4 } from 'uuid';
 import { useMergeState } from '../../../utilsFunctions/useHook';
-import { ChangeEvent, ChangeEventHandler, useEffect } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { SmallArro } from '../../svg/smallArrow';
 
 type CheckBoxProps = {
     label: string,
@@ -27,48 +30,50 @@ const CheckBox = ({label, value, name, onChange}: CheckBoxProps) => {
     )
 }
 
-const MOKED_CHEKBOCKS = [
-    {
-        label: '10ml',
-        value: '10ml',
-    },
-    {
-        label: '20ml',
-        value: '20ml',
-    },
-    {
-        label: '30ml',
-        value: '30ml',
-    },
-    {
-        label: '40ml',
-        value: '40ml',
-    }
-];
+type CheckBox = {
+    label: string,
+    value: string,
+}
 
-export const CheckBoxFilter = () => {
+type CheckBoxFilterProp = {
+    label: string,
+    checkBox: Array<CheckBox>
+}
+
+export const CheckBoxFilter = ({label, checkBox}: CheckBoxFilterProp) => {
     const name = uuidv4();
-    const initState = MOKED_CHEKBOCKS.reduce((o, key) => Object.assign(o, {[key.value]: false}), {});
+    const initState = checkBox.reduce((o, key) => Object.assign(o, {[key.value]: false}), {});
     
     const [chekedParams, setChekedParams] = useMergeState({...initState});
+    const [collapse, setCollapse] = useState<boolean>(false);
+
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         //@ts-ignore
-        setChekedParams(Object.assign(chekedParams, {[e.target.value]: !chekedParams[key]}));
+        setChekedParams(Object.assign(chekedParams, {[e.target.value]: !chekedParams[e.target.value]}));
     }
 
     return (
         <div className={css.wrap}>
-            {/* label нужно прокинуть пропсой */}
-            <label className={css.label}>asd</label>
-            {MOKED_CHEKBOCKS.map(el => 
-                <CheckBox 
-                    label={el.label} 
-                    value={el.value} 
-                    name={name} 
-                    onChange={onChange}
-                />  
-            )}
+            <span className={css.label} onClick={() => setCollapse(c => !c)}>
+                {label}
+                <div className={cn(css.arrow, {[css.arrow_active]: collapse})}>
+                    <SmallArro />
+                </div>
+            </span>
+            <div className={css.chekbox_wrap}>
+                <div className={cn(css.chekbox_wrap_animate, {[css.chekbox_wrap_active]: collapse})}>
+                    {checkBox.map(el => 
+                        <CheckBox 
+                            label={el.label} 
+                            value={el.value} 
+                            name={name} 
+                            onChange={onChange}
+                        />  
+                    )}
+                </div>
+            </div>
+           
         </div>
     );
 }

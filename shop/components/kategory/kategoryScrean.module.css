@@ -1,0 +1,9 @@
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.el_wrap {
+    margin: 32px 48px;
+}

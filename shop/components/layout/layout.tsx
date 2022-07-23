@@ -1,15 +1,19 @@
 import Head from 'next/head';
-import { ReactNode } from "react"
+import { ReactNode } from "react";
 import { SHOP_NAME } from '../../GlobalVarible/global';
-import { Footer } from "../footer/footer"
-import { Header } from "../header/header"
+import { Footer } from "../footer/footer";
+import { Header } from "../header/header";
+import cn from 'classnames';
+
+import css from './loyout.module.css';
 
 type Layout = {
     children: ReactNode,
     title?: string
+    mode: 'vertical' | 'horizontal';
 }
 
-export const Layout = ({children, title = SHOP_NAME}: Layout) => {
+export const Layout = ({children, title = SHOP_NAME, mode}: Layout) => {
     return (
         <>
         <Head>
@@ -19,8 +23,10 @@ export const Layout = ({children, title = SHOP_NAME}: Layout) => {
             <script src="https://kit.fontawesome.com/f94f1e7176.js" crossOrigin="anonymous"></script>
         </Head>
         <Header />
-            {children}
+            <main className={cn(css.wrap, {[css.horizontal]: mode == 'horizontal'})}>
+                {children}
+            </main>
         <Footer />
         </>
     );
-} 
+}

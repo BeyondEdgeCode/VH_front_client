@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import { BaseFilter } from '../../components/filters/baseFilter';
+import { KategoryScrean } from '../../components/kategory/kategoryScrean';
 import { Layout } from '../../components/layout/layout';
 import { ProductCard } from '../../components/ProductCard/productCard';
 import img from '../../public/img/tovar1.jpg';
@@ -64,8 +65,9 @@ const MOKE_SLIDE_EL = [
 
 const Home: NextPage = () => {
   return (
-    <Layout>
+    <Layout mode={'horizontal'}>
         <BaseFilter />
+        <KategoryScrean cards={MOKE_SLIDE_EL} />
     </Layout>
   )
 }

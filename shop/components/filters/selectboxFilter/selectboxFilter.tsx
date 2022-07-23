@@ -7,10 +7,11 @@ import css from './selectboxFilter.module.css';
 type RadioBittonProps = {
     label: string,
     name: string,
-    onClick: any;
+    onClick: any,
+    defaultCheck: boolean,
 }
 
-const RadioBitton = ({label, onClick, name}: RadioBittonProps) => {
+const RadioBitton = ({label, onClick, defaultCheck, name}: RadioBittonProps) => {
     return (
         <label className={css["rad-label"]}>
             <input 
@@ -19,6 +20,7 @@ const RadioBitton = ({label, onClick, name}: RadioBittonProps) => {
                 name={name} 
                 value={label} 
                 onClick={onClick()}
+                defaultChecked={defaultCheck}
             />
             <div className={css["rad-design"]}></div>
             <div className={css["rad-text"]}>{label}</div>
@@ -26,19 +28,11 @@ const RadioBitton = ({label, onClick, name}: RadioBittonProps) => {
     );
 }
 
-const MOKED_RADIO_BUTTONS = [
-    {
-        label: 'Сегодня или завтра',
-    },
-    {
-        label: 'До 5 дней',
-    },
-    {
-        label: 'Любая',
-    }
-];
+type SelectBoxLisProp = {
+    list: Array<{label: string}>
+}
 
-export const SelectboxFilter = () => {
+export const SelectboxFilter = ({list}:SelectBoxLisProp) => {
     const name = uuidv4();
 
     const [collapse, setCollapse] = useState<boolean>(false);
@@ -57,8 +51,18 @@ export const SelectboxFilter = () => {
                 </div>
             </span>
             <div className={css.radio_wrap}>
-                <div className={cn(css.radio_wrap_animate, {[css.radio_wrap_active]: collapse})}>
-                    { MOKED_RADIO_BUTTONS.map(el => <RadioBitton label={el.label} onClick={() => handleChange} name={name}/>)}
+                <div className={
+                    cn(css.radio_wrap_animate, 
+                    {[css.radio_wrap_active]: collapse})
+                    }>
+                    { list.map((el, i) => 
+                        <RadioBitton 
+                            label={el.label}
+                            onClick={() => handleChange} 
+                            name={name} 
+                            defaultCheck={i==0}
+                        />
+                    )}
                 </div>
             </div>
         </div>

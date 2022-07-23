@@ -65,7 +65,7 @@ const MOKE_SLIDE_EL = [
 
 const Home: NextPage = () => {
   return (
-    <Layout>
+    <Layout mode={'vertical'}>
       <BaseSwiper />
 
       <MediumSwiper slides={MOKE_SLIDE_EL} widthSlide={225} label={'Распродажа'}/>

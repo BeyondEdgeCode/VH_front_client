@@ -44,6 +44,8 @@
 .wrap {
     display: flex;
     flex-direction: column;
+    max-width: 311px;
+    width: 100%;
 }
 
 .label {
@@ -53,4 +55,34 @@
     align-items: center;
     justify-content: space-between;
     width: 50%;
+}
+
+.chekbox_wrap {
+    /* padding-top: 16px; */
+    padding-left: 8px;
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+.chekbox_wrap_animate {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 0;
+    transition: top .3s;
+}
+.chekbox_wrap_active {
+    top: -1100px;
+    transition: top 1s;
+}
+
+.arrow {
+    transition: transform .3s;
+}
+
+.arrow_active {
+    transform: rotate(180deg);
+    display: flex;
+    transition: transform .3s;
 }

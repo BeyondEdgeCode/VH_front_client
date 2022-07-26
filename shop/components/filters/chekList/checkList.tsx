@@ -41,7 +41,6 @@ type CheckBoxFilterProp = {
 export const CheckBoxFilter = ({label, checkBox}: CheckBoxFilterProp) => {
     const name = uuidv4();
     const initState = checkBox.reduce((o, key) => Object.assign(o, {[key.value]: false}), {});
-    console.log(initState);
     
     const [chekedParams, setChekedParams] = useMergeState({...initState});
     const [collapse, setCollapse] = useState<boolean>(false);

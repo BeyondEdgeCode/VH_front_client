@@ -5,34 +5,35 @@ import { SmallArro } from '../../svg/smallArrow';
 import css from './selectboxFilter.module.css';
 
 type RadioBittonProps = {
-    label: string,
+    value: string,
     name: string,
     onClick: any,
     defaultCheck: boolean,
 }
 
-const RadioBitton = ({label, onClick, defaultCheck, name}: RadioBittonProps) => {
+const RadioBitton = ({value, onClick, defaultCheck, name}: RadioBittonProps) => {
     return (
         <label className={css["rad-label"]}>
             <input 
                 type="radio" 
                 className={css["rad-input"]} 
                 name={name} 
-                value={label} 
+                value={value} 
                 onClick={onClick()}
                 defaultChecked={defaultCheck}
             />
             <div className={css["rad-design"]}></div>
-            <div className={css["rad-text"]}>{label}</div>
+            <div className={css["rad-text"]}>{value}</div>
         </label>
     );
 }
 
 type SelectBoxLisProp = {
-    list: Array<{label: string}>
+    list: Array<{value: string}>,
+    label: string,
 }
 
-export const SelectboxFilter = ({list}:SelectBoxLisProp) => {
+export const SelectboxFilter = ({list, label}:SelectBoxLisProp) => {
     const name = uuidv4();
 
     const [collapse, setCollapse] = useState<boolean>(false);
@@ -45,7 +46,7 @@ export const SelectboxFilter = ({list}:SelectBoxLisProp) => {
     return (
         <div className={css.wrap} >
             <span className={css.label} onClick={() => setCollapse(c => !c)}>
-                Срок доставки 
+                {label} 
                 <div className={cn(css.arrow, {[css.arrow_active]: collapse})}>
                     <SmallArro />
                 </div>
@@ -57,7 +58,7 @@ export const SelectboxFilter = ({list}:SelectBoxLisProp) => {
                     }>
                     { list.map((el, i) => 
                         <RadioBitton 
-                            label={el.label}
+                            value={el.value}
                             onClick={() => handleChange} 
                             name={name} 
                             defaultCheck={i==0}

@@ -5,46 +5,47 @@ import { SelectboxFilter } from "./selectboxFilter/selectboxFilter";
 
 import css from './baseFilter.module.css';
 
-const MOKED_CHEKBOCKS = [
-    {
-        label: '10ml',
-        value: '10ml',
-    },
-    {
-        label: '20ml',
-        value: '20ml',
-    },
-    {
-        label: '30ml',
-        value: '30ml',
-    },
-    {
-        label: '40ml',
-        value: '40ml',
-    }
-];
+type Filter = {
+    type: string,
+    label?: string,
+    value: Array<{value: string}>
+}
 
-const MOKED_RADIO_BUTTONS = [
-    {
-        label: 'Сегодня или завтра',
-    },
-    {
-        label: 'До 5 дней',
-    },
-    {
-        label: 'Любая',
-    }
-];
-
+type BaseFilterProp = {
+    filters: Array<Filter>
+  };
 
 // {/* нужно добавить стор в который по итогу будет всё складываться */}
-export const BaseFilter = () => {
+const mapperFilters = (el: Filter) => {
+    switch (el.type) {
+        case 'togle':
+            return <FilterHeader />;
+        case 'price':
+            return(
+                <div className={css.p24}>
+                    <PriceSeparation />
+                </div>)
+        case 'selectbox':
+            return (
+                <div className={css.p24}>
+                    <SelectboxFilter list={el.value} label={el.label || ''} />
+                </div>);
+        case 'checkbox':
+            return (
+                <div className={css.p24}>
+                    <CheckBoxFilter label={el.label || ''} checkBox={el.value} />
+                </div>);
+        default:
+            console.log(new Error('АЛЯРМ ПРОБЛЕМА'))
+            break;
+    }
+}
+
+
+export const BaseFilter = ({filters}: BaseFilterProp) => {
     return (
         <aside className={css.wrap}>
-            <FilterHeader />
-            <PriceSeparation />
-            <SelectboxFilter list={MOKED_RADIO_BUTTONS} />
-            <CheckBoxFilter label={"Объем"} checkBox={MOKED_CHEKBOCKS} />
+            {filters.map(mapperFilters)}
         </aside>
     );
 }

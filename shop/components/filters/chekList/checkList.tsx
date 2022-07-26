@@ -3,17 +3,16 @@ import cn from 'classnames';
 
 import { v4 as uuidv4 } from 'uuid';
 import { useMergeState } from '../../../utilsFunctions/useHook';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { SmallArro } from '../../svg/smallArrow';
 
 type CheckBoxProps = {
     label: string,
-    value: string,
     name: string,
     onChange: (event: ChangeEvent<HTMLInputElement>) => void,
 }
 
-const CheckBox = ({label, value, name, onChange}: CheckBoxProps) => {
+const CheckBox = ({label, name, onChange}: CheckBoxProps) => {
     const id = uuidv4();
     return (
         <>
@@ -22,7 +21,7 @@ const CheckBox = ({label, value, name, onChange}: CheckBoxProps) => {
                 id={id} 
                 className={css['custom-checkbox']} 
                 name={name} 
-                value={value} 
+                value={label} 
                 onChange={e => onChange(e)}
             />
             <label htmlFor={id}>{label}</label>
@@ -31,7 +30,6 @@ const CheckBox = ({label, value, name, onChange}: CheckBoxProps) => {
 }
 
 type CheckBox = {
-    label: string,
     value: string,
 }
 
@@ -43,6 +41,7 @@ type CheckBoxFilterProp = {
 export const CheckBoxFilter = ({label, checkBox}: CheckBoxFilterProp) => {
     const name = uuidv4();
     const initState = checkBox.reduce((o, key) => Object.assign(o, {[key.value]: false}), {});
+    console.log(initState);
     
     const [chekedParams, setChekedParams] = useMergeState({...initState});
     const [collapse, setCollapse] = useState<boolean>(false);
@@ -65,15 +64,13 @@ export const CheckBoxFilter = ({label, checkBox}: CheckBoxFilterProp) => {
                 <div className={cn(css.chekbox_wrap_animate, {[css.chekbox_wrap_active]: collapse})}>
                     {checkBox.map(el => 
                         <CheckBox 
-                            label={el.label} 
-                            value={el.value} 
+                            label={el.value} 
                             name={name} 
                             onChange={onChange}
                         />  
                     )}
                 </div>
             </div>
-           
         </div>
     );
 }

@@ -2,6 +2,8 @@ import { CheckBoxFilter } from "./chekList/checkList";
 import { FilterHeader } from "./filterheader/filterHeader";
 import { PriceSeparation } from "./priceSeparation/priceSeparation";
 import { SelectboxFilter } from "./selectboxFilter/selectboxFilter";
+import { v4 as uuidv4 } from 'uuid';
+
 
 import css from './baseFilter.module.css';
 
@@ -19,21 +21,21 @@ type BaseFilterProp = {
 const mapperFilters = (el: Filter) => {
     switch (el.type) {
         case 'togle':
-            return <FilterHeader />;
+            return <FilterHeader key={uuidv4()}/>;
         case 'price':
             return(
                 <div className={css.p24}>
-                    <PriceSeparation />
+                    <PriceSeparation key={uuidv4()}/>
                 </div>)
         case 'selectbox':
             return (
                 <div className={css.p24}>
-                    <SelectboxFilter list={el.value} label={el.label || ''} />
+                    <SelectboxFilter list={el.value} label={el.label || ''} key={uuidv4()}/>
                 </div>);
         case 'checkbox':
             return (
                 <div className={css.p24}>
-                    <CheckBoxFilter label={el.label || ''} checkBox={el.value} />
+                    <CheckBoxFilter label={el.label || ''} checkBox={el.value} key={uuidv4()}/>
                 </div>);
         default:
             console.log(new Error('АЛЯРМ ПРОБЛЕМА'))

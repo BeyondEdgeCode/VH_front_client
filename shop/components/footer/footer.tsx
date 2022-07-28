@@ -3,6 +3,8 @@ import { SHOP_NAME } from '../../GlobalVarible/global';
 import { Inst } from '../svg/Insta';
 import { Tg } from '../svg/Tg';
 import css from './footer.module.css';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const PHONE = '+7 904 344-46-48';
 const INST = 'https://www.instagram.com/accounts/login/?next=/vape_hookah161/';
@@ -66,7 +68,7 @@ export const Footer = () => {
                         <>
                             <span className={css.about__label}>Покупателю:</span>
                             {LINKS_ABOUT.map(el => 
-                                <Link href={el.link}>{el.name}</Link>
+                                <Link href={el.link} key={uuidv4()}>{el.name}</Link>
                             )}
                         </>
                     </section>

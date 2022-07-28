@@ -3,7 +3,7 @@ import cn from 'classnames';
 
 import { v4 as uuidv4 } from 'uuid';
 import { useMergeState } from '../../../utilsFunctions/useHook';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { SmallArro } from '../../svg/smallArrow';
 
 type CheckBoxProps = {
@@ -66,6 +66,7 @@ export const CheckBoxFilter = ({label, checkBox}: CheckBoxFilterProp) => {
                             label={el.value} 
                             name={name} 
                             onChange={onChange}
+                            key={uuidv4()}
                         />  
                     )}
                 </div>

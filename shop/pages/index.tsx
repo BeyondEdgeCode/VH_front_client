@@ -1,9 +1,12 @@
-import type { NextPage } from 'next';
+import type { GetServerSidePropsContext, NextPage } from 'next';
 import { Layout } from '../components/layout/layout';
+import { middleware } from '../components/middleware';
 import { ProductCard } from '../components/ProductCard/productCard';
 import { BaseSwiper } from '../components/swiper/bigSwiper/BaseSwiper';
 import { MediumSwiper } from '../components/swiper/longSwiper/mediumSwiper';
 import img from '../public/img/tovar1.jpg';
+import nookies, { parseCookies, setCookie } from 'nookies';
+import { useEffect } from 'react';
 
 
 const MOKE_SLIDE_EL = [
@@ -62,8 +65,17 @@ const MOKE_SLIDE_EL = [
     img={img.src} onClick={(): void  => {console.log(img.src)}}
   />,
 ];
-
-const Home: NextPage = () => {
+type HomeProps = {
+  prop: {
+    [key: string]: string;
+  }
+}
+const Home = ({prop}:HomeProps) => {
+  useEffect(()=> {
+    setCookie(prop, 'blablaCookie', 'blablaCookieVALUE');
+    const cookies = parseCookies()
+    console.log({ cookies })
+  },[prop])
   return (
     <Layout mode={'vertical'}>
       <BaseSwiper />
@@ -74,4 +86,19 @@ const Home: NextPage = () => {
   )
 }
 
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+    const cookies = nookies.get(ctx);
+  nookies.set(ctx, 'fromGetInitialProps', 'value', {
+    maxAge: 30 * 24 * 60 * 60,
+    path: '/',
+  })
+
+  
+  return {
+    props: { params: cookies },
+  };
+}
+
 export default Home
+

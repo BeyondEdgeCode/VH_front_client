@@ -109,14 +109,6 @@ const filters= [
   checkBoxFilter,
 ];
 
-// type BaseFilterProp = {
-//   filters: Array<{
-//     type: string,
-//     label?: string,
-//     value: Array<string | null>
-//   }>
-// };
-
 const Home: NextPage = () => {
   return (
     <Layout mode={'horizontal'}>

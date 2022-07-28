@@ -62,6 +62,7 @@ export const SelectboxFilter = ({list, label}:SelectBoxLisProp) => {
                             onClick={() => handleChange} 
                             name={name} 
                             defaultCheck={i==0}
+                            key={uuidv4()}
                         />
                     )}
                 </div>

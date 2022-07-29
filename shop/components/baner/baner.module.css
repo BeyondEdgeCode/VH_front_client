@@ -1,0 +1,32 @@
+.wrap {
+    z-index: 99999;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--violet);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+}
+
+.disable {
+    display: none;
+}
+
+.buttons_wrap {
+    max-width: 150px;
+    width: 100%;
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    cursor: pointer;
+    background: transparent;
+    padding: 12px;
+    border: 2px solid var(--white);
+    color: var(--white);
+}

@@ -6,6 +6,7 @@ import { Header } from "../header/header";
 import cn from 'classnames';
 
 import css from './loyout.module.css';
+import { Baner } from '../baner/baner';
 
 type Layout = {
     children: ReactNode,
@@ -22,6 +23,7 @@ export const Layout = ({children, title = SHOP_NAME, mode}: Layout) => {
             <link rel="icon" href="/favicon.ico" />
             <script src="https://kit.fontawesome.com/f94f1e7176.js" crossOrigin="anonymous"></script>
         </Head>
+        <Baner />
         <Header />
             <main className={cn(css.wrap, {[css.horizontal]: mode == 'horizontal'})}>
                 {children}

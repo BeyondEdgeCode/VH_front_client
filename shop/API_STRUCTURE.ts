@@ -8,7 +8,8 @@ const getFilter = {
             label: 'string', // не обязательное поле
             value: [
                 {
-                    value: 'string'
+                    value: 'string',
+                    state: 'false | string | number' 
                 }
             ]
         }

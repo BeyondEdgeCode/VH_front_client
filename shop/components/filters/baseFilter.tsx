@@ -17,7 +17,7 @@ export type Filter = {
 
 export type FilterState = {
     value: string,
-    state: boolean
+    state: unknown
 }
 
 type BaseFilterProp = {

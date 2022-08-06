@@ -3,16 +3,18 @@ import cn from 'classnames';
 
 import { v4 as uuidv4 } from 'uuid';
 import { useMergeState } from '../../../utilsFunctions/useHook';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, memo, useState } from 'react';
 import { SmallArro } from '../../svg/smallArrow';
+import { getFormatFilters } from '../../../utilsFunctions/utils';
 
 type CheckBoxProps = {
     label: string,
     name: string,
     onChange: (event: ChangeEvent<HTMLInputElement>) => void,
+    isChecked: boolean;
 }
 
-const CheckBox = ({label, name, onChange}: CheckBoxProps) => {
+const CheckBox = memo(({label, name, onChange, isChecked}: CheckBoxProps) => {
     const id = uuidv4();
     return (
         <>
@@ -22,12 +24,13 @@ const CheckBox = ({label, name, onChange}: CheckBoxProps) => {
                 className={css['custom-checkbox']} 
                 name={name} 
                 value={label} 
+                checked={isChecked}
                 onChange={e => onChange(e)}
             />
             <label htmlFor={id}>{label}</label>
         </>
     )
-}
+});
 
 type CheckBox = {
     value: string,
@@ -36,9 +39,10 @@ type CheckBox = {
 type CheckBoxFilterProp = {
     label: string,
     checkBox: Array<CheckBox>
+    setter: (newValue: { value: string; }[]) => void
 }
 
-export const CheckBoxFilter = ({label, checkBox}: CheckBoxFilterProp) => {
+export const CheckBoxFilter = ({label, checkBox, setter}: CheckBoxFilterProp) => {
     const name = uuidv4();
     const initState = checkBox.reduce((o, key) => Object.assign(o, {[key.value]: false}), {});
     
@@ -49,8 +53,9 @@ export const CheckBoxFilter = ({label, checkBox}: CheckBoxFilterProp) => {
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         //@ts-ignore
         setChekedParams(Object.assign(chekedParams, {[e.target.value]: !chekedParams[e.target.value]}));
+        setter(getFormatFilters(chekedParams));
     }
-
+    
     return (
         <div className={css.wrap}>
             <span className={css.label} onClick={() => setCollapse(c => !c)}>
@@ -67,6 +72,8 @@ export const CheckBoxFilter = ({label, checkBox}: CheckBoxFilterProp) => {
                             name={name} 
                             onChange={onChange}
                             key={uuidv4()}
+                            //@ts-ignore
+                            isChecked={chekedParams[el.value]}
                         />  
                     )}
                 </div>

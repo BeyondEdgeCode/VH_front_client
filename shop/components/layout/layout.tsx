@@ -7,6 +7,7 @@ import cn from 'classnames';
 
 import css from './loyout.module.css';
 import { Baner } from '../baner/baner';
+import { useCookieisNewUser } from '../../utilsFunctions/useHook';
 
 type Layout = {
     children: ReactNode,
@@ -15,6 +16,8 @@ type Layout = {
 }
 
 export const Layout = ({children, title = SHOP_NAME, mode}: Layout) => {
+    useCookieisNewUser();
+
     return (
         <>
         <Head>

@@ -1,17 +1,26 @@
-import cn from 'classnames';
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { SmallArro } from '../../svg/smallArrow';
+
 import css from './selectboxFilter.module.css';
+import cn from 'classnames';
 
 type RadioBittonProps = {
     value: string,
     name: string,
     onClick: any,
     defaultCheck: boolean,
+    isChecked: boolean,
 }
 
-const RadioBitton = ({value, onClick, defaultCheck, name}: RadioBittonProps) => {
+type SelectBoxLisProp = {
+    list: Array<{value: string}>,
+    label: string,
+    setter: (newValue: { value: string; }[]) => void
+}
+
+
+const RadioBitton = ({value, onClick, defaultCheck, name, isChecked}: RadioBittonProps) => {
     return (
         <label className={css["rad-label"]}>
             <input 
@@ -21,6 +30,7 @@ const RadioBitton = ({value, onClick, defaultCheck, name}: RadioBittonProps) => 
                 value={value} 
                 onClick={onClick()}
                 defaultChecked={defaultCheck}
+                checked={isChecked}
             />
             <div className={css["rad-design"]}></div>
             <div className={css["rad-text"]}>{value}</div>
@@ -28,21 +38,31 @@ const RadioBitton = ({value, onClick, defaultCheck, name}: RadioBittonProps) => 
     );
 }
 
-type SelectBoxLisProp = {
-    list: Array<{value: string}>,
-    label: string,
-}
-
-export const SelectboxFilter = ({list, label}:SelectBoxLisProp) => {
+export const SelectboxFilter = ({list, label, setter}:SelectBoxLisProp) => {
     const name = uuidv4();
-
+    
     const [collapse, setCollapse] = useState<boolean>(false);
+    const [localeStete, setLocaleStete] = useState(list);
 
     const handleChange = (event: SyntheticEvent) => {
-        // @ts-ignore
-        console.log(event.target.value);
+        setLocaleStete(oldState => {
+            const newState = oldState.map(el => {
+                // @ts-ignore
+                if(event.target.value == el.value) {
+                    return {...el, state: true};
+                } else {
+                    return {...el, state: false};
+                }
+            });
+            
+            return [...newState];
+        });
+
     };
-    
+    useEffect(() => {
+        setter(localeStete);
+    }, [localeStete])
+
     return (
         <div className={css.wrap} >
             <span className={css.label} onClick={() => setCollapse(c => !c)}>
@@ -63,6 +83,8 @@ export const SelectboxFilter = ({list, label}:SelectBoxLisProp) => {
                             name={name} 
                             defaultCheck={i==0}
                             key={uuidv4()}
+                            //@ts-ignore
+                            isChecked={localeStete[i].state}
                         />
                     )}
                 </div>

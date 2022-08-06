@@ -73,21 +73,44 @@ const MOKED_SLIDES = [
 
 const filterTogle = {
   type: 'togle',
-  value: [{value: 'Все товары'}, {value: 'В наличии'}], 
+  value: [
+    {
+      value: 'Все товары',
+      state: true
+    },
+    {
+      value: 'В наличии',
+      state: false
+    }
+  ], 
 }
 
 const priceSeparation = {
   type: 'price',
-  value: [{value: 'null'}],
+  value: [
+    {
+      value: 'null',
+      state: false,
+    }
+  ],
 }
 
 const selectboxFilter = {
   type: 'selectbox',
   label: "Срок доставки",
   value: [
-    {value: 'Сегодня или завтра'},
-    {value: 'До 5 дней'},
-    {value: 'Любая'},
+    {
+      value: 'Сегодня или завтра',
+      state: true,
+    },
+    {
+      value: 'До 5 дней',
+      state: false
+    },
+    {
+      value: 'Любая',
+      state: false
+    },
   ]
 } 
 
@@ -95,10 +118,23 @@ const checkBoxFilter = {
   type: 'checkbox',
   label: "Объем",
   value: [
-    {value: '10ml'},
-    {value: '20ml'},
-    {value: '30ml'},
-    {value: '40ml'},
+    {
+      value: '10ml',
+      state: false
+
+    },
+    {
+      value: '20ml',
+      state: false
+    },
+    {
+      value: '30ml',
+      state: false
+    },
+    {
+      value: '40ml',
+      state: false
+    },
   ]
 }
 

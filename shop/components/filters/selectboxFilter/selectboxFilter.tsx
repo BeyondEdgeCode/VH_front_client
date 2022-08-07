@@ -4,19 +4,20 @@ import { SmallArro } from '../../svg/smallArrow';
 
 import css from './selectboxFilter.module.css';
 import cn from 'classnames';
+import { FilterState } from '../baseFilter';
 
 type RadioBittonProps = {
     value: string,
     name: string,
     onClick: any,
-    defaultCheck: boolean,
-    isChecked: boolean,
+    readonly defaultCheck: boolean,
+    readonly isChecked: boolean,
 }
 
 type SelectBoxLisProp = {
-    list: Array<{value: string}>,
+    list: Array<FilterState>,
     label: string,
-    setter: (newValue: { value: string; }[]) => void
+    setter: (newValue: Array<FilterState>) => void
 }
 
 
@@ -60,6 +61,7 @@ export const SelectboxFilter = ({list, label, setter}:SelectBoxLisProp) => {
 
     };
     useEffect(() => {
+        //@ts-ignore
         setter(localeStete);
     }, [localeStete])
 

@@ -6,6 +6,7 @@ import { useMergeState } from '../../../utilsFunctions/useHook';
 import { ChangeEvent, memo, useState } from 'react';
 import { SmallArro } from '../../svg/smallArrow';
 import { getFormatFilters } from '../../../utilsFunctions/utils';
+import { FilterState } from '../baseFilter';
 
 type CheckBoxProps = {
     label: string,
@@ -39,7 +40,7 @@ type CheckBox = {
 type CheckBoxFilterProp = {
     label: string,
     checkBox: Array<CheckBox>
-    setter: (newValue: { value: string; }[]) => void
+    setter: (newValue: Array<FilterState>) => void
 }
 
 export const CheckBoxFilter = ({label, checkBox, setter}: CheckBoxFilterProp) => {

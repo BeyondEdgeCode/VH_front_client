@@ -89,8 +89,12 @@ const priceSeparation = {
   type: 'price',
   value: [
     {
-      value: 'null',
-      state: false,
+      value: 'от',
+      state: 0,
+    },
+    {
+      value: 'до',
+      state: null,
     }
   ],
 }

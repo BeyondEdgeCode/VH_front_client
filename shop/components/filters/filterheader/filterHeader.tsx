@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './filterHeader.module.css';
 
 import cn from 'classnames';
+import { FilterState } from '../baseFilter';
 
 
 type Togle = {
     onClick: () => void,
     active: boolean,
+}
+type FilterHeaderProps = {
+    list: Array<FilterState>,
+    setter: (newValue: Array<FilterState>) => void
 }
 const Togler = ({onClick, active}: Togle) => {
     return (
@@ -16,16 +21,26 @@ const Togler = ({onClick, active}: Togle) => {
     );
 }
 
-export const FilterHeader = () => {
+export const FilterHeader = ({list, setter}: FilterHeaderProps) => {
     const [togle, setTogle] = useState<boolean>(false);
     const togleClick = () => {
         setTogle(t => !t);
     }
+    useEffect(() => {
+        const newStateStore = list.map((el, i) => {
+            if(i ===0) {
+                return {...el, state: !togle}
+            } else {
+                return {...el, state: togle}
+            }
+        });
+        setter(newStateStore);
+    }, [togle]);
     return (
         <div className={css.wrap}>
-            <span className={cn({[css.label_isActive]: togle})}>Все товары</span>
+            <span className={cn({[css.label_isActive]: togle})}>{list[0].value}</span>
             <Togler onClick={() => togleClick()} active={togle}/>
-            <span className={cn({[css.label_isActive]: !togle})}>В наличии</span>
+            <span className={cn({[css.label_isActive]: !togle})}>{list[1].value}</span>
         </div>
     );
 };

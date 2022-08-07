@@ -27,19 +27,27 @@ type BaseFilterProp = {
 export type TempFilter = {
     type: string,
     label?: string,
-    value: Array<{value: string}>
-    store$: BehaviorSubject<{value: string}[]>
+    value: Array<FilterState>
+    store$: BehaviorSubject<Array<FilterState>>
 }
 
 // {/* нужно добавить стор в который по итогу будет всё складываться */}
 const mapperFilters = (el: TempFilter) => {
     switch (el.type) {
         case 'togle':
-            return <FilterHeader key={uuidv4()}/>;
+            el.store$.subscribe(console.log)
+            return <FilterHeader 
+                key={uuidv4()} 
+                list={el.value} 
+                setter={createSetterStore(el.store$)}
+                />;
         case 'price':
             return(
                 <div className={css.p24}>
-                    <PriceSeparation key={uuidv4()}/>
+                    <PriceSeparation 
+                        key={uuidv4()}
+                        setter={createSetterStore(el.store$)}
+                    />
                 </div>)
         case 'selectbox':
             return (
@@ -72,28 +80,28 @@ const createStoreForForlter = (el: Filter) => {
         case 'togle':
             return {
                 ...el,
-                store$: new BehaviorSubject<{value: string}[]>(el.value),
+                store$: new BehaviorSubject<Array<FilterState>>(el.value),
             };
         case 'price':
             return {
                 ...el,
-                store$: new BehaviorSubject<{value: string}[]>(el.value),
+                store$: new BehaviorSubject<Array<FilterState>>(el.value),
             };
         case 'selectbox':
             return {
                 ...el,
-                store$: new BehaviorSubject<{value: string}[]>(el.value),
+                store$: new BehaviorSubject<Array<FilterState>>(el.value),
             };
         case 'checkbox':
             return {
                 ...el,
-                store$: new BehaviorSubject<{value: string}[]>(el.value),
+                store$: new BehaviorSubject<Array<FilterState>>(el.value),
             };
         default:
             console.log(new Error('АЛЯРМ ПРОБЛЕМА'))
             return {
                 ...el,
-                store$: new BehaviorSubject<{value: string}[]>(el.value),
+                store$: new BehaviorSubject<Array<FilterState>>(el.value),
             }
     }
 }
@@ -105,7 +113,6 @@ export const BaseFilter = ({filters}: BaseFilterProp) => {
     const stors = filtersWithStore.map(el => el.store$.asObservable());
     
     const mergedFilters = merge(...stors);
-    // mergedFilters.subscribe(console.log);
    
     return (
         <aside className={css.wrap}>

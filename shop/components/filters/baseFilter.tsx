@@ -31,7 +31,7 @@ export type TempFilter = {
     store$: BehaviorSubject<Array<FilterState>>
 }
 
-// {/* нужно добавить стор в который по итогу будет всё складываться */}
+// маппер который преобразует фильтр из массива в разметку
 const mapperFilters = (el: TempFilter) => {
     switch (el.type) {
         case 'togle':
@@ -75,6 +75,7 @@ const mapperFilters = (el: TempFilter) => {
     }
 }
 
+// маппер который добавляет локальное хранилище к фильтрам
 const createStoreForForlter = (el: Filter) => {
     switch (el.type) {
         case 'togle':

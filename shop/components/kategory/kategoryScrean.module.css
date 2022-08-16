@@ -4,6 +4,11 @@
     align-items: center;
     justify-content: center;
 }
-.el_wrap {
+.el__wrap {
     margin: 32px 48px;
+}
+
+.el__wrap_basket {
+    margin: 32px 48px;
+    width: 100%;
 }

@@ -8,6 +8,7 @@ import cn from 'classnames';
 import css from './loyout.module.css';
 import { Baner } from '../baner/baner';
 import { useCookieisNewUser } from '../../utilsFunctions/useHook';
+import { Notifications } from '../notifications/notificate';
 
 type Layout = {
     children: ReactNode,
@@ -27,10 +28,11 @@ export const Layout = ({children, title = SHOP_NAME, mode}: Layout) => {
             <script src="https://kit.fontawesome.com/f94f1e7176.js" crossOrigin="anonymous"></script>
         </Head>
         <Baner />
+        {/* <Notifications /> */}
         <Header />
-            <main className={cn(css.wrap, {[css.horizontal]: mode == 'horizontal'})}>
-                {children}
-            </main>
+        <main className={cn(css.wrap, {[css.horizontal]: mode == 'horizontal'})}>
+            {children}
+        </main>
         <Footer />
         </>
     );

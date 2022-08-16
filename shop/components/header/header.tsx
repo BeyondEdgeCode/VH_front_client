@@ -5,9 +5,12 @@ import { useCurrentPathname } from '../../utilsFunctions/routerUtils';
 import { isExists } from '../../utilsFunctions/checkType';
 import { SHOP_NAME } from '../../GlobalVarible/global';
 import cn from 'classnames';
+import logo from '../../public/img/vh_logo.png';
+import { useObservable } from '../../utilsFunctions/useHook';
+import { notifications$ } from '../notifications/notifications.view-model';
+import Link from 'next/link';
 
 import css from './header.module.css';
-import logo from '../../public/img/vh_logo.png';
 
 type RadioButtonProps = {
     children: ReactNode,
@@ -41,20 +44,25 @@ export const Header = () => {
     const isActiveProfile = router == 'profile';
     const isActiveFavorites = router == 'favorites';
 
+    const notifications = useObservable<Array<string>>(notifications$) ?? [];
+
+
     return (
         <header className={css.header}>
             <div className={css['search-logo-wrap']}>
-                <div className={css['logo-wrap']}>
-                    <Image
-                        src={logo}
-                        alt="Logo"
-                        width={100}
-                        height={120}
-                    />
-                    <span className={css['logo-text']}>
-                        {SHOP_NAME}
-                    </span>
-                </div>
+                <Link href={'/'} >
+                    <div className={css['logo-wrap']}>
+                        <Image
+                            src={logo}
+                            alt="Logo"
+                            width={100}
+                            height={120}
+                        />
+                        <span className={css['logo-text']}>
+                            {SHOP_NAME}
+                        </span>
+                    </div>
+                </Link>
                 <div className={css['input-wrap']}>
                     <input 
                         type="text"
@@ -73,9 +81,13 @@ export const Header = () => {
                 <RadioButton isActive={isActiveProfile}>
                     <i className="fa-regular fa-user fa-xl"></i>
                 </RadioButton>
-                <RadioButton isActive={isActiveBasket}>
-                    <i className="fa-solid fa-store fa-xl"></i>
-                </RadioButton>
+                <Link href={'/profile/basket/'}>
+                    <div>
+                        <RadioButton isActive={isActiveBasket} count={notifications.length}>
+                            <i className="fa-solid fa-store fa-xl"></i>
+                        </RadioButton>
+                    </div>
+                </Link>
             </div>
         </header>
     );

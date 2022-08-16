@@ -9,6 +9,8 @@
     background-color: var(--violet);
     cursor: pointer;
     outline: none;
+    z-index: 120;
+    position: relative;
 }
 .swipper__prev {
     height: 40px;
@@ -22,4 +24,6 @@
     background-color: var(--violet);
     cursor: pointer;
     outline: none;
+    z-index: 120;
+    position: relative;
 }

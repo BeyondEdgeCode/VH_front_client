@@ -11,7 +11,7 @@ export const useMergeState = <A>(init:A): [A, (chenge: A) => void] => {
     return [state, setChenges];
 }
 
-export const useObservable = <T>(fa: Observable<T>, initial: T): T => {
+export const useObservable = <T>(fa: Observable<T>, initial?: T): T | undefined => {
     const [value, setValue] = useState(initial);
     useEffect(() => {
         const subscription = fa.subscribe(setValue);

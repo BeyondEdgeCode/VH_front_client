@@ -5,7 +5,6 @@ import { BaseSwiper } from '../components/swiper/bigSwiper/BaseSwiper';
 import { MediumSwiper } from '../components/swiper/longSwiper/mediumSwiper';
 import img from '../public/img/tovar1.jpg';
 import { Category, getCategory } from '../utilsFunctions/GetFromAPI';
-import axios from 'axios';
 import { setNewCategoryState } from '../components/ui-kit/button/dropDown/category.store';
 
 

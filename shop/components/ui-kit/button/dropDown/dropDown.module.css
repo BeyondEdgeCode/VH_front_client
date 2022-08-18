@@ -4,6 +4,7 @@
     background-color: var(--violet);
     color: var(--white);
     z-index: 10;
+    box-shadow: 0 0 20px var(--violet);
 }
 
 
@@ -24,12 +25,15 @@
     margin-top: 50px;
     padding-top: 40px;
     z-index: 9;
+    box-shadow: 5px 5px 20px rgba(51, 51, 51, 0.281);
 }
 
 .main_menu ul li ul li{
     width: 100%;
-    background-color: var(--violet);
-    color: var(--white);
+    /* background-color: var(--violet); */
+    background-color: var(--white);
+    color: #333;
+    /* color: var(--white); */
     padding: 12px 24px;
     border-radius: 12px;
     margin: 8px 0;

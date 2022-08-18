@@ -36,10 +36,10 @@ export const Notifications = () => {
         <>
             {/* {notifications.reverse().map(el => (<Notificate text={el}/>))} */}
             <div className={css.wrap2}>
-                {/* {notifications.reverse().map(el => (<Notificate text={el}/>))} */}
-                <Notificate text={'qweqweqweqweqweqweqweqweqweqweqweqweqweqweqwe'}/>
-                <Notificate text={'qweqweqweqweqwe'}/>
-                <Notificate text={'qweqweqweqweqwe'}/>
+                {notifications.reverse().map(el => (<Notificate text={el}/>))}
+                {/* <Notificate text={'qweqweqweqweqweqweqweqweqweqweqweqweqweqweqwe'}/> */}
+                {/* <Notificate text={'qweqweqweqweqwe'}/> */}
+                {/* <Notificate text={'qweqweqweqweqwe'}/> */}
             </div>
         </>   
 

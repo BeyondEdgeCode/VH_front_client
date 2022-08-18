@@ -3,13 +3,12 @@ import { ReactNode } from "react";
 import { SHOP_NAME } from '../../GlobalVarible/global';
 import { Footer } from "../footer/footer";
 import { Header } from "../header/header";
-import cn from 'classnames';
-
-import css from './loyout.module.css';
 import { Baner } from '../baner/baner';
 import { useCookieisNewUser } from '../../utilsFunctions/useHook';
+
+import css from './loyout.module.css';
+import cn from 'classnames';
 import { Notifications } from '../notifications/notificate';
-import { Category } from '../../utilsFunctions/GetFromAPI';
 
 type Layout = {
     children: ReactNode,
@@ -29,7 +28,7 @@ export const Layout = ({children, title = SHOP_NAME, mode}: Layout) => {
             <script src="https://kit.fontawesome.com/f94f1e7176.js" crossOrigin="anonymous"></script>
         </Head>
         <Baner />
-        {/* <Notifications /> */}
+        <Notifications />
         <Header />
         <main className={cn(css.wrap, {[css.horizontal]: mode == 'horizontal'})}>
             {children}

@@ -36,7 +36,6 @@ const ButtonGroupTitles = [
 
 const ButtonGroup = ({buttons}: ButtonGroupProps) => {
     const router = useCurrentPathname();
-    console.log('qweqwe',router);
     
     return (
         <div className={css.buttonWrap}>
@@ -47,7 +46,7 @@ const ButtonGroup = ({buttons}: ButtonGroupProps) => {
 
 export const LoyoutProfile = ({children}: Layout) => {
     return (
-        <Layout mode={'horizontal'}>
+        <Layout mode={'vertical'}>
             <ButtonGroup buttons={ButtonGroupTitles} />
             {children}
         </Layout>

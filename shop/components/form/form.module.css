@@ -1,0 +1,35 @@
+.form {
+    background-color: rgba(234, 236, 238, 1);
+    border-radius: 12px;
+    box-shadow: 10px 10px 10px rgba(234, 236, 238, 7);;
+    width: 70%;
+    margin: 64px auto 0;
+    padding: 48px;
+}
+
+.inputGroup {
+    display: flex;
+}
+
+.inputGroup_indent {
+    margin-top: 32px;
+}
+
+.input {
+    max-width: 600px;
+    width: 100%;
+    color: #333;
+    padding: 16px 12px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+}
+
+/*  */
+
+.mr_1 {
+    margin-right: 8px;
+} 
+.mr_3 {
+    margin-right: 24px;
+}

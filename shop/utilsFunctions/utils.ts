@@ -8,3 +8,11 @@ export const getFormatFilters = (el: any) => Object.entries(el).map(([value, sta
         state: state
     }
 });
+
+export const disableNegative = (e: number) => {
+    if(e>0 && e-1 != -1) {
+        return e - 1;
+    } else {
+        return e
+    }
+}

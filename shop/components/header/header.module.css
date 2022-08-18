@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     margin-right: 90px;
+    cursor: pointer;
 }
 
 .logo-text {
@@ -24,27 +25,31 @@
 .search-logo-wrap {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .input-wrap {
-    width: 656px;
+    max-width: 360px;
+    min-width: 167px;
+    width: 100%;
     height: 56px;
     position: relative;
+    margin-left: 64px;
 }
 
 .input {
     background-color: var(--grey);
     outline: none;
     border: none;
-    border-radius: 25px;
-    width: 100%;
     padding: 19px 0  19px 24px;
-    color: black;
+    border-radius: 25px;
+    max-width: 656px;
+    width: 100%;
 }
 
 .input-icon {
     position: relative;
-    right: -94%;
+    right: -89%;
     top: -37px;
 }
 
@@ -54,6 +59,7 @@
     justify-content: space-between;
     margin-left: 32px;
 }
+
 /* Button - mb need to moowe to separate file */
 .button {
     display: flex;

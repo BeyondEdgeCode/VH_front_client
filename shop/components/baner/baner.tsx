@@ -4,7 +4,7 @@ import { useDirtySetBodyScroll, useObservable, useSetIsNewUserCookie } from '../
 import { isNewUser$, setNewUserObserver } from '../storges/is-new-user.store';
 
 export const Baner = () => {
-    const visible = useObservable(isNewUser$, false);
+    const visible = useObservable(isNewUser$) ?? false;
 
     useDirtySetBodyScroll(visible);
 

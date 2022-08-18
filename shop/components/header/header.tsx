@@ -11,6 +11,8 @@ import { notifications$ } from '../notifications/notifications.view-model';
 import Link from 'next/link';
 
 import css from './header.module.css';
+import { DropDown } from '../ui-kit/button/dropDown/dropDown';
+import { Category } from '../../utilsFunctions/GetFromAPI';
 
 type RadioButtonProps = {
     children: ReactNode,
@@ -63,6 +65,7 @@ export const Header = () => {
                         </span>
                     </div>
                 </Link>
+                <DropDown/>
                 <div className={css['input-wrap']}>
                     <input 
                         type="text"
@@ -78,9 +81,14 @@ export const Header = () => {
                 <RadioButton isActive={isActiveFavorites}>
                     <i className="fa-regular fa-heart fa-xl"></i>
                 </RadioButton>
-                <RadioButton isActive={isActiveProfile}>
-                    <i className="fa-regular fa-user fa-xl"></i>
-                </RadioButton>
+                <Link href={'/profile/'}>
+                    <div>
+                        <RadioButton isActive={isActiveProfile}>
+                            <i className="fa-regular fa-user fa-xl"></i>
+                        </RadioButton>
+                    </div>
+                </Link>
+                
                 <Link href={'/profile/basket/'}>
                     <div>
                         <RadioButton isActive={isActiveBasket} count={notifications.length}>

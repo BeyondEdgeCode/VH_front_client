@@ -66,3 +66,7 @@ body::-webkit-scrollbar-thumb {
 .mt-1{
   margin-top: 8px;
 }
+
+ul {
+  list-style: none;
+}

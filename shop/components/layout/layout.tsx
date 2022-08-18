@@ -9,10 +9,11 @@ import css from './loyout.module.css';
 import { Baner } from '../baner/baner';
 import { useCookieisNewUser } from '../../utilsFunctions/useHook';
 import { Notifications } from '../notifications/notificate';
+import { Category } from '../../utilsFunctions/GetFromAPI';
 
 type Layout = {
     children: ReactNode,
-    title?: string
+    title?: string,
     mode: 'vertical' | 'horizontal';
 }
 

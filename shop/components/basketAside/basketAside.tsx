@@ -1,4 +1,5 @@
 import { BaseFilter } from "../filters/baseFilter";
+import { Button } from "../ui-kit/button/button";
 import css from './basketAside.module.css';
 
 
@@ -51,7 +52,7 @@ export const BasketAside = () => {
         <div className={css.wrap}>
             <BaseFilter filters={filters}/>
             <h3 className={css.total}>Итого: <span className={css.totalPrice}>{total} ₽</span></h3>
-            <button className={css.button} >Оформить</button>
+            <Button>Оформить</Button>
         </ div>
     );
 }

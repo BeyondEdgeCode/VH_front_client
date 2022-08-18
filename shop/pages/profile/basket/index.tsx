@@ -1,8 +1,11 @@
+import { HomeProps } from "../..";
 import { BasketAside } from "../../../components/basketAside/basketAside"
 import { KategoryScrean } from "../../../components/kategory/kategoryScrean";
 import { Layout } from "../../../components/layout/layout"
 import { ProductCard } from "../../../components/ProductCard/productCard";
+import { setNewCategoryState } from "../../../components/ui-kit/button/dropDown/category.store";
 import img from '../../../public/img/tovar1.jpg';
+import { getCategory } from "../../../utilsFunctions/GetFromAPI";
 
 const MOKE_SLIDE_EL = [
     <ProductCard 
@@ -56,14 +59,27 @@ const MOKE_SLIDE_EL = [
     <KategoryScrean cards={MOKE_SLIDE_EL} />,
   ]
 
-const Basket = () => {
-    return (
-      <Layout mode={'horizontal'}>
-        <BasketAside />
-        <KategoryScrean cards={MOKE_SLIDE_EL} />
+interface BasketProps extends HomeProps {}
 
-      </Layout>
-    )
+
+const Basket = ({category}: BasketProps) => {
+  setNewCategoryState(category);
+  return (
+    <Layout mode={'horizontal'}>
+      <BasketAside />
+      <KategoryScrean cards={MOKE_SLIDE_EL} />
+
+    </Layout>
+  )
+}
+
+export async function getStaticProps() {
+  const category = await getCategory();
+  return {
+    props: {
+      category,
+    },
   }
+}
   
 export default Basket

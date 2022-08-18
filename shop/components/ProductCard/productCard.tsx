@@ -4,6 +4,8 @@ import { notifications$, setNotifications } from '../notifications/notifications
 import css from './product-card.module.css';
 import cn from 'classnames';
 import { useState } from 'react';
+import { disableNegative } from '../../utilsFunctions/utils';
+import { Button } from '../ui-kit/button/button';
 
 type ProductCard = {
     maxWidth: number,
@@ -43,13 +45,6 @@ export const ProductCard = (props: ProductCard) => {
     const onClick = () => {
         setNotifications([...notifications, description])
     }
-    const test = (e: number) => {
-        if(e>0 && e-1 != -1) {
-            return e - 1;
-        } else {
-            return e
-        }
-    }
 
     const basket = (
         <div className={css.wrap_basket}>
@@ -62,9 +57,9 @@ export const ProductCard = (props: ProductCard) => {
                 {description}
             </p>
             <div className={css.btnGroup}>
-                <button className={cn(css.button, css.buttonCounter)} onClick={() => setCountToAdd(c => c+1)}>+</button>
+                <Button isSmall onClick={() => setCountToAdd(c => c+1)}>+</Button>
                 <span className={css.countToAdd}>{countToAdd}</span>
-                <button className={cn(css.button, css.buttonCounter)} onClick={() => setCountToAdd(c => test(c))}>-</button>
+                <Button isSmall  onClick={() => setCountToAdd(c => disableNegative(c))}>-</Button>
             </div>
         </div>
     );
@@ -83,7 +78,7 @@ export const ProductCard = (props: ProductCard) => {
                 <p className={css.description}>
                     {description}
                 </p>
-                <button className={css.button} onClick={onClick}>В корзину</button>
+                <Button onClick={onClick}>В корзину</Button>
         </div>
     );
     return (

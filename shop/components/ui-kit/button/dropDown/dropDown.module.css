@@ -1,0 +1,49 @@
+.title {
+    padding: 12px 48px;
+    border-radius: 12px;
+    background-color: var(--violet);
+    color: var(--white);
+    z-index: 10;
+}
+
+
+.main_menu ul li{
+    display: inline-block;
+    position: relative;
+}
+
+.main_menu ul li ul{
+    position: absolute;
+    /* max-width: 400px; */
+    width: 100%;
+    background: var(--white);
+    color: #333;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+    margin-top: 50px;
+    padding-top: 40px;
+    z-index: 9;
+}
+
+.main_menu ul li ul li{
+    width: 100%;
+    background-color: var(--violet);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 12px;
+    margin: 8px 0;
+}
+
+.main_menu ul li:hover > ul{
+    visibility: visible;
+    opacity: 1;
+    margin-top: 14px;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.subList{
+    left: 100%;
+    top: -20px;
+}

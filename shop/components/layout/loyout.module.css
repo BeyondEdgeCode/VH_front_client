@@ -7,3 +7,30 @@
 .horizontal {
     display: flex;
 }
+
+/*  */
+.buttonWrap {
+    margin-top: 32px;
+    max-width: 890px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.button {
+    border: none;
+    border-radius: 12px;
+    background-color: var(--white);
+    color: var(--grey-fonts);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 18px 42px;
+    cursor: pointer;
+}
+
+.button_active {
+    color: var(--white);
+    background-color: var(--violet);
+}

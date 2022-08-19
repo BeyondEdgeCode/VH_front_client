@@ -1,6 +1,7 @@
 import css from './form.module.css';
 import cn from 'classnames';
 import { Button } from '../ui-kit/button/button';
+import { Theme } from '../../type.store';
 
 
 export const PersonForm = () => {
@@ -42,12 +43,36 @@ export const PersonForm = () => {
     )
 }
 
+
+export const ChangePasswordForm = () => {
+    return (
+        <form className={cn(css.form, css.changePasswordForm, css.w40p)}>
+            <label className={css.changePasswordLabel}>
+                Логин
+                <FormInput placeholder={'Ваш логин'} theme={[css.mt_1]}/>
+            </label>
+
+            <label className={css.changePasswordLabel}>
+                Пароль
+                <FormInput placeholder={'Ваш логин'} theme={[css.mt_1]}/>
+            </label>
+
+            <label className={css.changePasswordLabel}>
+                Новый пароль
+                <FormInput placeholder={'Ваш логин'} theme={[css.mt_1]}/>
+            </label>
+            <Button theme={[css.disableMaxWidth]}>Сохранить</Button>
+        </form>
+    );
+}
+
+
 type FormInputProp = {
     type?: 'checkbox' | 'date' | 'email' | 'number' | 'text' | 'password' | 'tel' | 'checkbox',
     onChange?: () => void,
     placeholder?: string,
     required?: boolean,
-    theme?: Array<string>
+    theme?: Theme
 }
 
 const FormInput = ({

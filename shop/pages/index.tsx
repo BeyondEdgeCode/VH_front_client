@@ -1,11 +1,11 @@
-import { GET_CATEGORY } from '../components/API';
 import { Layout } from '../components/layout/layout';
 import { ProductCard } from '../components/ProductCard/productCard';
 import { BaseSwiper } from '../components/swiper/bigSwiper/BaseSwiper';
 import { MediumSwiper } from '../components/swiper/longSwiper/mediumSwiper';
 import img from '../public/img/tovar1.jpg';
-import { Category, getCategory } from '../utilsFunctions/GetFromAPI';
+import { getCategory } from '../utilsFunctions/GetFromAPI';
 import { setNewCategoryState } from '../components/ui-kit/button/dropDown/category.store';
+import { Category, HomeProps } from '../type.store';
 
 
 
@@ -66,9 +66,7 @@ const MOKE_SLIDE_EL = [
   />,
 ];
 
-export interface HomeProps {
-  category: Array<Category>,
-}
+
 
 const Home = ({category}: HomeProps) => {
   setNewCategoryState(category);

@@ -9,10 +9,9 @@ import logo from '../../public/img/vh_logo.png';
 import { useObservable } from '../../utilsFunctions/useHook';
 import { notifications$ } from '../notifications/notifications.view-model';
 import Link from 'next/link';
+import { DropDown } from '../ui-kit/button/dropDown/dropDown';
 
 import css from './header.module.css';
-import { DropDown } from '../ui-kit/button/dropDown/dropDown';
-import { Category } from '../../utilsFunctions/GetFromAPI';
 
 type RadioButtonProps = {
     children: ReactNode,
@@ -44,7 +43,7 @@ export const Header = () => {
     const router = useCurrentPathname();
     const isActiveBasket = router == 'basket';
     const isActiveFavorites = router == 'favorites';
-    const isActiveProfile = useHasRoute('profile') && isActiveFavorites ? false : useHasRoute('profile');
+    const isActiveProfile = useHasRoute('profile') &&( isActiveFavorites || isActiveBasket)? false : useHasRoute('profile');
 
     const notifications = useObservable<Array<string>>(notifications$) ?? [];
 
@@ -78,9 +77,13 @@ export const Header = () => {
                 </div>
             </div>
             <div className={css['button-group']}>
-                <RadioButton isActive={isActiveFavorites}>
-                    <i className="fa-regular fa-heart fa-xl"></i>
-                </RadioButton>
+                <Link href={'/profile/favorites'}>
+                    <div>
+                        <RadioButton isActive={isActiveFavorites}>
+                            <i className="fa-regular fa-heart fa-xl"></i>
+                        </RadioButton>
+                    </div>
+                </Link>
                 <Link href={'/profile/'}>
                     <div>
                         <RadioButton isActive={isActiveProfile}>

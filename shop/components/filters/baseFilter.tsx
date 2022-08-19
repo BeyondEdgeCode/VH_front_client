@@ -8,28 +8,11 @@ import { createSetterStore } from "../../utilsFunctions/utils";
 
 
 import css from './baseFilter.module.css';
-
-export type Filter = {
-    type: string,
-    label?: string,
-    value: Array<FilterState>
-}
-
-export type FilterState = {
-    value: string,
-    state: unknown
-}
+import { Filter, FilterState, TempFilter } from "../../type.store";
 
 type BaseFilterProp = {
     filters: Array<Filter>
 };
-
-export type TempFilter = {
-    type: string,
-    label?: string,
-    value: Array<FilterState>
-    store$: BehaviorSubject<Array<FilterState>>
-}
 
 // маппер который преобразует фильтр из массива в разметку
 const mapperFilters = (el: TempFilter) => {

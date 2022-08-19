@@ -49,6 +49,18 @@
 }
 
 /*  */
+.changePasswordForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.changePasswordLabel {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    margin: 16px;
+}
+/*  */
 .grey {
     background-color: var(--grey-fonts);
 }
@@ -56,6 +68,9 @@
 .mr_1 {
     margin-right: 8px;
 } 
+.mt_1 {
+    margin-top: 8px;
+}
 .mr_3 {
     margin-right: 24px;
 }
@@ -72,4 +87,8 @@
 .disableMaxWidth {
     max-width: none;
     width: 100%;
+}
+
+.w40p {
+    width: 40%;
 }

@@ -1,12 +1,9 @@
 import axios from 'axios';
 import { API } from '../components/API';
+import { Category } from '../type.store';
 
 
-export type Category = {
-    id: number,
-    subcategories: Array<{id: number, title: string}>,
-    title: string
-}
+
 
 export const getCategory = async () => {
     const res = await axios.get<Array<Category>>(API.getCategory);

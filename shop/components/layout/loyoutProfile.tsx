@@ -5,6 +5,7 @@ import css from './loyout.module.css';
 import cn from 'classnames';
 import { useCurrentPathname } from "../../utilsFunctions/routerUtils";
 import { Button } from "../ui-kit/button/button";
+import Link from "next/link";
 
 
 type Layout = {
@@ -22,15 +23,15 @@ const ButtonGroupTitles = [
     }, 
     {
         text: 'Изменить пароль',
-        route: '',
+        route: 'change-password',
     }, 
     {
         text: 'Мои заказы',
-        route: '',
+        route: 'orders',
     }, 
     {
         text: 'Избранное',
-        route: '',
+        route: 'favorites',
     }
 ];
 
@@ -39,7 +40,7 @@ const ButtonGroup = ({buttons}: ButtonGroupProps) => {
     
     return (
         <div className={css.buttonWrap}>
-            {buttons.map(b => (<Button isActiveState={router !== b.route}>{b.text}</Button>))}
+            {buttons.map(b => (<Link href={`/profile/${b.route == 'profile' ? '' : b.route}`}><Button isActiveState={router !== b.route}>{b.text}</Button></Link>))}
         </div>
     )
 };

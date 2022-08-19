@@ -28,7 +28,7 @@ export const Layout = ({children, title = SHOP_NAME, mode}: Layout) => {
             <script src="https://kit.fontawesome.com/f94f1e7176.js" crossOrigin="anonymous"></script>
         </Head>
         <Baner />
-        <Notifications />
+        {/* <Notifications /> */}
         <Header />
         <main className={cn(css.wrap, {[css.horizontal]: mode == 'horizontal'})}>
             {children}

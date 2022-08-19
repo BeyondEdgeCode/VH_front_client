@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CATEGORY } from '../components/API';
+import { API } from '../components/API';
 
 
 export type Category = {
@@ -9,7 +9,8 @@ export type Category = {
 }
 
 export const getCategory = async () => {
-    const res = await axios.get<Array<Category>>(GET_CATEGORY)
+    const res = await axios.get<Array<Category>>(API.getCategory);
     const category =  await res.data;
     return category;
+    // return [{id:1, subcategories: [], title: 'qwe'}];
 }

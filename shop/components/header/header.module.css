@@ -58,6 +58,7 @@
     display: flex;
     justify-content: space-between;
     margin-left: 32px;
+    cursor: pointer;
 }
 
 /* Button - mb need to moowe to separate file */

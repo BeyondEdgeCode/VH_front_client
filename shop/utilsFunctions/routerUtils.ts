@@ -6,4 +6,9 @@ export const useCurrentPathname = () => {
     return r.asPath.split('/')[r.asPath.split('/').length - 1];
 };
 
+export const useHasRoute = (r: string) => {
+    const route = useRouter();
+    return route.asPath.split('/').includes(r);
+};
+
 export const isBasket = () => useCurrentPathname() === 'basket';

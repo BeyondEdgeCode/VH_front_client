@@ -7,8 +7,21 @@
     padding: 48px;
 }
 
+.title {
+    font-size: 32px;
+    padding-bottom: 24px;
+    display: block;
+}
+
 .inputGroup {
     display: flex;
+}
+
+.acceptNotifications {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    margin-top: 16px;
 }
 
 .inputGroup_indent {
@@ -25,11 +38,38 @@
     outline: none;
 }
 
+.label {
+    color: var(--grey-fonts);
+}
+
+.separateLine {
+    width: 90%;
+    margin: 32px auto;
+    border: 1px solid var(--grey-fonts);
+}
+
 /*  */
+.grey {
+    background-color: var(--grey-fonts);
+}
 
 .mr_1 {
     margin-right: 8px;
 } 
 .mr_3 {
     margin-right: 24px;
+}
+.h_24 {
+    height: 24px;
+}
+.w_24 {
+    width: 24px;
+}
+.w_344 {
+    max-width: 344px;
+}
+
+.disableMaxWidth {
+    max-width: none;
+    width: 100%;
 }

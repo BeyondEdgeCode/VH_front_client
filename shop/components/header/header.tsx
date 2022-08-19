@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Image from 'next/image';
 import { Search } from '../svg/search';
-import { useCurrentPathname } from '../../utilsFunctions/routerUtils';
+import { useCurrentPathname, useHasRoute } from '../../utilsFunctions/routerUtils';
 import { isExists } from '../../utilsFunctions/checkType';
 import { SHOP_NAME } from '../../GlobalVarible/global';
 import cn from 'classnames';
@@ -43,8 +43,8 @@ RadioButton.defaultProps = {
 export const Header = () => {
     const router = useCurrentPathname();
     const isActiveBasket = router == 'basket';
-    const isActiveProfile = router == 'profile';
     const isActiveFavorites = router == 'favorites';
+    const isActiveProfile = useHasRoute('profile') && isActiveFavorites ? false : useHasRoute('profile');
 
     const notifications = useObservable<Array<string>>(notifications$) ?? [];
 

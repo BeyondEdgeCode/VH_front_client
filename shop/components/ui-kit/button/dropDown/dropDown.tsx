@@ -1,12 +1,8 @@
-import { Category } from '../../../../utilsFunctions/GetFromAPI';
+import Link from 'next/link';
 import { useObservable } from '../../../../utilsFunctions/useHook';
 import { category$ } from './category.store';
 import css from './dropDown.module.css';
 
-
-type DropDownProps = {
-  category: Array<Category>,
-}
 
 export const DropDown = () => {
     const category = useObservable(category$) ?? []; 
@@ -19,7 +15,9 @@ export const DropDown = () => {
                 if(el.subcategories.length>0) {
                   return (
                     <li>
-                      {el.title}
+                      <Link href={`/kategory/${el.id}`}>
+                        {el.title}
+                      </Link>
                       <ul className={css.subList}>
                         {el.subcategories.map(el => (<li>{el.title}</li>))}
                       </ul>
@@ -27,7 +25,9 @@ export const DropDown = () => {
                   );
                 }
                 return (
-                  <li>{el.title}</li>
+                  <Link href={`/kategory/${el.id}`}>
+                    <li>{el.title}</li>
+                  </Link>
                 );
               })}
             </ul>

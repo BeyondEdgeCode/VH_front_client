@@ -2,17 +2,27 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
 import { SwiperButtonNext, SwiperButtonPrev } from '../swiperKit/buttons';
 import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ProductCard } from '../../ProductCard/productCard';
+import { Product } from '../../../type.store';
 
 
 import css from './mediumSwiper.module.css';
 
 type MediumSwiperProps = {
-    slides: Array<ReactNode>,
+    slides: Array<Product>,
     widthSlide: number,
     label?: string,
+    isNew?: boolean,
+    hasSale?: boolean,
 }
 
-export const MediumSwiper = ({slides, widthSlide, label}: MediumSwiperProps) => {
+export const MediumSwiper = ({
+    slides,
+    widthSlide, 
+    label, 
+    isNew = false, 
+    hasSale = false
+}: MediumSwiperProps) => {
     const sliderWrap = useRef<HTMLElement>(null);
 
     const [sliderWidth, setSliderWidth] = useState(0);
@@ -43,7 +53,16 @@ export const MediumSwiper = ({slides, widthSlide, label}: MediumSwiperProps) => 
         >
             {slides.map((slide, i) => (
                 <SwiperSlide key={i}>
-                    {slide}
+                    <ProductCard 
+                        maxWidth={225}
+                        height={400}
+                        description={slide.title}
+                        price={slide.price}
+                        hasSale={hasSale}
+                        isNew={isNew}
+                        img={slide.image_link} 
+                        onClick={(): void  => {console.log(slide.image_link)}}
+                     />
                 </SwiperSlide>
             ))}
             <div className={css.btn__wrap}>

@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { Category } from "../../../../utilsFunctions/GetFromAPI";
+import { Category } from "../../../../type.store";
 import { createSetterStore } from "../../../../utilsFunctions/utils";
 
 const categoryStore$ = new BehaviorSubject<Array<Category>>([]);

@@ -1,81 +1,31 @@
 import { Layout } from '../components/layout/layout';
-import { ProductCard } from '../components/ProductCard/productCard';
 import { BaseSwiper } from '../components/swiper/bigSwiper/BaseSwiper';
 import { MediumSwiper } from '../components/swiper/longSwiper/mediumSwiper';
-import img from '../public/img/tovar1.jpg';
-import { getCategory } from '../utilsFunctions/GetFromAPI';
+import { getCategory, getLatestProduct, getMainSwiper } from '../utilsFunctions/GetFromAPI';
 import { setNewCategoryState } from '../components/ui-kit/button/dropDown/category.store';
-import { Category, HomeProps } from '../type.store';
+import { BaseSwiperProp, HomeProps, Product } from '../type.store';
 
 
-
-const MOKE_SLIDE_EL = [
-  <ProductCard 
-    maxWidth={225}
-    height={400}
-    description={'Rell Strawberry Watermelon bla bla 30ml'}
-    price={350}
-    hasSale={true}
-    isNew={false}
-    img={img.src} onClick={(): void  => {console.log(img.src)}}
-  />,
-  <ProductCard 
-    maxWidth={225}
-    height={400}
-    description={'Rell Strawberry Watermelon bla bla 30ml'}
-    price={350}
-    hasSale={true}
-    isNew={false}
-    img={img.src} onClick={(): void  => {console.log(img.src)}}
-  />,
-  <ProductCard 
-    maxWidth={225}
-    height={400}
-    description={'Rell Strawberry Watermelon bla bla 30ml'}
-    price={350}
-    hasSale={true}
-    isNew={false}
-    img={img.src} onClick={(): void  => {console.log(img.src)}}
-  />,
-  <ProductCard 
-    maxWidth={225}
-    height={400}
-    description={'Rell Strawberry Watermelon bla bla 30ml'}
-    price={350}
-    hasSale={true}
-    isNew={false}
-    img={img.src} onClick={(): void  => {console.log(img.src)}}
-  />,
-  <ProductCard 
-    maxWidth={225}
-    height={400}
-    description={'Rell Strawberry Watermelon bla bla 30ml'}
-    price={350}
-    hasSale={true}
-    isNew={false}
-    img={img.src} onClick={(): void  => {console.log(img.src)}}
-  />,
-  <ProductCard 
-    maxWidth={225}
-    height={400}
-    description={'Rell Strawberry Watermelon bla bla 30ml'}
-    price={350}
-    hasSale={true}
-    isNew={false}
-    img={img.src} onClick={(): void  => {console.log(img.src)}}
-  />,
-];
-
-
-
-const Home = ({category}: HomeProps) => {
+const Home = ({
+    category,
+    imgs,
+    latestProduct,
+  }: 
+    HomeProps 
+    & BaseSwiperProp
+    & {
+      latestProduct: Array<Product>
+    }
+  ) => {
   setNewCategoryState(category);
+
   return (
     <Layout mode={'vertical'} >
-      <BaseSwiper />
+      <BaseSwiper imgs={imgs}/>
+      
+      <MediumSwiper slides={latestProduct} widthSlide={225} label={'Скидки'} hasSale />
+      <MediumSwiper slides={latestProduct} widthSlide={225} label={'Новинки'} isNew/>
 
-      <MediumSwiper slides={MOKE_SLIDE_EL} widthSlide={225} label={'Распродажа'}/>
-      <MediumSwiper slides={MOKE_SLIDE_EL} widthSlide={225} label={'Хиты продаж'}/>
     </Layout>
   )
 }
@@ -83,9 +33,13 @@ const Home = ({category}: HomeProps) => {
 
 export async function getStaticProps() {
   const category = await getCategory();
+  const imgs = await getMainSwiper();
+  const latestProduct = await getLatestProduct()
   return {
     props: {
       category,
+      imgs,
+      latestProduct,
     },
   }
 }

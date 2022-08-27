@@ -43,7 +43,9 @@ export const Header = () => {
     const router = useCurrentPathname();
     const isActiveBasket = router == 'basket';
     const isActiveFavorites = router == 'favorites';
-    const isActiveProfile = useHasRoute('profile') &&( isActiveFavorites || isActiveBasket)? false : useHasRoute('profile');
+    const isActiveProfile = useHasRoute('profile') && ( isActiveFavorites || isActiveBasket) 
+        ? false 
+        : useHasRoute('profile');
 
     const notifications = useObservable<Array<string>>(notifications$) ?? [];
 

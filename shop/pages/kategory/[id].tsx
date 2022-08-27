@@ -9,7 +9,6 @@ import { HomeProps, Product } from '../../type.store';
 import { getCategory, getProductsById } from '../../utilsFunctions/GetFromAPI';
 
 
-
 const filterTogle = {
   type: 'togle',
   value: [
@@ -89,7 +88,7 @@ const filters= [
 ];
 
 interface KategoryProps extends HomeProps {
-  products: Array<Product>
+  products: Array<Product>,
 }
 
 
@@ -109,9 +108,9 @@ const mapProductsFromAPI = (data: Array<Product>): Array<ReactNode> => {
 }
 
 
-const Kategorys= ({category, products}: KategoryProps) => {
-  setNewCategoryState(category);
-  const cards = mapProductsFromAPI(products);
+const Kategory= ({category, products}: KategoryProps) => {
+    setNewCategoryState(category);
+    const cards = mapProductsFromAPI(products);
 
   return (
     <Layout mode={'horizontal'}>
@@ -121,11 +120,21 @@ const Kategorys= ({category, products}: KategoryProps) => {
   )
 }
 
+export async function getStaticPaths() {
+    const categorys = await getCategory();
 
+    const paths = categorys.map((category) => ({
+      params: { id: `${category.id}` },
+    }));
+  
+    return { paths, fallback: false }
+  }
 
-export async function getStaticProps() {
+// @ts-ignore
+export async function getStaticProps({params}: {id:string}) {
   const category = await getCategory();
-  const products = await getProductsById(1);
+  const products = await getProductsById(Number(params.id));
+  
   return {
     props: {
       category,
@@ -134,4 +143,4 @@ export async function getStaticProps() {
   }
 }
   
-export default Kategorys
+export default Kategory

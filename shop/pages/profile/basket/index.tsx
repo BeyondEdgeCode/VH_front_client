@@ -1,10 +1,10 @@
-import { HomeProps } from "../..";
 import { BasketAside } from "../../../components/basketAside/basketAside"
 import { KategoryScrean } from "../../../components/kategory/kategoryScrean";
 import { Layout } from "../../../components/layout/layout"
 import { ProductCard } from "../../../components/ProductCard/productCard";
 import { setNewCategoryState } from "../../../components/ui-kit/button/dropDown/category.store";
 import img from '../../../public/img/tovar1.jpg';
+import { HomeProps } from "../../../type.store";
 import { getCategory } from "../../../utilsFunctions/GetFromAPI";
 
 const MOKE_SLIDE_EL = [
@@ -51,13 +51,7 @@ const MOKE_SLIDE_EL = [
       img={img.src} onClick={(): void  => {console.log(img.src)}}
     />,
   ];
-  const MOKED_SLIDES = [
-    <KategoryScrean cards={MOKE_SLIDE_EL} />,
-    <KategoryScrean cards={MOKE_SLIDE_EL} />,
-    <KategoryScrean cards={MOKE_SLIDE_EL} />,
-    <KategoryScrean cards={MOKE_SLIDE_EL} />,
-    <KategoryScrean cards={MOKE_SLIDE_EL} />,
-  ]
+
 
 interface BasketProps extends HomeProps {}
 

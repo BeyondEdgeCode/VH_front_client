@@ -30,13 +30,12 @@
 
 .main_menu ul li ul li{
     width: 100%;
-    /* background-color: var(--violet); */
     background-color: var(--white);
     color: #333;
-    /* color: var(--white); */
     padding: 12px 24px;
     border-radius: 12px;
     margin: 8px 0;
+    cursor: pointer;
 }
 
 .main_menu ul li:hover > ul{

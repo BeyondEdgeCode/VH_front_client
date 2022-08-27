@@ -1,9 +1,6 @@
-// Import Swiper React components
-import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
-
-import kat1 from '../../../public/img/kat1.jpg';
-import kat2 from '../../../public/img/kat2.jpg';
+import { BaseSwiperProp } from '../../../type.store';
 
 
 // Import Swiper styles
@@ -11,42 +8,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import css from './baseSwiper.module.css';
 
-const MOKE_IMGS_TO_SWIPER = [
-    {
-        ...kat1
-    },
-    {
-        ...kat2
-    },
-    {
-        ...kat1
-    },
-    {
-        ...kat2
-    },{
-        ...kat2
-    },{
-        ...kat2
-    },{
-        ...kat2
-    },{
-        ...kat2
-    },{
-        ...kat2
-    },{
-        ...kat2
-    },{
-        ...kat2
-    },{
-        ...kat2
-    },
-    {
-        ...kat1
-    }
-];
-
-
-export const BaseSwiper = () => {
+export const BaseSwiper = ({imgs}: BaseSwiperProp) => {
   return (
     <section className={css.wrap}>
         <Swiper
@@ -58,19 +20,14 @@ export const BaseSwiper = () => {
             loop
             pagination={{ clickable: true, bulletActiveClass: 'pagination__active'}}
             navigation
-            // slidesPerGroup={4}
             autoplay
             className={css.swiper}
         >
-        {MOKE_IMGS_TO_SWIPER.map(el => 
+        {imgs.map(el => 
             <SwiperSlide>
-                <img src={el.src} alt='kats' className={css.img}/>
+                <img src={el.image_link} alt='kats' className={css.img}/>
             </SwiperSlide>
-            )}
-        {/* <div className={css.btn__wrap}>
-            <SwiperButtonNext>next</SwiperButtonNext>
-            <SwiperButtonPrev>Prev</SwiperButtonPrev>
-        </div> */}
+        )}
         </Swiper>
     </section>
   );

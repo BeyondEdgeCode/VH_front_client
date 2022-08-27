@@ -18,7 +18,6 @@ type BaseFilterProp = {
 const mapperFilters = (el: TempFilter) => {
     switch (el.type) {
         case 'togle':
-            el.store$.subscribe(console.log)
             return <FilterHeader 
                 key={uuidv4()} 
                 list={el.value} 

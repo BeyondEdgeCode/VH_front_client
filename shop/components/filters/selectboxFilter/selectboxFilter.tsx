@@ -4,7 +4,7 @@ import { SmallArro } from '../../svg/smallArrow';
 
 import css from './selectboxFilter.module.css';
 import cn from 'classnames';
-import { FilterState } from '../baseFilter';
+import { FilterState } from '../../../type.store';
 
 type RadioBittonProps = {
     value: string,

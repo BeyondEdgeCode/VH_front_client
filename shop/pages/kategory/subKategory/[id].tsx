@@ -1,13 +1,11 @@
-import { ReactNode } from 'react';
-import { BaseFilter } from '../../components/filters/baseFilter';
-import { KategoryScrean } from '../../components/kategory/kategoryScrean';
-import { Layout } from '../../components/layout/layout';
-import { ProductCard } from '../../components/ProductCard/productCard';
-import { setNewCategoryState } from '../../components/ui-kit/button/dropDown/category.store';
-import img from '../../public/img/tovar1.jpg';
-import { HomeProps, Product } from '../../type.store';
-import { getCategory, getProductsById } from '../../utilsFunctions/GetFromAPI';
-
+import { ReactNode } from "react";
+import { HomeProps, Product } from "../../../type.store";
+import { getCategory, getProductsById } from "../../../utilsFunctions/GetFromAPI";
+import { BaseFilter } from "../../../components/filters/baseFilter";
+import { Layout } from "../../../components/layout/layout";
+import { ProductCard } from "../../../components/ProductCard/productCard";
+import { setNewCategoryState } from "../../../components/ui-kit/button/dropDown/category.store";
+import { KategoryScrean } from "../../../components/kategory/kategoryScrean";
 
 
 const filterTogle = {
@@ -89,7 +87,7 @@ const filters= [
 ];
 
 interface KategoryProps extends HomeProps {
-  products: Array<Product>
+  products: Array<Product>,
 }
 
 
@@ -104,14 +102,16 @@ const mapProductsFromAPI = (data: Array<Product>): Array<ReactNode> => {
       price={el.price}
       hasSale={false}
       isNew={false}
-      img={el.image_link} onClick={(): void  => {console.log(img.src)}}
+      img={el.image_link} onClick={(): void  => {console.log(el.image_link)}}
   />)
 }
 
 
-const Kategorys= ({category, products}: KategoryProps) => {
-  setNewCategoryState(category);
-  const cards = mapProductsFromAPI(products);
+const Kategory= ({category, products}: KategoryProps) => {
+    setNewCategoryState(category);
+    const cards = mapProductsFromAPI(products);
+    console.log(products);
+    
 
   return (
     <Layout mode={'horizontal'}>
@@ -121,11 +121,28 @@ const Kategorys= ({category, products}: KategoryProps) => {
   )
 }
 
+export async function getStaticPaths() {
+    const categorys = await getCategory();
 
+    // const paths = categorys.map((category) => ({
+    //   params: { id: `${category.id}` },
+    // }));
 
-export async function getStaticProps() {
+    const paths = categorys
+      .filter(c => c.subcategories.length > 0)
+      .map(c => c.subcategories)
+      .flat(1)
+      .map(c => ({params: { id: `${c.id}`}}));
+  
+    return { paths, fallback: false }
+  }
+
+// @ts-ignore
+export async function getStaticProps({params}: {id:string}) {
   const category = await getCategory();
-  const products = await getProductsById(1);
+  // const products = await getProductsById(Number(params.id));
+  const products = await getProductsById(Number(params.id), true);
+  
   return {
     props: {
       category,
@@ -134,4 +151,4 @@ export async function getStaticProps() {
   }
 }
   
-export default Kategorys
+export default Kategory

@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { FilterState } from '../baseFilter';
+import { FilterState } from '../../../type.store';
 import css from './priceSeparation.module.css';
 
 type PriceSeparationProp = {

@@ -19,7 +19,11 @@ export const DropDown = () => {
                         {el.title}
                       </Link>
                       <ul className={css.subList}>
-                        {el.subcategories.map(el => (<li>{el.title}</li>))}
+                        {el.subcategories.map(el => (
+                            <Link href={`/kategory/subKategory/${el.id}`}>
+                              <li>{el.title}</li>
+                            </Link>
+                          ))}
                       </ul>
                     </li>
                   );

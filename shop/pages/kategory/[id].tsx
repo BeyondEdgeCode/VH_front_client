@@ -133,6 +133,7 @@ export async function getStaticPaths() {
 // @ts-ignore
 export async function getStaticProps({params}: {id:string}) {
   const category = await getCategory();
+  // const products = await getProductsById(Number(params.id));
   const products = await getProductsById(Number(params.id));
   
   return {

@@ -9,14 +9,21 @@ export const getCategory = async () => {
     const res = await axios.get<Array<Category>>(API.getCategory);
     const category =  await res.data;
     return category;
-    // return [{id:1, subcategories: [], title: 'qwe'}];
 }
 
-export const getProductsById = async (id: number) => {
-    const res = await axios.get<Array<Product>>(API.getProductsById + `${id}`);
-    const products =  await res.data;
-    return products;
+
+export const getProductsById = async (id: number, isSub: boolean = false) => {
+    if (isSub) {
+        const res = await axios.get<Array<Product>>(API.getProductsBySubcategoryId + `${id}`);
+        const products =  await res.data;
+        return products;
+    } else {
+        const res = await axios.get<Array<Product>>(API.getProductsById + `${id}`);
+        const products =  await res.data;
+        return products;
+    }
 }
+// 
 
 export const getMainSwiper = async () => {
     const res = await axios.get<Array<MainSwiper>>(API.getMainSwiper);

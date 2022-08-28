@@ -2,7 +2,6 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin: 0 auto;
 }
 .el__wrap {
     margin: 32px 48px;

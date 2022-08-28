@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import css from './filterHeader.module.css';
 
 import cn from 'classnames';
-import { FilterState } from '../baseFilter';
+import { FilterState } from '../../../type.store';
 
 
 type Togle = {

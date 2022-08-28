@@ -6,7 +6,7 @@ import { useMergeState } from '../../../utilsFunctions/useHook';
 import { ChangeEvent, memo, useState } from 'react';
 import { SmallArro } from '../../svg/smallArrow';
 import { getFormatFilters } from '../../../utilsFunctions/utils';
-import { FilterState } from '../baseFilter';
+import { FilterState } from '../../../type.store';
 
 type CheckBoxProps = {
     label: string,

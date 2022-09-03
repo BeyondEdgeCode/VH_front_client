@@ -45,10 +45,11 @@ export const MediumSwiper = ({
         {label ? <span className={css.label}>{label}</span> : null}
         <Swiper
             modules={
-                [Pagination, Navigation, Scrollbar, A11y, Autoplay]
+                [Pagination, Scrollbar, A11y]
             }
             slidesPerView={slidesCount}
             navigation
+            watchSlidesProgress={true}
             className={css.swiper}
         >
             {slides.map((slide, i) => (

@@ -28,7 +28,8 @@ export const ProductCard = (props: ProductCard) => {
         count,
         hasSale,
         isNew,
-        img
+        img,
+        onClick,
     } = props;
 
     const [countToAdd, setCountToAdd] = useState(0);
@@ -42,9 +43,9 @@ export const ProductCard = (props: ProductCard) => {
         ) 
         : null;
     
-    const onClick = () => {
-        setNotifications([...notifications, description])
-    }
+    // const onClick = () => {
+    //     setNotifications([...notifications, description])
+    // }
 
     const basket = (
         <div className={css.wrap_basket}>
@@ -81,6 +82,7 @@ export const ProductCard = (props: ProductCard) => {
                 <Button onClick={onClick}>В корзину</Button>
         </div>
     );
+    
     return (
         isActiveBasket ? basket : other
     );

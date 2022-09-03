@@ -124,10 +124,6 @@ const Kategory= ({category, products}: KategoryProps) => {
 export async function getStaticPaths() {
     const categorys = await getCategory();
 
-    // const paths = categorys.map((category) => ({
-    //   params: { id: `${category.id}` },
-    // }));
-
     const paths = categorys
       .filter(c => c.subcategories.length > 0)
       .map(c => c.subcategories)

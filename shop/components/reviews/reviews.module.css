@@ -1,0 +1,35 @@
+.wrap {
+    display: block;
+    width: 70%;
+    margin: 64px auto 0;
+}
+
+.reviwsTitle {
+    display: block;
+    font-size: 24px;
+    padding: 24px 0;
+}
+
+.reviwWrap {
+    max-width: 700px;
+    width: 100%;
+    min-height: 150px;
+    background-color: var(--grey-fonts);
+    color: var(--white);
+    margin: 12px 0;
+    padding: 16px 24px;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.reviewName {
+    display: block;
+    font-size: 20px;
+    padding-bottom: 12px;
+}
+
+.datePosted {
+    margin-left: 24px;
+    font-size: 12px;
+    color: var(--grey);
+}

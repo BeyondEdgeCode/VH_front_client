@@ -1,0 +1,25 @@
+.wrap {
+    max-width: 550px;
+    margin-top: 24px;
+}
+.descriptiponWrap {
+    margin-bottom: 24px;
+}
+
+.characteristics__piece {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.characteristics__dots {
+    width: 40%;
+    height: 1px;
+    border: 1px dashed var(--violet-light);
+    margin-right: 8px;
+}
+
+.characteristics__title {
+    min-width: 100px;
+}

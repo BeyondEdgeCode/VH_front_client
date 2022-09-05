@@ -57,3 +57,16 @@ export interface MainSwiper {
 export type BaseSwiperProp = {
     imgs: Array<MainSwiper>
 }
+
+export type ProductDescriptionProp = {
+    description: string,
+    characteristics: Array<{
+        title: string,
+        text: string
+    }>
+}
+
+export interface RatingProps {
+    theme?: Theme,
+    rating: number
+}

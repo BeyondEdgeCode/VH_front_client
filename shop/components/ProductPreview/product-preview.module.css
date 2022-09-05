@@ -1,3 +1,42 @@
 .mainImg {
-    border: 1px solid red;
+    border: 1px solid var(--light-durk) ;
+    margin-bottom: 24px;
+    margin-top: 24px;
+    padding: 8px;
+    border-radius: 8px;
+    min-width: 315px;
+}
+
+.wrapImg {
+    display: flex;
+    flex-direction: column;
+    max-width: 375px;
+}
+
+.wrapPrewiew {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.miniImg {
+    border: 1px solid var(--light-durk);
+    border-radius: 8px;
+    padding: 8px;
+    margin: 0 8px;
+    box-shadow: 0 0 20px var(--grey-light);
+    cursor: pointer;
+}
+
+.miniImg_isActive {
+    box-shadow: 0 0 20px var(--violet);
+}
+
+.miniImg:hover {
+    box-shadow: 0 0 20px var(--violet);
+}
+
+.button {
+    width: 90%;
 }

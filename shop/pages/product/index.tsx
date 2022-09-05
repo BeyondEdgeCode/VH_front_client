@@ -1,8 +1,12 @@
 import { Layout } from "../../components/layout/layout";
+import { ProductDescription } from "../../components/productDescription/productDescription";
 import { ProductPreview } from "../../components/ProductPreview/productPreview";
+import { Reviws } from "../../components/reviews/reviews";
 import { setNewCategoryState } from "../../components/ui-kit/button/dropDown/category.store";
 import { HomeProps, Product } from "../../type.store";
 import { getCategory } from "../../utilsFunctions/GetFromAPI";
+
+import css from './product.module.css';
 
 const Product = ({
     category,
@@ -15,7 +19,11 @@ const Product = ({
 
   return (
     <Layout mode={'vertical'} >
-        <ProductPreview />
+        <div className={css.mainInfpWrap}>
+            <ProductPreview />
+            <ProductDescription />
+        </div>
+        <Reviws />
     </Layout>
   )
 }

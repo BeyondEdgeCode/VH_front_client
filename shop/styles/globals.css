@@ -60,11 +60,17 @@ body::-webkit-scrollbar-thumb {
 .ml-1{
   margin-left: 8px;
 }
+.ml-2{
+  margin-left: 16px;
+}
 .mr-1 {
   margin-right: 8px;
 }
 .mt-1{
   margin-top: 8px;
+}
+.mb_2 {
+  margin-bottom: 16px;
 }
 
 ul {

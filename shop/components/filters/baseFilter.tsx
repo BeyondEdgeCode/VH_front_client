@@ -36,7 +36,7 @@ const mapperFilters = (el: TempFilter) => {
                 <div className={css.p24}>
                     <SelectboxFilter 
                         list={el.value} 
-                        label={el.label || ''} 
+                        label={el.key || ''} 
                         key={uuidv4()} 
                         setter={createSetterStore(el.store$)}
                     />
@@ -45,7 +45,7 @@ const mapperFilters = (el: TempFilter) => {
             return (
                 <div className={css.p24}>
                     <CheckBoxFilter 
-                        label={el.label || ''} 
+                        label={el.key || ''} 
                         checkBox={el.value} 
                         key={uuidv4()} 
                         setter={createSetterStore(el.store$)}
@@ -58,7 +58,7 @@ const mapperFilters = (el: TempFilter) => {
 }
 
 // маппер который добавляет локальное хранилище к фильтрам
-const createStoreForForlter = (el: Filter) => {
+const createStoreForFilter = (el: Filter) => {
     switch (el.type) {
         case 'togle':
             return {
@@ -90,12 +90,38 @@ const createStoreForForlter = (el: Filter) => {
 }
 
 
-export const BaseFilter = ({filters}: BaseFilterProp) => {
+const filterTogle: Filter = {
+    type: 'togle',
+    value: [
+        {
+            value: 'Все товары',
+            state: true,
+        }, 
+        {
+            value: 'В наличии',
+            state: false,
+        }
+    ], 
+}
+  
+const priceSeparation: Filter = {
+    type: 'price',
+    value: [
+        {
+            value: 'null',
+            state: 0
+        }
+    ],
+}
 
-    const filtersWithStore = filters.map(createStoreForForlter);
+export const BaseFilter = ({filters}: BaseFilterProp) => {
+    
+    const filtersWithStore = [ filterTogle, priceSeparation, ...filters].map(createStoreForFilter);
+    // const filtersWithStore = filters.map(createStoreForFilter);
     const stors = filtersWithStore.map(el => el.store$.asObservable());
     
     const mergedFilters = merge(...stors);
+    mergedFilters.subscribe(console.log)
    
     return (
         <aside className={css.wrap}>

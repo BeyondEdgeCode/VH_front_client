@@ -1,9 +1,6 @@
 .form {
-    background-color: rgba(234, 236, 238, 1);
     border-radius: 12px;
-    box-shadow: 10px 10px 10px rgba(234, 236, 238, 7);;
     width: 70%;
-    margin: 64px auto 0;
     padding: 48px;
 }
 
@@ -21,7 +18,8 @@
     display: flex;
     align-items: center;
     width: 30%;
-    margin-top: 16px;
+    margin-top: 32px;
+    margin-bottom: 16px;
 }
 
 .inputGroup_indent {
@@ -36,6 +34,7 @@
     border-radius: 12px;
     border: none;
     outline: none;
+    box-shadow: 10px 10px 50px #3333332b;
 }
 
 .label {

@@ -2,7 +2,12 @@ import css from './form.module.css';
 import cn from 'classnames';
 import { Button } from '../ui-kit/button/button';
 import { Theme } from '../../type.store';
+import { useJWT } from '../../utilsFunctions/useHook';
 
+
+interface FormProp {
+    onClick?: () => void;
+}
 
 export const PersonForm = () => {
     return (
@@ -22,8 +27,6 @@ export const PersonForm = () => {
                 <label className={css.label}>Хочу получать уведомления о скидках и акциях</label>
             </div>
             
-            <hr className={css.separateLine}/>
-
             <span className={css.title}>Адрес доставки</span>
 
             <div className={css.inputGroup}>
@@ -43,8 +46,9 @@ export const PersonForm = () => {
     )
 }
 
+export const ChangePasswordForm = ({onClick}: FormProp) => {
+    const jwt = useJWT();
 
-export const ChangePasswordForm = () => {
     return (
         <form className={cn(css.form, css.changePasswordForm, css.w40p)}>
             <label className={css.changePasswordLabel}>
@@ -56,12 +60,13 @@ export const ChangePasswordForm = () => {
                 Пароль
                 <FormInput placeholder={'Ваш логин'} theme={[css.mt_1]}/>
             </label>
-
-            <label className={css.changePasswordLabel}>
-                Новый пароль
-                <FormInput placeholder={'Ваш логин'} theme={[css.mt_1]}/>
-            </label>
-            <Button theme={[css.disableMaxWidth]}>Сохранить</Button>
+            {jwt ? (
+                <label className={css.changePasswordLabel}>
+                    Новый пароль
+                    <FormInput placeholder={'Ваш логин'} theme={[css.mt_1]}/>
+                </label>
+            ) : null}
+            <Button theme={[css.disableMaxWidth]} onClick={onClick}>Сохранить</Button>
         </form>
     );
 }

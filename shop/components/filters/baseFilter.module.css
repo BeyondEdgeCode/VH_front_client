@@ -1,6 +1,7 @@
 .wrap {
     padding-left: 16px;
     margin-top: 32px;
+    min-width: 250px;
 }
 
 .p24 {

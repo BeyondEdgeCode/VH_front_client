@@ -9,13 +9,13 @@ export type FilterState = {
 
 export type Filter = {
     type: string,
-    label?: string,
+    key?: string,
     value: Array<FilterState>
 }
 
 export type TempFilter = {
     type: string,
-    label?: string,
+    key?: string,
     value: Array<FilterState>
     store$: BehaviorSubject<Array<FilterState>>
 }
@@ -69,4 +69,9 @@ export type ProductDescriptionProp = {
 export interface RatingProps {
     theme?: Theme,
     rating: number
+}
+
+export interface Auth {
+    access_token: string,
+    refresh_token: string
 }

@@ -48,3 +48,20 @@ export const useDirtySetBodyScroll = (visible: boolean) => {
         
     }, [visible])
 }
+
+export const getLocalStorage = (key: string) => {
+    const [s, Us] = useState<string | null>();
+    useEffect(() => {
+        Us(localStorage.getItem(key))
+    }, []);
+    return s;
+}
+
+export const setLocalStorage = (key: string, item: string) => {
+    useEffect(() => {
+        localStorage.setItem(key, item)
+    }, []);
+}
+
+
+export const useJWT = () => getLocalStorage('JWT');

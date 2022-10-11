@@ -5,93 +5,13 @@ import { Layout } from '../../components/layout/layout';
 import { ProductCard } from '../../components/ProductCard/productCard';
 import { setNewCategoryState } from '../../components/ui-kit/button/dropDown/category.store';
 import img from '../../public/img/tovar1.jpg';
-import { HomeProps, Product } from '../../type.store';
-import { getCategory, getProductsById } from '../../utilsFunctions/GetFromAPI';
-
-
-const filterTogle = {
-  type: 'togle',
-  value: [
-    {
-      value: 'Все товары',
-      state: true
-    },
-    {
-      value: 'В наличии',
-      state: false
-    }
-  ], 
-}
-
-const priceSeparation = {
-  type: 'price',
-  value: [
-    {
-      value: 'от',
-      state: 0,
-    },
-    {
-      value: 'до',
-      state: null,
-    }
-  ],
-}
-
-const selectboxFilter = {
-  type: 'selectbox',
-  label: "Срок доставки",
-  value: [
-    {
-      value: 'Сегодня или завтра',
-      state: true,
-    },
-    {
-      value: 'До 5 дней',
-      state: false
-    },
-    {
-      value: 'Любая',
-      state: false
-    },
-  ]
-} 
-
-const checkBoxFilter = {
-  type: 'checkbox',
-  label: "Объем",
-  value: [
-    {
-      value: '10ml',
-      state: false
-
-    },
-    {
-      value: '20ml',
-      state: false
-    },
-    {
-      value: '30ml',
-      state: false
-    },
-    {
-      value: '40ml',
-      state: false
-    },
-  ]
-}
-
-const filters= [
-  filterTogle,
-  priceSeparation,
-  selectboxFilter,
-  checkBoxFilter,
-];
+import { Filter, HomeProps, Product } from '../../type.store';
+import { getCategory, getCategoryFilterById, getProductsById } from '../../utilsFunctions/GetFromAPI';
 
 interface KategoryProps extends HomeProps {
   products: Array<Product>,
+  filters: Array<Filter>
 }
-
-
 
 // set description when it was
 const mapProductsFromAPI = (data: Array<Product>): Array<ReactNode> => {
@@ -107,8 +27,7 @@ const mapProductsFromAPI = (data: Array<Product>): Array<ReactNode> => {
   />)
 }
 
-
-const Kategory= ({category, products}: KategoryProps) => {
+const Kategory= ({category, products, filters}: KategoryProps) => {
     setNewCategoryState(category);
     const cards = mapProductsFromAPI(products);
 
@@ -134,11 +53,13 @@ export async function getStaticPaths() {
 export async function getStaticProps({params}: {id:string}) {
   const category = await getCategory();
   const products = await getProductsById(Number(params.id));
+  const filters = await getCategoryFilterById(Number(1));
   
   return {
     props: {
       category,
       products,
+      filters,
     },
   }
 }

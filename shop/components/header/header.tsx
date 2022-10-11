@@ -55,18 +55,23 @@ export const Header = () => {
             <div className={css['search-logo-wrap']}>
                 <Link href={'/'} >
                     <div className={css['logo-wrap']}>
-                        <Image
-                            src={logo}
-                            alt="Logo"
-                            width={100}
-                            height={120}
-                        />
+                        <div className={css.img}>
+
+                            <Image
+                                src={logo}
+                                alt="Logo"
+                                width={100}
+                                height={120}
+                                />
+                        </div>
                         <span className={css['logo-text']}>
                             {SHOP_NAME}
                         </span>
                     </div>
                 </Link>
-                <DropDown/>
+                <div className={css.dropdown}>
+                    <DropDown/>
+                </div>
                 <div className={css['input-wrap']}>
                     <input 
                         type="text"
@@ -76,6 +81,12 @@ export const Header = () => {
                     <span className={css['input-icon']}>
                         <Search/>
                     </span>
+                </div>
+
+                <div className={css.popupBtn__wrap}>
+                    <span className={css.popupBtn__wrap_line} />
+                    <span className={css.popupBtn__wrap_line} />
+                    <span className={css.popupBtn__wrap_line} />
                 </div>
             </div>
             <div className={css['button-group']}>

@@ -1,5 +1,5 @@
 // const api = 'http://master.if.evgeniy.host:8001';
-const api = 'http://dev.vapehookah.ru:80';
+const api = 'https://dev.vapehookah.ru';
 const GET_CATEGORY = `${api}/category`;
 const GET_PRODUCT_BY_ID = `${api}/product/get_by_category?id=`;
 const GET_MAIN_SWIPER = `${api}/ic/get_active`;

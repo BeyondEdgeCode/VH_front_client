@@ -54,7 +54,7 @@ export const auth = async () => {
     //     email: 'dev@evgeniy.host',
     //     password: 'testpassword123',
     //     remember: 1,
-    // },{});
+    // });
 
     const data = { 
         email: 'dev@evgeniy.host',
@@ -71,11 +71,34 @@ export const auth = async () => {
       url: API.auth,
       origin: API
     };
-    const res = await axios(options);
+    const res = await axios.post<any>(API.auth, {
+        email: 'dev@evgeniy.host',
+        password: 'testpassword123',
+        remember: 1,
+    }, options);
+
+    const access_token = await res.data;
 
 
-    const access_token =  await res.data;
+    // const access_token =  await res.data;
+    // let access_token ;
+
+    // const kek = fetch(API.auth, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json;charset=utf-8'
+    //     },
+    //     body: JSON.stringify({
+    //               email: 'dev@evgeniy.host',
+    //              password: 'testpassword123',
+    //             remember: 1,
+    //     })
+    // }).then(e => {
+    //     access_token = e;
+    //     console.log(e);
+    // })
+
     console.log(access_token);
     
-    setLocalStorage('JWT', access_token);
+    setLocalStorage('JWT', `${access_token}`);
 }

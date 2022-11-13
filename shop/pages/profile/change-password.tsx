@@ -8,6 +8,7 @@ interface ChangePasswordProps extends HomeProps {}
 
 const ChangePassword = ({category}: ChangePasswordProps) => {
     setNewCategoryState(category);
+
     return (
       <LoyoutProfile>
         <ChangePasswordForm />

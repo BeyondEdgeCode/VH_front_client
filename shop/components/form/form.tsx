@@ -3,10 +3,12 @@ import cn from 'classnames';
 import { Button } from '../ui-kit/button/button';
 import { Theme } from '../../type.store';
 import { useJWT } from '../../utilsFunctions/useHook';
+import { useEffect } from 'react';
+import { setNewUserAuthKey } from '../stors/user-auth.store';
 
 
 interface FormProp {
-    onClick?: () => void;
+    onClick?: (e?: Event) => void;
 }
 
 export const PersonForm = () => {
@@ -47,10 +49,13 @@ export const PersonForm = () => {
 }
 
 export const ChangePasswordForm = ({onClick}: FormProp) => {
+    useEffect(() => {
+        setNewUserAuthKey(localStorage.getItem('JWT'))
+    })
     const jwt = useJWT();
 
     return (
-        <form className={cn(css.form, css.changePasswordForm, css.w40p)}>
+        <form className={cn(css.form, css.changePasswordForm, css.w40p)} >
             <label className={css.changePasswordLabel}>
                 Логин
                 <FormInput placeholder={'Ваш логин'} theme={[css.mt_1]}/>

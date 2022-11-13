@@ -1,7 +1,7 @@
 import css from './baner.module.css';
 import cn from 'classnames'; 
 import { useDirtySetBodyScroll, useObservable, useSetIsNewUserCookie } from '../../utilsFunctions/useHook';
-import { isNewUser$, setNewUserObserver } from '../storges/is-new-user.store';
+import { isNewUser$, setNewUserObserver } from '../stors/is-new-user.store';
 
 export const Baner = () => {
     const visible = useObservable(isNewUser$) ?? true;

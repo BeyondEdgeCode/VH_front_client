@@ -12,8 +12,10 @@ interface ProfileProps extends HomeProps {}
 const Profile = ({category}: ProfileProps) => {
   setNewCategoryState(category);
   const jwt = useJWT();
-  console.log(jwt);
-  
+  const authForm = (e?: Event) => {
+    e?.preventDefault();
+    auth();
+  }  
   return (
     jwt ? 
     (
@@ -23,7 +25,8 @@ const Profile = ({category}: ProfileProps) => {
     ) :
     <>
        <Layout mode={"vertical"}>
-          <ChangePasswordForm onClick={() => auth()}/>
+          {/* <ChangePasswordForm onClick={() => {auth(); return false} }/> */}
+          <ChangePasswordForm onClick={authForm}/>
        </Layout>
     </>
   )

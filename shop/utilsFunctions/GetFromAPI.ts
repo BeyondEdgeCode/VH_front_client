@@ -1,5 +1,7 @@
 import axios from 'axios';
+import { parseCookies } from 'nookies';
 import { API } from '../components/API';
+import { setNewUserAuthKey } from '../components/stors/user-auth.store';
 import { Auth, Category, Filter, MainSwiper, Product } from '../type.store';
 import { setLocalStorage } from './useHook';
 
@@ -9,6 +11,7 @@ import { setLocalStorage } from './useHook';
 export const getCategory = async () => {
     const res = await axios.get<Array<Category>>(API.getCategory);
     const category =  await res.data;
+    
     return category;
 }
 
@@ -45,17 +48,6 @@ export const getCategoryFilterById = async (id: number) => {
 }
 
 export const auth = async () => {
-    // const res = await axios.post<any>(API.auth, {
-    //     email: 'dev@evgeniy.host',
-    //     password: 'testpassword123',
-    //     remember: 1,
-    // },{});
-    //  const res = await axios.post<any>(API.auth, {
-    //     email: 'dev@evgeniy.host',
-    //     password: 'testpassword123',
-    //     remember: 1,
-    // });
-
     const data = { 
         email: 'dev@evgeniy.host',
         password: 'testpassword123',
@@ -79,26 +71,6 @@ export const auth = async () => {
 
     const access_token = await res.data;
 
-
-    // const access_token =  await res.data;
-    // let access_token ;
-
-    // const kek = fetch(API.auth, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json;charset=utf-8'
-    //     },
-    //     body: JSON.stringify({
-    //               email: 'dev@evgeniy.host',
-    //              password: 'testpassword123',
-    //             remember: 1,
-    //     })
-    // }).then(e => {
-    //     access_token = e;
-    //     console.log(e);
-    // })
-
-    console.log(access_token);
-    
-    setLocalStorage('JWT', `${access_token}`);
+    setNewUserAuthKey(access_token.access_token);
+    setLocalStorage('JWT', access_token.access_token);
 }

@@ -6,12 +6,13 @@ import { isExists } from '../../utilsFunctions/checkType';
 import { SHOP_NAME } from '../../GlobalVarible/global';
 import cn from 'classnames';
 import logo from '../../public/img/vh_logo.png';
-import { useObservable } from '../../utilsFunctions/useHook';
+import { useObservable, useToggler } from '../../utilsFunctions/useHook';
 import { notifications$ } from '../notifications/notifications.view-model';
 import Link from 'next/link';
 import { DropDown } from '../ui-kit/button/dropDown/dropDown';
 
 import css from './header.module.css';
+import { HeaderPopup } from './header-popup';
 
 type RadioButtonProps = {
     children: ReactNode,
@@ -40,6 +41,7 @@ RadioButton.defaultProps = {
 }
 
 export const Header = () => {
+    const [popupState, setPopupState] = useToggler();
     const router = useCurrentPathname();
     const isActiveBasket = router == 'basket';
     const isActiveFavorites = router == 'favorites';
@@ -49,8 +51,9 @@ export const Header = () => {
 
     const notifications = useObservable<Array<string>>(notifications$) ?? [];
 
-
     return (
+        <>
+        <HeaderPopup isOpen={popupState} onClose={setPopupState}/>
         <header className={css.header}>
             <div className={css['search-logo-wrap']}>
                 <Link href={'/'} >
@@ -83,10 +86,10 @@ export const Header = () => {
                     </span>
                 </div>
 
-                <div className={css.popupBtn__wrap}>
-                    <span className={css.popupBtn__wrap_line} />
-                    <span className={css.popupBtn__wrap_line} />
-                    <span className={css.popupBtn__wrap_line} />
+                <div className={cn(css.popupBtn__wrap)} onClick={() => setPopupState()}>
+                    <span className={cn(css.popupBtn__wrap_line, {[css.popupBtn__wrap_line_active]: popupState})} />
+                    <span className={cn(css.popupBtn__wrap_line, {[css.popupBtn__wrap_line_active]: popupState})} />
+                    <span className={cn(css.popupBtn__wrap_line, {[css.popupBtn__wrap_line_active]: popupState})} />
                 </div>
             </div>
             <div className={css['button-group']}>
@@ -114,5 +117,6 @@ export const Header = () => {
                 </Link>
             </div>
         </header>
+        </>
     );
 };

@@ -1,4 +1,3 @@
-// const api = 'http://master.if.evgeniy.host:8001';
 const api = 'https://dev.vapehookah.ru';
 const GET_CATEGORY = `${api}/category`;
 const GET_PRODUCT_BY_ID = `${api}/product/get_by_category?id=`;
@@ -8,7 +7,7 @@ const GET_PRODUCT_BY_SUBCATEGORY_ID = `${api}/product/get_by_subcategory?id=`
 const GET_CATEGORY_FILTER = `${api}/filters/get_by_category?id=`
 const AUTH_USER = `${api}/auth/login`;
 
-export const API  = {
+export const API = {
     base: api,
     getCategory: GET_CATEGORY,
     getProductsById: GET_PRODUCT_BY_ID,

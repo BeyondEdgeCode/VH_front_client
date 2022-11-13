@@ -1,0 +1,44 @@
+.popup {
+    display: none;
+    left: -100%;
+    height: 100vh;
+    max-width: 600px;
+    width: 80%;
+    z-index: 10;
+    box-shadow: 10px 0 100px rgba(51, 51, 51, 0.6);
+    transition: .3s left;
+    background: var(--white);
+}
+
+.popup_disable {
+    left: -100%;
+    transition: .3s left;
+}
+
+.popup_active {
+    left: 0;
+    transition: .3s left;
+}
+
+.close {
+    position: relative;
+    left: 90%;
+    top: 10px;
+}
+
+.profilLinks{
+    width: 70%;
+    margin: 60px auto 0;
+    font-size: 20px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+ }
+
+@media screen and (max-width: 745px) {
+    .popup {
+        display: block;
+        position: fixed;
+    }
+}

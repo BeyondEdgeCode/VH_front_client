@@ -1,4 +1,6 @@
 import { BehaviorSubject } from "rxjs";
+import { getCategory } from "./GetFromAPI";
+import { getLocalStorage } from "./useHook";
 
 export const createSetterStore =  <A>(store$: BehaviorSubject<A>) => (newValue: A) => store$.next(newValue);
 
@@ -16,3 +18,9 @@ export const disableNegative = (e: number) => {
         return e
     }
 }
+
+export const hasInStore = (key: string): boolean => !!localStorage.getItem(key);
+
+export const getFromStore = (key: string) => JSON.parse(`${localStorage.getItem(key)}`);
+
+// export const getCategoryWithCash = async () => hasInStore('category') ? getFromStore('category') : await getCategory();

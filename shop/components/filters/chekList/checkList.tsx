@@ -14,7 +14,7 @@ type CheckBoxProps = {
     onChange: (event: ChangeEvent<HTMLInputElement>) => void,
     isChecked: boolean;
 }
-
+//  TODO: рефактор фильтров всех
 const CheckBox = memo(({label, name, onChange, isChecked}: CheckBoxProps) => {
     const id = uuidv4();
     return (

@@ -9,6 +9,7 @@ import { useCookieisNewUser } from '../../utilsFunctions/useHook';
 import css from './loyout.module.css';
 import cn from 'classnames';
 import { Notifications } from '../notifications/notificate';
+import { BanerContainer } from '../baner/baner.container';
 
 type Layout = {
     children: ReactNode,
@@ -27,7 +28,7 @@ export const Layout = ({children, title = SHOP_NAME, mode}: Layout) => {
             <link rel="icon" href="/favicon.ico" />
             <script src="https://kit.fontawesome.com/f94f1e7176.js" crossOrigin="anonymous"></script>
         </Head>
-        <Baner />
+        <BanerContainer />
         {/* <Notifications /> */}
         <Header />
         <main className={cn(css.wrap, {[css.horizontal]: mode == 'horizontal'})}>

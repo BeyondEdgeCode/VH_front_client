@@ -1,21 +1,15 @@
 import css from './baner.module.css';
 import cn from 'classnames'; 
-import { useDirtySetBodyScroll, useObservable, useSetIsNewUserCookie } from '../../utilsFunctions/useHook';
-import { isNewUser$, setNewUserObserver } from '../stors/is-new-user.store';
+import { useDirtySetBodyScroll } from '../../utilsFunctions/useHook';
 
-export const Baner = () => {
-    const visible = useObservable(isNewUser$) ?? true;
+interface BanerProps {
+    visible: boolean,
+    agree: () => void,
+    disagree: () => void,
+}
 
+export const Baner = ({visible, agree, disagree}: BanerProps) => {
     useDirtySetBodyScroll(visible);
-
-    const agree = () => {
-        setNewUserObserver(true);
-        useSetIsNewUserCookie({cookie: 'true'})
-    }
-
-    const disagree = () => {
-        window.history.back();
-    }
 
     return (
         <div className={cn(css.wrap, {[css.disable]: visible})}>

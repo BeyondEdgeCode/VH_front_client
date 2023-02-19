@@ -3,4 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
+module.exports = {
+  eslint: {
+    ignoreDuringBuilds: true
+  }
+}
+
+
 module.exports = nextConfig

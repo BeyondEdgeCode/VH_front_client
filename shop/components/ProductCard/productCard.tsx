@@ -43,9 +43,6 @@ export const ProductCard = (props: ProductCard) => {
         ) 
         : null;
     
-    // const onClick = () => {
-    //     setNotifications([...notifications, description])
-    // }
 
     const basket = (
         <div className={css.wrap_basket}>

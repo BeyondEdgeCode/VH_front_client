@@ -28,6 +28,12 @@ export const getProductsById = async (id: number, isSub: boolean = false) => {
     }
 }
 
+export const getProductById = async (id: number) => {
+        const res = await axios.get<any>(API.getProductById + `${id}`);
+        const product =  await res.data;
+        return product;
+}
+
 export const getMainSwiper = async () => {
     const res = await axios.get<Array<MainSwiper>>(API.getMainSwiper);
     const MainSwiper =  await res.data;
@@ -48,11 +54,13 @@ export const getCategoryFilterById = async (id: number) => {
 }
 
 export const auth = async () => {
+    // TODO: Вынести в в параметры
     const data = { 
         email: 'dev@evgeniy.host',
         password: 'testpassword123',
         remember: 1,
     };
+    // TODO: Вынести в функцию
     const options = {
       method: 'POST',
       headers: { 

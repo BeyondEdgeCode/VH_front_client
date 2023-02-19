@@ -3,7 +3,7 @@ import { KategoryScrean } from "../../../components/kategory/kategoryScrean";
 import { Layout } from "../../../components/layout/layout"
 import { ProductCard } from "../../../components/ProductCard/productCard";
 import { setNewCategoryState } from "../../../components/ui-kit/button/dropDown/category.store";
-import img from '../../../public/img/tovar1.jpg';
+// import img from '../../../public/img/tovar1.jpg';
 import { HomeProps } from "../../../type.store";
 import { getCategory } from "../../../utilsFunctions/GetFromAPI";
 
@@ -13,42 +13,42 @@ const MOKE_SLIDE_EL = [
       height={400}
       description={'Rell Strawberry Watermelon bla bla 30ml'}
       price={350}
-      img={img.src} onClick={(): void  => {console.log(img.src)}}
+      img={img.src} onClick={(): void  => {console.log()}}
     />,
     <ProductCard 
       maxWidth={225}
       height={400}
       description={'Rell Strawberry Watermelon bla bla 30ml'}
       price={350}
-      img={img.src} onClick={(): void  => {console.log(img.src)}}
+      img={img.src} onClick={(): void  => {console.log()}}
     />,
     <ProductCard 
       maxWidth={225}
       height={400}
       description={'Rell Strawberry Watermelon bla bla 30ml'}
       price={350}
-      img={img.src} onClick={(): void  => {console.log(img.src)}}
+      img={img.src} onClick={(): void  => {console.log()}}
     />,
     <ProductCard 
       maxWidth={225}
       height={400}
       description={'Rell Strawberry Watermelon bla bla 30ml'}
       price={350}
-      img={img.src} onClick={(): void  => {console.log(img.src)}}
+      img={img.src} onClick={(): void  => {console.log()}}
     />,
     <ProductCard 
       maxWidth={225}
       height={400}
       description={'Rell Strawberry Watermelon bla bla 30ml'}
       price={350}
-      img={img.src} onClick={(): void  => {console.log(img.src)}}
+      img={img.src} onClick={(): void  => {console.log()}}
     />,
     <ProductCard 
       maxWidth={225}
       height={400}
       description={'Rell Strawberry Watermelon bla bla 30ml'}
       price={350}
-      img={img.src} onClick={(): void  => {console.log(img.src)}}
+      img={img.src} onClick={(): void  => {console.log()}}
     />,
   ];
 

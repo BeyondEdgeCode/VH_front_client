@@ -7,50 +7,50 @@ import { setNewCategoryState } from "../../../components/ui-kit/button/dropDown/
 import { HomeProps } from "../../../type.store";
 import { getCategory } from "../../../utilsFunctions/GetFromAPI";
 
-const MOKE_SLIDE_EL = [
-    <ProductCard 
-      maxWidth={225}
-      height={400}
-      description={'Rell Strawberry Watermelon bla bla 30ml'}
-      price={350}
-      img={img.src} onClick={(): void  => {console.log()}}
-    />,
-    <ProductCard 
-      maxWidth={225}
-      height={400}
-      description={'Rell Strawberry Watermelon bla bla 30ml'}
-      price={350}
-      img={img.src} onClick={(): void  => {console.log()}}
-    />,
-    <ProductCard 
-      maxWidth={225}
-      height={400}
-      description={'Rell Strawberry Watermelon bla bla 30ml'}
-      price={350}
-      img={img.src} onClick={(): void  => {console.log()}}
-    />,
-    <ProductCard 
-      maxWidth={225}
-      height={400}
-      description={'Rell Strawberry Watermelon bla bla 30ml'}
-      price={350}
-      img={img.src} onClick={(): void  => {console.log()}}
-    />,
-    <ProductCard 
-      maxWidth={225}
-      height={400}
-      description={'Rell Strawberry Watermelon bla bla 30ml'}
-      price={350}
-      img={img.src} onClick={(): void  => {console.log()}}
-    />,
-    <ProductCard 
-      maxWidth={225}
-      height={400}
-      description={'Rell Strawberry Watermelon bla bla 30ml'}
-      price={350}
-      img={img.src} onClick={(): void  => {console.log()}}
-    />,
-  ];
+// const MOKE_SLIDE_EL = [
+//     <ProductCard 
+//       maxWidth={225}
+//       height={400}
+//       description={'Rell Strawberry Watermelon bla bla 30ml'}
+//       price={350}
+//       img={img.src} onClick={(): void  => {console.log()}}
+//     />,
+//     <ProductCard 
+//       maxWidth={225}
+//       height={400}
+//       description={'Rell Strawberry Watermelon bla bla 30ml'}
+//       price={350}
+//       img={img.src} onClick={(): void  => {console.log()}}
+//     />,
+//     <ProductCard 
+//       maxWidth={225}
+//       height={400}
+//       description={'Rell Strawberry Watermelon bla bla 30ml'}
+//       price={350}
+//       img={img.src} onClick={(): void  => {console.log()}}
+//     />,
+//     <ProductCard 
+//       maxWidth={225}
+//       height={400}
+//       description={'Rell Strawberry Watermelon bla bla 30ml'}
+//       price={350}
+//       img={img.src} onClick={(): void  => {console.log()}}
+//     />,
+//     <ProductCard 
+//       maxWidth={225}
+//       height={400}
+//       description={'Rell Strawberry Watermelon bla bla 30ml'}
+//       price={350}
+//       img={img.src} onClick={(): void  => {console.log()}}
+//     />,
+//     <ProductCard 
+//       maxWidth={225}
+//       height={400}
+//       description={'Rell Strawberry Watermelon bla bla 30ml'}
+//       price={350}
+//       img={img.src} onClick={(): void  => {console.log()}}
+//     />,
+//   ];
 
 
 interface BasketProps extends HomeProps {}
@@ -61,7 +61,7 @@ const Basket = ({category}: BasketProps) => {
   return (
     <Layout mode={'horizontal'}>
       <BasketAside />
-      <KategoryScrean cards={MOKE_SLIDE_EL} />
+      <KategoryScrean cards={[]} />
 
     </Layout>
   )

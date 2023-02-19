@@ -4,7 +4,7 @@ import { KategoryScrean } from '../../components/kategory/kategoryScrean';
 import { Layout } from '../../components/layout/layout';
 import { ProductCard } from '../../components/ProductCard/productCard';
 import { setNewCategoryState } from '../../components/ui-kit/button/dropDown/category.store';
-import img from '../../public/img/tovar1.jpg';
+// import img from '../../public/img/tovar1.jpg';
 import { Filter, HomeProps, Product } from '../../type.store';
 import { getCategory, getCategoryFilterById, getProductsById } from '../../utilsFunctions/GetFromAPI';
 
@@ -23,7 +23,7 @@ const mapProductsFromAPI = (data: Array<Product>): Array<ReactNode> => {
       price={el.price}
       hasSale={false}
       isNew={false}
-      img={el.image_link} onClick={(): void  => {console.log(img.src)}}
+      img={el.image_link} onClick={(): void  => {console.log()}}
   />)
 }
 

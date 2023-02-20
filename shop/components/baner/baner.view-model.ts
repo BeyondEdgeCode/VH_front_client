@@ -1,24 +1,28 @@
-import { useObservable, useSetIsNewUserCookie } from "../../utilsFunctions/useHook";
-import { isNewUser$, setNewUserObserver } from "../stors/is-new-user.store";
+import {
+    useObservable,
+    useSetIsNewUserCookie,
+} from '../../utilsFunctions/useHook'
+import { isNewUser$, setNewUserObserver } from '../stors/is-new-user.store'
 
 export interface Baner {
-    visible: boolean,
-    agree: () => void,
-    disagree: () => void,
+    visible: boolean
+    agree: () => void
+    disagree: () => void
 }
 
-type NewBaner = () => Baner;
+type NewBaner = () => Baner
 
 export const newBanerViewModel: NewBaner = () => {
-
-    const visible = useObservable(isNewUser$) ?? true;
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const visible = useObservable(isNewUser$) ?? true
     const agree = () => {
-        setNewUserObserver(true);
-        useSetIsNewUserCookie({cookie: 'true'})
+        setNewUserObserver(true)
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useSetIsNewUserCookie({ cookie: 'true' })
     }
 
     const disagree = () => {
-        window.history.back();
+        window.history.back()
     }
 
     return {

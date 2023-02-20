@@ -74,7 +74,7 @@
 
 .button_active {
     border: 1px solid var(--violet);
-    background: var(--violet-light)
+    background: var(--violet-light);
 }
 
 .button-count-wrap {
@@ -99,8 +99,6 @@
 .popupBtn__wrap {
     display: none;
 }
-
-
 
 /* media */
 
@@ -161,28 +159,28 @@
         background-color: var(--white);
         width: 20px;
         height: 3px;
-        transition: .3s transform;
+        transition: 0.3s transform;
     }
 
     .popupBtn__wrap_line_active {
         transform: rotate(45deg);
-        transition: .3s transform;
+        transition: 0.3s transform;
     }
 
     .popupBtn__wrap_line:nth-child(2) {
         margin-top: 4px;
     }
-    
+
     .popupBtn__wrap_line_active:nth-child(2) {
         display: none;
     }
-    
+
     .popupBtn__wrap_line:nth-child(3) {
         margin-top: 4px;
     }
     .popupBtn__wrap_line_active:nth-child(3) {
         transform: rotate(-45deg);
         margin-top: -3px;
-        transition: .3s transform;
+        transition: 0.3s transform;
     }
 }

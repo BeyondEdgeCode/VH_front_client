@@ -1,9 +1,8 @@
 // import img from "../../public/img/tovar1.jpg";
-import Image from 'next/image';
-import css from './product-preview.module.css';
-import cn from 'classnames';
-import { Button } from "../ui-kit/button/button";
-
+import Image from 'next/image'
+import css from './product-preview.module.css'
+import cn from 'classnames'
+import { Button } from '../ui-kit/button/button'
 
 export const ProductPreview = () => {
     return (
@@ -27,5 +26,5 @@ export const ProductPreview = () => {
             </div> */}
             <Button theme={[css.button]}>В корзину</Button>
         </div>
-    );
+    )
 }

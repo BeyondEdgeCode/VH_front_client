@@ -1,8 +1,8 @@
-import { BehaviorSubject } from "rxjs";
-import { createSetterStore } from "../../utilsFunctions/utils";
+import { BehaviorSubject } from 'rxjs'
+import { createSetterStore } from '../../utilsFunctions/utils'
 
-const notificationsStore$ = new BehaviorSubject<Array<string>>([]);
+const notificationsStore$ = new BehaviorSubject<Array<string>>([])
 
-export const setNotifications = createSetterStore(notificationsStore$);
+export const setNotifications = createSetterStore(notificationsStore$)
 
-export const notifications$ = notificationsStore$.asObservable();
+export const notifications$ = notificationsStore$.asObservable()

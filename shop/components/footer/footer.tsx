@@ -53,10 +53,10 @@ export const Footer = () => {
                         </div>
                         <span>Мы в соцсетях</span>
                         <div className={css['contact-info__network']}>
-                            <a href={TG} target="_blank" className="mr-1">
+                            <a href={TG} target="_blank" className="mr-1" rel="noreferrer">
                                 <Tg />
                             </a>
-                            <a href={INST} target="_blank">
+                            <a href={INST} target="_blank" rel="noreferrer">
                                 <Inst />
                             </a>
                         </div>

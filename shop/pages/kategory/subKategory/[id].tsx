@@ -118,20 +118,8 @@ const Kategory = ({ category, products }: KategoryProps) => {
     )
 }
 
-export async function getStaticPaths() {
-    const categorys = await getCategory()
-
-    const paths = categorys
-        .filter((c) => c.subcategories.length > 0)
-        .map((c) => c.subcategories)
-        .flat(1)
-        .map((c) => ({ params: { id: `${c.id}` } }))
-
-    return { paths, fallback: false }
-}
-
 // @ts-ignore
-export async function getStaticProps({ params }: { id: string }) {
+export async function getServerSideProps({ params }: { id: string }) {
     const category = await getCategory()
     // const products = await getProductsById(Number(params.id));
     const products = await getProductsById(Number(params.id), true)

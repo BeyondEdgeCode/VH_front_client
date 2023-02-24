@@ -34,21 +34,10 @@ const Product = ({
     )
 }
 
-export async function getStaticPaths() {
-    // const products = await getProductsById();
-
-    // const paths = new Array(10000).map(i => i).map((id) => ({
-    //   params: { id: `${id}` },
-    // }));
-
-    const paths = [{ params: { id: '1' } }, { params: { id: '2' } }]
-
-    return { paths, fallback: false }
-}
-
-export async function getStaticProps() {
+// @ts-ignore
+export async function getServerSideProps({ params }: { id: string }) {
     const category = await getCategory()
-    const ProductData = await getProductById(3)
+    const ProductData = await getProductById(Number(params.id))
     console.log(ProductData, 'ALARM')
 
     return {

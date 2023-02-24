@@ -49,6 +49,7 @@ export const Header = () => {
     const isActiveProfile =
         useHasRoute('profile') && (isActiveFavorites || isActiveBasket)
             ? false
+            // eslint-disable-next-line react-hooks/rules-of-hooks
             : useHasRoute('profile')
 
     const notifications = useObservable<Array<string>>(notifications$) ?? []

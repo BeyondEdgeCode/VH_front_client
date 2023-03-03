@@ -1,26 +1,28 @@
-import { isBasket } from '../../utilsFunctions/routerUtils'
-import { useObservable } from '../../utilsFunctions/useHook'
+import { isBasket } from '../../utilsFunctions/routerUtils';
+import { useObservable } from '../../utilsFunctions/useHook';
 import {
     notifications$,
     setNotifications,
-} from '../notifications/notifications.view-model'
-import css from './product-card.module.css'
-import cn from 'classnames'
-import { useState } from 'react'
-import { disableNegative } from '../../utilsFunctions/utils'
-import { Button } from '../ui-kit/button/button'
+} from '../notifications/notifications.view-model';
+import css from './product-card.module.css';
+import cn from 'classnames';
+import { useState } from 'react';
+import { disableNegative } from '../../utilsFunctions/utils';
+import { Button } from '../ui-kit/button/button';
+import { useRouter } from 'next/router';
 
 type ProductCard = {
-    maxWidth: number
-    height: number
-    description: string
-    price: number
-    count?: number
-    hasSale?: boolean
-    isNew?: boolean
-    img: string
-    onClick: () => void
-}
+    id: number;
+    maxWidth: number;
+    height: number;
+    description: string;
+    price: number;
+    count?: number;
+    hasSale?: boolean;
+    isNew?: boolean;
+    img: string;
+    onClick: () => void;
+};
 
 export const ProductCard = (props: ProductCard) => {
     const {
@@ -33,16 +35,19 @@ export const ProductCard = (props: ProductCard) => {
         isNew,
         img,
         onClick,
-    } = props
+        id,
+    } = props;
 
-    const [countToAdd, setCountToAdd] = useState(0)
+    const [countToAdd, setCountToAdd] = useState(0);
 
-    const notifications = useObservable<Array<string>>(notifications$) ?? []
-    const isActiveBasket = isBasket()
-    const hasLabel = isNew || hasSale
+    const notifications = useObservable<Array<string>>(notifications$) ?? [];
+    const isActiveBasket = isBasket();
+    const hasLabel = isNew || hasSale;
     const newStatus = hasLabel ? (
         <div className={css.newProduct}>{isNew ? 'new' : 'sale'}</div>
-    ) : null
+    ) : null;
+
+    const router = useRouter();
 
     const basket = (
         <div className={css.wrap_basket}>
@@ -68,9 +73,13 @@ export const ProductCard = (props: ProductCard) => {
                 </Button>
             </div>
         </div>
-    )
+    );
     const other = (
-        <div style={{ maxWidth, height }} className={css.wrap}>
+        <div
+            style={{ maxWidth, height }}
+            className={css.wrap}
+            onClick={() => router.push(`/product/${id}`)}
+        >
             {newStatus}
             <img
                 src={img}
@@ -90,7 +99,7 @@ export const ProductCard = (props: ProductCard) => {
             <p className={css.description}>{description}</p>
             <Button onClick={onClick}>В корзину</Button>
         </div>
-    )
+    );
 
-    return isActiveBasket ? basket : other
-}
+    return isActiveBasket ? basket : other;
+};

@@ -1,12 +1,16 @@
-const api = 'http://dockerbackend'
-const GET_CATEGORY = `${api}/product/category`
-const GET_PRODUCTS_BY_ID = `${api}/product/get_by_category?id=`
-const GET_MAIN_SWIPER = `${api}/ic/get_active`
-const GET_LATEST_PRODUCT = `${api}/product/get_latest`
-const GET_PRODUCT_BY_SUBCATEGORY_ID = `${api}/product/get_by_subcategory?id=`
-const GET_CATEGORY_FILTER = `${api}/product/filters/get_by_category?id=`
-const AUTH_USER = `${api}/user/auth/login`
-const GET_PRODUCT_BY_ID = `${api}/product/`
+// const api = 'http://dockerbackend'
+const api = 'http://100.115.34.49:80';
+const GET_CATEGORY = `${api}/product/category`;
+const GET_PRODUCTS_BY_ID = `${api}/product/get_by_category?id=`;
+const GET_MAIN_SWIPER = `${api}/ic/get_active`;
+const GET_LATEST_PRODUCT = `${api}/product/get_latest`;
+const GET_PRODUCT_BY_SUBCATEGORY_ID = `${api}/product/get_by_subcategory?id=`;
+const GET_CATEGORY_FILTER = `${api}/product/filters/get_by_category?id=`;
+const AUTH_USER = `${api}/user/auth/login`;
+const GET_PRODUCT_BY_ID = `${api}/product/`;
+const GET_PRODUCTS_BY_FILTERS = `${api}/product/filters/get_products_by_category`;
+const GET_FILTERS_BY_SUBCATEGORY_ID = `${api}/product/filters/get_by_subcategory?id=`;
+const GET_SUB_PRODUCTS_BY_FILTERS = `${api}/product/filters/get_products_by_subcategory`;
 
 export const API = {
     base: api,
@@ -18,4 +22,7 @@ export const API = {
     getProductsBySubcategoryId: GET_PRODUCT_BY_SUBCATEGORY_ID,
     getCategoryFilterById: GET_CATEGORY_FILTER,
     auth: AUTH_USER,
-}
+    getProductsByFiltersAplyed: GET_PRODUCTS_BY_FILTERS,
+    getSubCategoryFilterById: GET_FILTERS_BY_SUBCATEGORY_ID,
+    getSubProductsByFiltersAplyed: GET_SUB_PRODUCTS_BY_FILTERS,
+};

@@ -1,86 +1,92 @@
 :root {
-  --phone-default: 745px;
+    --phone-default: 745px;
 
-  --white: #FFFFFF;
-  --grey: #EAECEE;
-  --grey-light: rgba(234, 236, 238, 0.31);
-  --violet: #A520E3;
-  --violet-light: rgba(165, 32, 227, 0.15);
-  --violet-durk: #291720;
-  --light-durk: rgba(0, 0, 0, 0.2);
-  --grey-fonts-active: hsl(0, 0%, 40%);
-  --grey-fonts: hsl(0, 0%, 60%);
+    --white: #ffffff;
+    --grey: #eaecee;
+    --grey-light: rgba(234, 236, 238, 0.31);
+    --violet: #a520e3;
+    --violet-light: rgba(165, 32, 227, 0.15);
+    --violet-durk: #291720;
+    --light-durk: rgba(0, 0, 0, 0.2);
+    --grey-fonts-active: hsl(0, 0%, 40%);
+    --grey-fonts: hsl(0, 0%, 60%);
 }
 
 @font-face {
-  font-family: "AmaticSC-Bold";
-  src: url("../public/Amatic_SC/AmaticSC-Bold.ttf") format("truetype");
-  font-style: normal;
-  font-weight: normal;
+    font-family: 'AmaticSC-Bold';
+    src: url('../public/Amatic_SC/AmaticSC-Bold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
 }
 
+@font-face {
+    font-family: 'Inter-Regular';
+    src: url('../public/Inter-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body::-webkit-scrollbar {
-  width: 6px;
+    width: 6px;
 }
 
 body::-webkit-scrollbar-track {
-  background: var(--grey-light);
-  /* color of the tracking area */
+    background: var(--grey-light);
+    /* color of the tracking area */
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: var(--violet);
-  /* color of the scroll thumb */
-  border-radius: 20px;
-  /* roundness of the scroll thumb */
+    background-color: var(--violet);
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
 }
 
 .pagination__active {
-  background-color: var(--violet) !important;
-  opacity: 1 !important;
+    background-color: var(--violet) !important;
+    opacity: 1 !important;
 }
 
 .ml-1 {
-  margin-left: 8px;
+    margin-left: 8px;
 }
 
 .ml-2 {
-  margin-left: 16px;
+    margin-left: 16px;
 }
 
 .mr-1 {
-  margin-right: 8px;
+    margin-right: 8px;
 }
 
 .mt-1 {
-  margin-top: 8px;
+    margin-top: 8px;
 }
 
 .mb_2 {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 ul {
-  list-style: none;
+    list-style: none;
 }

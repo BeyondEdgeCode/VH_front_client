@@ -1,4 +1,4 @@
-export const SmallArro = () => {
+export const SmallArrow = () => {
     return (
         <svg
             width="10"

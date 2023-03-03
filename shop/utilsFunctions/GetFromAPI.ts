@@ -1,59 +1,74 @@
-import axios from 'axios'
-import { parseCookies } from 'nookies'
-import { API } from '../components/API'
-import { setNewUserAuthKey } from '../components/stors/user-auth.store'
-import { Auth, Category, Filter, MainSwiper, Product } from '../type.store'
-import { setLocalStorage } from './useHook'
+import axios from 'axios';
+import { parseCookies } from 'nookies';
+import { API } from '../components/API';
+import { StorData } from '../components/filters/filter-collector/filter-collector';
+import { setNewUserAuthKey } from '../components/stors/user-auth.store';
+import {
+    Auth,
+    Category,
+    MainSwiper,
+    Product,
+    ProductFilter,
+} from '../type.store';
+import { setLocalStorage } from './useHook';
 
 export const getCategory = async () => {
-    const res = await axios.get<Array<Category>>(API.getCategory)
-    const category = await res.data
+    const res = await axios.get<Array<Category>>(API.getCategory);
+    const category = await res.data;
 
-    return category
-}
+    return category;
+};
 
 export const getProductsById = async (id: number, isSub: boolean = false) => {
     if (isSub) {
         const res = await axios.get<Array<Product>>(
             API.getProductsBySubcategoryId + `${id}`
-        )
-        const products = await res.data
-        return products
+        );
+        const products = await res.data;
+        return products;
     } else {
         const res = await axios.get<Array<Product>>(
             API.getProductsById + `${id}`
-        )
-        const products = await res.data
-        return products
+        );
+        const products = await res.data;
+        return products;
     }
-}
+};
 
 export const getProductById = async (id: number) => {
-    const res = await axios.get<any>(API.getProductById + `${id}`)
-    const product = await res.data
-    return product
-}
+    const res = await axios.get<any>(API.getProductById + `${id}`);
+    const product = await res.data;
+    return product;
+};
 
 export const getMainSwiper = async () => {
-    const res = await axios.get<Array<MainSwiper>>(API.getMainSwiper)
-    const MainSwiper = await res.data
+    const res = await axios.get<Array<MainSwiper>>(API.getMainSwiper);
+    const MainSwiper = await res.data;
 
-    return MainSwiper
-}
+    return MainSwiper;
+};
 
 export const getLatestProduct = async () => {
-    const res = await axios.get<Array<Product>>(API.getLatestProduct)
-    const products = await res.data
-    return products
-}
+    const res = await axios.get<Array<Product>>(API.getLatestProduct);
+    const products = await res.data;
+    return products;
+};
 
 export const getCategoryFilterById = async (id: number) => {
-    const res = await axios.get<Array<Filter>>(
+    const res = await axios.get<ProductFilter[]>(
         API.getCategoryFilterById + `${id}`
-    )
-    const filters = await res.data
-    return filters
-}
+    );
+    const filters = await res.data;
+    return filters;
+};
+
+export const getSubCategoryFilterById = async (id: number) => {
+    const res = await axios.get<ProductFilter[]>(
+        API.getSubCategoryFilterById + `${id}`
+    );
+    const filters = await res.data;
+    return filters;
+};
 
 export const auth = async () => {
     // TODO: Вынести в в параметры
@@ -61,7 +76,7 @@ export const auth = async () => {
         email: 'dev@evgeniy.host',
         password: 'testpassword123',
         remember: 1,
-    }
+    };
     // TODO: Вынести в функцию
     const options = {
         method: 'POST',
@@ -72,19 +87,51 @@ export const auth = async () => {
         data: data,
         url: API.auth,
         origin: API,
-    }
+    };
     const res = await axios.post<any>(
         API.auth,
         {
-            email: 'dev@evgeniy.host',
-            password: 'testpassword123',
+            email: 'me@evgeniy.host',
+            password: 'test1234',
             remember: 1,
         },
         options
-    )
+    );
 
-    const access_token = await res.data
+    const access_token = await res.data;
 
-    setNewUserAuthKey(access_token.access_token)
-    setLocalStorage('JWT', access_token.access_token)
+    setNewUserAuthKey(access_token.access_token);
+    setLocalStorage('JWT', access_token.access_token);
+};
+export interface getProductsByFiltersAplyedArguments {
+    filters: StorData[];
+    category_id?: number;
+    subcategory_id?: number;
+    max?: number;
+    min?: number;
+    available?: number;
 }
+export const getProductsByFiltersAplyed = async (
+    args: getProductsByFiltersAplyedArguments,
+    isSub?: boolean
+) => {
+    const options = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        origin: API,
+    };
+    const res = await axios.post<Array<Product>>(
+        !isSub
+            ? API.getProductsByFiltersAplyed
+            : API.getSubProductsByFiltersAplyed,
+        {
+            ...args,
+        },
+        options
+    );
+    const data = await res.data;
+
+    return data;
+};

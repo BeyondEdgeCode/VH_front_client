@@ -1,0 +1,45 @@
+.wrap {
+    max-width: 350px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.label {
+    font-family: 'Inter-Regular';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 19px;
+    color: #000000;
+    margin: 16px 0;
+}
+
+.inputWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input {
+    width: 133px;
+    height: 50px;
+    padding-left: 18px;
+    background: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.input[type='number'] {
+    -moz-appearance: textfield;
+}

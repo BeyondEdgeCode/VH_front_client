@@ -73,8 +73,8 @@ export const useJWT = () => {
     return aT
 }
 
-export const useToggler = (): [boolean, () => void] => {
+export const useToggler = (): [boolean, () => void, (s: boolean) => void] => {
     const [t, sT] = useState<boolean>(false)
     const newST = () => sT((t) => !t)
-    return [t, newST]
+    return [t, newST, sT]
 }

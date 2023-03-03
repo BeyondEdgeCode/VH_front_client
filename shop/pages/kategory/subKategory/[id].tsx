@@ -1,14 +1,15 @@
-import { ReactNode } from 'react'
-import { HomeProps, Product } from '../../../type.store'
+import { ReactNode } from 'react';
+import { HomeProps, Product, ProductFilter } from '../../../type.store';
 import {
     getCategory,
     getProductsById,
-} from '../../../utilsFunctions/GetFromAPI'
-import { BaseFilter } from '../../../components/filters/baseFilter'
-import { Layout } from '../../../components/layout/layout'
-import { ProductCard } from '../../../components/ProductCard/productCard'
-import { setNewCategoryState } from '../../../components/ui-kit/button/dropDown/category.store'
-import { KategoryScrean } from '../../../components/kategory/kategoryScrean'
+    getSubCategoryFilterById,
+} from '../../../utilsFunctions/GetFromAPI';
+import { Layout } from '../../../components/layout/layout';
+import { ProductCard } from '../../../components/ProductCard/productCard';
+import { setNewCategoryState } from '../../../components/ui-kit/button/dropDown/category.store';
+import { KategoryScrean } from '../../../components/kategory/kategoryScrean';
+import { FilterCollectorContainer } from '../../../components/filters/filter-collector/filter-collector.container';
 
 const filterTogle = {
     type: 'togle',
@@ -22,7 +23,7 @@ const filterTogle = {
             state: false,
         },
     ],
-}
+};
 
 const priceSeparation = {
     type: 'price',
@@ -36,7 +37,7 @@ const priceSeparation = {
             state: null,
         },
     ],
-}
+};
 
 const selectboxFilter = {
     type: 'selectbox',
@@ -55,7 +56,7 @@ const selectboxFilter = {
             state: false,
         },
     ],
-}
+};
 
 const checkBoxFilter = {
     type: 'checkbox',
@@ -78,18 +79,21 @@ const checkBoxFilter = {
             state: false,
         },
     ],
-}
+};
 
-const filters = [filterTogle, priceSeparation, selectboxFilter, checkBoxFilter]
+const filters = [filterTogle, priceSeparation, selectboxFilter, checkBoxFilter];
 
 interface KategoryProps extends HomeProps {
-    products: Array<Product>
+    products: Array<Product>;
+    filters: Array<ProductFilter>;
+    category_id: number;
 }
 
 // set description when it was
 const mapProductsFromAPI = (data: Array<Product>): Array<ReactNode> => {
     return data.map((el) => (
         <ProductCard
+            id={el.id}
             maxWidth={225}
             height={400}
             description={el.title}
@@ -99,37 +103,59 @@ const mapProductsFromAPI = (data: Array<Product>): Array<ReactNode> => {
             img={el.image_link}
             key={el.image_link}
             onClick={(): void => {
-                console.log(el.image_link)
+                console.log(el.image_link);
             }}
         />
-    ))
-}
+    ));
+};
 
-const Kategory = ({ category, products }: KategoryProps) => {
-    setNewCategoryState(category)
-    const cards = mapProductsFromAPI(products)
-    console.log(products)
+const TOGL_FILTER: ProductFilter = {
+    id: '',
+    is_filter: true,
+    key: '',
+    type: 'toggle',
+    values: {},
+};
+
+const Kategory = ({
+    category,
+    products,
+    filters,
+    category_id,
+}: KategoryProps) => {
+    setNewCategoryState(category);
+    const cards = mapProductsFromAPI(products);
+    console.log(products);
 
     return (
         <Layout mode={'horizontal'}>
-            <BaseFilter filters={filters} />
+            {/* <BaseFilter filters={filters} /> */}
+            <FilterCollectorContainer
+                filters={[TOGL_FILTER, ...filters]}
+                category_id={category_id}
+            />
             <KategoryScrean cards={cards} />
         </Layout>
-    )
-}
+    );
+};
 
 // @ts-ignore
 export async function getServerSideProps({ params }: { id: string }) {
-    const category = await getCategory()
-    // const products = await getProductsById(Number(params.id));
-    const products = await getProductsById(Number(params.id), true)
+    const category = await getCategory();
+    const products = await getProductsById(Number(params.id), true);
+
+    const filters = await (
+        await getSubCategoryFilterById(Number(params.id))
+    ).sort((f1, f2) => Number(f1.id) - Number(f2.id));
 
     return {
         props: {
             category,
             products,
+            filters,
+            category_id: Number(params.id),
         },
-    }
+    };
 }
 
-export default Kategory
+export default Kategory;

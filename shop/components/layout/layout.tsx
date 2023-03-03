@@ -4,12 +4,10 @@ import { ReactNode } from 'react'
 import { SHOP_NAME } from '../../GlobalVarible/global'
 import { Footer } from '../footer/footer'
 import { Header } from '../header/header'
-import { Baner } from '../baner/baner'
 import { useCookieisNewUser } from '../../utilsFunctions/useHook'
 
 import css from './loyout.module.css'
 import cn from 'classnames'
-import { Notifications } from '../notifications/notificate'
 import { BanerContainer } from '../baner/baner.container'
 
 type Layout = {
@@ -36,7 +34,6 @@ export const Layout = ({ children, title = SHOP_NAME, mode }: Layout) => {
                 ></script>
             </Head>
             <BanerContainer />
-            {/* <Notifications /> */}
             <Header />
             <main
                 className={cn(css.wrap, {

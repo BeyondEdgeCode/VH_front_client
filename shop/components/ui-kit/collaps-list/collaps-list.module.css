@@ -1,0 +1,23 @@
+/*CollapsedList  */
+/* TODO: do something with height animation */
+.colapsedListWrap {
+    overflow-y: hidden;
+    height: 100%;
+    transition: height 500ms ease;
+}
+.colapsedListWrapCollaps {
+    height: 0;
+    transition: height 500ms ease;
+}
+.colapsedList {
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    position: relative;
+    transition: top 0.5s;
+}
+
+.colapsedListCollaps {
+    top: -100vh;
+    transition: top 0.5s;
+}

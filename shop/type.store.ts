@@ -75,3 +75,21 @@ export interface Reviews {
         firstName: string | null;
     };
 }
+
+export interface BasketData {
+    availability: Array<{
+        not_available: Array<number>;
+        shop_id: number;
+    }>;
+    products: Array<{
+        id: number;
+        product: {
+            avg_stars: number;
+            id: number;
+            price: number;
+            title: string;
+            image_link: string;
+        };
+        amount: number;
+    }>;
+}

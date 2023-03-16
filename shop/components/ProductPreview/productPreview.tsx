@@ -4,7 +4,10 @@ import css from './product-preview.module.css';
 import cn from 'classnames';
 import { Button } from '../ui-kit/button/button';
 import { Product } from '../../type.store';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useJWT } from '../../utilsFunctions/useHook';
+import { addToBasket } from '../../utilsFunctions/GetFromAPI';
+import { errorToast } from '../../utilsFunctions/utils';
 
 interface ProductPreviewProps {
     product: Product;
@@ -36,6 +39,14 @@ const mapToSubImg = (imgs: ProductAditionalImg, onClick: (s: string) => void) =>
 
 export const ProductPreview = ({ product }: ProductPreviewProps) => {
     const [mainImgLink, setMainImgLink] = useState(product.image_link);
+    const jwt = useJWT();
+    const onClick = useCallback(() => {
+        if (jwt) {
+            addToBasket(product.id, jwt);
+        } else {
+            errorToast('Необходимо авторизоваться');
+        }
+    }, [jwt, product.id]);
     return (
         <div className={css.wrapImg}>
             <div className={css.mainImg}>
@@ -48,7 +59,9 @@ export const ProductPreview = ({ product }: ProductPreviewProps) => {
             >
                 {mapToSubImg(product, setMainImgLink)}
             </div>
-            <Button theme={[css.button]}>В корзину</Button>
+            <Button theme={[css.button]} onClick={onClick}>
+                В корзину
+            </Button>
         </div>
     );
 };

@@ -102,9 +102,9 @@ const mapProductsFromAPI = (data: Array<Product>): Array<ReactNode> => {
             isNew={false}
             img={el.image_link}
             key={el.image_link}
-            onClick={(): void => {
-                console.log(el.image_link);
-            }}
+            // onClick={(): void => {
+            //     console.log(el.image_link);
+            // }}
         />
     ));
 };
@@ -125,11 +125,9 @@ const Kategory = ({
 }: KategoryProps) => {
     setNewCategoryState(category);
     const cards = mapProductsFromAPI(products);
-    console.log(products);
 
     return (
         <Layout mode={'horizontal'}>
-            {/* <BaseFilter filters={filters} /> */}
             <FilterCollectorContainer
                 filters={[TOGL_FILTER, ...filters]}
                 category_id={category_id}

@@ -13,6 +13,7 @@ const GET_FILTERS_BY_SUBCATEGORY_ID = `${api}/product/filters/get_by_subcategory
 const GET_SUB_PRODUCTS_BY_FILTERS = `${api}/product/filters/get_products_by_subcategory`;
 const ADD_FAVORITS = `${api}/product/favourite`;
 const GET_REVIEWS = `${api}/product/reviews/`;
+const ADD_TO_BASKET = `${api}/basket`; // post / get
 
 export const API = {
     base: api,
@@ -30,4 +31,6 @@ export const API = {
     addProductToFavorite: ADD_FAVORITS,
     getFavorite: ADD_FAVORITS,
     getReviews: GET_REVIEWS,
+    addToBasket: ADD_TO_BASKET,
+    getBasket: ADD_TO_BASKET,
 };

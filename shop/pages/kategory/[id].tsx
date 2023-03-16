@@ -25,9 +25,7 @@ interface KategoryProps extends HomeProps {
 }
 
 // set description when it was
-const mapProductsFromAPI = (
-    data: Array<Product>,
-): Array<ReactNode> => {
+const mapProductsFromAPI = (data: Array<Product>): Array<ReactNode> => {
     return data.map((el) => (
         <ProductCard
             id={el.id}
@@ -38,7 +36,6 @@ const mapProductsFromAPI = (
             hasSale={false}
             isNew={false}
             img={el.image_link}
-            onClick={() => {}}
             key={el.id}
         />
     ));
@@ -69,8 +66,7 @@ const Kategory = ({
     const productfromStore = useObservable(kategoryProductData$);
 
     useEffect(() => {
-        productfromStore &&
-            setCards(mapProductsFromAPI(productfromStore));
+        productfromStore && setCards(mapProductsFromAPI(productfromStore));
     }, [productfromStore]);
 
     return (

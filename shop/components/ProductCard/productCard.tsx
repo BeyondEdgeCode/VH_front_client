@@ -2,12 +2,15 @@
 import { isBasket } from '../../utilsFunctions/routerUtils';
 import { getLocalStorage } from '../../utilsFunctions/useHook';
 import css from './product-card.module.css';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { disableNegative, errorToast } from '../../utilsFunctions/utils';
 import { Button } from '../ui-kit/button/button';
 import { useRouter } from 'next/router';
 import { RadioButton } from '../header/header';
-import { addProductToFavorite } from '../../utilsFunctions/GetFromAPI';
+import {
+    addProductToFavorite,
+    addToBasket,
+} from '../../utilsFunctions/GetFromAPI';
 
 type ProductCard = {
     id: number;
@@ -19,7 +22,6 @@ type ProductCard = {
     hasSale?: boolean;
     isNew?: boolean;
     img: string;
-    onClick: () => void;
 };
 
 export const ProductCard = (props: ProductCard) => {
@@ -32,11 +34,10 @@ export const ProductCard = (props: ProductCard) => {
         hasSale,
         isNew,
         img,
-        onClick,
         id,
     } = props;
 
-    const [countToAdd, setCountToAdd] = useState(0);
+    const [countToAdd, setCountToAdd] = useState(count ?? 0);
 
     const jwt = getLocalStorage('JWT');
     const addFavorits = () => {
@@ -80,6 +81,14 @@ export const ProductCard = (props: ProductCard) => {
             </div>
         </div>
     );
+
+    const onClick = useCallback(() => {
+        if (jwt) {
+            addToBasket(id, jwt);
+        } else {
+            errorToast('Необходимо авторизоваться');
+        }
+    }, [id, jwt]);
     const other = (
         <div style={{ maxWidth, height }} className={css.wrap}>
             {newStatus}

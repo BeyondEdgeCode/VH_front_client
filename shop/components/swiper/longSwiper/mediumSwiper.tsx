@@ -62,9 +62,6 @@ export const MediumSwiper = ({
                             hasSale={hasSale}
                             isNew={isNew}
                             img={slide.image_link}
-                            onClick={() => {
-                                successToast('lolx2');
-                            }}
                         />
                     </SwiperSlide>
                 ))}

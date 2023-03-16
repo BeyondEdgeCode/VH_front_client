@@ -21,7 +21,6 @@ const Product = ({
     reviews: Array<Reviews>;
 }) => {
     setNewCategoryState(category);
-    console.log(reviews);
 
     return (
         <Layout mode={'vertical'}>

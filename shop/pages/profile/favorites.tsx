@@ -7,9 +7,7 @@ import { HomeProps, Product } from '../../type.store';
 import { getCategory, getFavorite } from '../../utilsFunctions/GetFromAPI';
 import { useJWT } from '../../utilsFunctions/useHook';
 
-interface FavoritesProps extends HomeProps {
-    // favorite: Array<Product>;
-}
+interface FavoritesProps extends HomeProps {}
 
 const mapProductsFromAPI = (
     data: Array<{ id: number; product: Product }>
@@ -24,7 +22,6 @@ const mapProductsFromAPI = (
             hasSale={false}
             isNew={false}
             img={el.product.image_link}
-            onClick={() => {}}
             key={el.id}
         />
     ));

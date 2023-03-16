@@ -3,6 +3,7 @@ import { API } from '../components/API';
 import { StorData } from '../components/filters/filter-collector/filter-collector';
 import { setNewUserAuthKey } from '../components/stors/user-auth.store';
 import {
+    BasketData,
     Category,
     MainSwiper,
     Product,
@@ -189,4 +190,32 @@ export const getReviews = async (id: number) => {
     const reviews = await res.data;
 
     return reviews;
+};
+
+export const addToBasket = async (id: number, jwt: string) => {
+    try {
+        const res = await axios.post<Response>(
+            API.addToBasket,
+            { product_id: id },
+            { ...OPTIONS(jwt) }
+        );
+
+        switch (res.data.status) {
+            case 200:
+                successToast('Успешно добавлен');
+                break;
+            default:
+                errorToast('Что-то пошло не так!');
+                break;
+        }
+    } catch (error) {
+        errorToast('Что-то пошло не так!');
+    }
+};
+
+export const getBasket = async (jwt: string) => {
+    const res = await axios.get<BasketData>(API.getBasket, OPTIONS(jwt));
+    const basket = await res.data;
+
+    return basket;
 };

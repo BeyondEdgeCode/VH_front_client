@@ -1,11 +1,13 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
+import { Pagination, Scrollbar, A11y } from 'swiper';
 import { SwiperButtonNext, SwiperButtonPrev } from '../swiperKit/buttons';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { ProductCard } from '../../ProductCard/productCard';
 import { Product } from '../../../type.store';
+import { toast } from 'react-toastify';
 
 import css from './mediumSwiper.module.css';
+import { successToast } from '../../../utilsFunctions/utils';
 
 type MediumSwiperProps = {
     slides: Array<Product>;
@@ -60,8 +62,8 @@ export const MediumSwiper = ({
                             hasSale={hasSale}
                             isNew={isNew}
                             img={slide.image_link}
-                            onClick={(): void => {
-                                console.log(slide.image_link);
+                            onClick={() => {
+                                successToast('lolx2');
                             }}
                         />
                     </SwiperSlide>

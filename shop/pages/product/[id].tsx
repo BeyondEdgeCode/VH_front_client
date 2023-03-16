@@ -1,51 +1,52 @@
-import { Layout } from '../../components/layout/layout'
-import { ProductDescription } from '../../components/productDescription/productDescription'
-import { ProductPreview } from '../../components/ProductPreview/productPreview'
-import { Reviws } from '../../components/reviews/reviews'
-import { setNewCategoryState } from '../../components/ui-kit/button/dropDown/category.store'
-import { HomeProps, Product } from '../../type.store'
+import { Layout } from '../../components/layout/layout';
+import { ProductDescription } from '../../components/productDescription/productDescription';
+import { ProductPreview } from '../../components/ProductPreview/productPreview';
+import { Reviws } from '../../components/reviews/reviews';
+import { setNewCategoryState } from '../../components/ui-kit/button/dropDown/category.store';
+import { HomeProps, Product, Reviews } from '../../type.store';
 import {
     getCategory,
     getProductById,
-    getProductsById,
-} from '../../utilsFunctions/GetFromAPI'
+    getReviews,
+} from '../../utilsFunctions/GetFromAPI';
 
-import css from './product.module.css'
+import css from './product.module.css';
 
 const Product = ({
     category,
-    latestProduct,
     product,
+    reviews,
 }: HomeProps & {
-    latestProduct: Array<Product>
-    product: any
+    product: Product;
+    reviews: Array<Reviews>;
 }) => {
-    setNewCategoryState(category)
-    console.log(product, latestProduct)
+    setNewCategoryState(category);
+    console.log(reviews);
 
     return (
         <Layout mode={'vertical'}>
             <div className={css.mainInfpWrap}>
-                <ProductPreview />
-                <ProductDescription />
+                <ProductPreview product={product} />
+                <ProductDescription product={product} />
             </div>
-            <Reviws />
+            <Reviws reviews={reviews} />
         </Layout>
-    )
-}
+    );
+};
 
 // @ts-ignore
 export async function getServerSideProps({ params }: { id: string }) {
-    const category = await getCategory()
-    const ProductData = await getProductById(Number(params.id))
-    console.log(ProductData, 'ALARM')
+    const category = await getCategory();
+    const product = await getProductById(Number(params.id));
+    const reviews = await getReviews(Number(params.id));
 
     return {
         props: {
             category,
-            product: ProductData,
+            product,
+            reviews,
         },
-    }
+    };
 }
 
-export default Product
+export default Product;

@@ -1,16 +1,16 @@
-import axios from 'axios';
-import { parseCookies } from 'nookies';
+import axios, { Method } from 'axios';
 import { API } from '../components/API';
 import { StorData } from '../components/filters/filter-collector/filter-collector';
 import { setNewUserAuthKey } from '../components/stors/user-auth.store';
 import {
-    Auth,
     Category,
     MainSwiper,
     Product,
     ProductFilter,
+    Reviews,
 } from '../type.store';
 import { setLocalStorage } from './useHook';
+import { errorToast, successToast } from './utils';
 
 export const getCategory = async () => {
     const res = await axios.get<Array<Category>>(API.getCategory);
@@ -36,7 +36,7 @@ export const getProductsById = async (id: number, isSub: boolean = false) => {
 };
 
 export const getProductById = async (id: number) => {
-    const res = await axios.get<any>(API.getProductById + `${id}`);
+    const res = await axios.get<Product>(API.getProductById + `${id}`);
     const product = await res.data;
     return product;
 };
@@ -79,7 +79,7 @@ export const auth = async () => {
     };
     // TODO: Вынести в функцию
     const options = {
-        method: 'POST',
+        method: 'POST' as Method,
         headers: {
             'content-type': 'application/json',
             'Access-Control-Allow-Origin': '*',
@@ -116,7 +116,7 @@ export const getProductsByFiltersAplyed = async (
     isSub?: boolean
 ) => {
     const options = {
-        method: 'POST',
+        method: 'POST' as Method,
         headers: {
             'content-type': 'application/json',
         },
@@ -134,4 +134,59 @@ export const getProductsByFiltersAplyed = async (
     const data = await res.data;
 
     return data;
+};
+
+interface Response {
+    status: number;
+    msg: string;
+}
+
+const OPTIONS = (jwt?: string) => ({
+    method: 'POST' as Method,
+    headers: {
+        'content-type': 'application/json',
+        Authorization: 'Bearer ' + jwt,
+    },
+    origin: API,
+});
+
+export const addProductToFavorite = async (id: number, jwt?: string) => {
+    try {
+        const res = await axios.post<Response>(
+            API.addProductToFavorite,
+            { product_fk: id },
+            { ...OPTIONS(jwt) }
+        );
+
+        switch (res.data.status) {
+            case 200:
+                successToast('Успешно добавлен');
+                break;
+            case 400:
+                errorToast('Уже в избранном!');
+                break;
+            default:
+                errorToast('Что-то пошло не так!');
+                break;
+        }
+    } catch (error) {
+        errorToast('Что-то пошло не так!');
+    }
+};
+
+export const getFavorite = async (jwt?: string) => {
+    const res = await axios.get<Array<{ id: number; product: Product }>>(
+        API.getFavorite,
+        OPTIONS(jwt)
+    );
+    const favorite = await res.data;
+
+    return favorite;
+};
+
+export const getReviews = async (id: number) => {
+    const res = await axios.get<Array<Reviews>>(API.getReviews + id);
+    const reviews = await res.data;
+
+    return reviews;
 };

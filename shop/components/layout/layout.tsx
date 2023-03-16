@@ -1,23 +1,25 @@
 /* eslint-disable @next/next/no-sync-scripts */
-import Head from 'next/head'
-import { ReactNode } from 'react'
-import { SHOP_NAME } from '../../GlobalVarible/global'
-import { Footer } from '../footer/footer'
-import { Header } from '../header/header'
-import { useCookieisNewUser } from '../../utilsFunctions/useHook'
+import Head from 'next/head';
+import { ReactNode } from 'react';
+import { SHOP_NAME } from '../../GlobalVarible/global';
+import { Footer } from '../footer/footer';
+import { Header } from '../header/header';
+import { useCookieisNewUser } from '../../utilsFunctions/useHook';
 
-import css from './loyout.module.css'
-import cn from 'classnames'
-import { BanerContainer } from '../baner/baner.container'
+import css from './loyout.module.css';
+import cn from 'classnames';
+import { BanerContainer } from '../baner/baner.container';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type Layout = {
-    children: ReactNode
-    title?: string
-    mode: 'vertical' | 'horizontal'
-}
+    children: ReactNode;
+    title?: string;
+    mode: 'vertical' | 'horizontal';
+};
 
 export const Layout = ({ children, title = SHOP_NAME, mode }: Layout) => {
-    useCookieisNewUser()
+    useCookieisNewUser();
 
     return (
         <>
@@ -40,9 +42,21 @@ export const Layout = ({ children, title = SHOP_NAME, mode }: Layout) => {
                     [css.horizontal]: mode == 'horizontal',
                 })}
             >
+                <ToastContainer
+                    position="top-right"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
                 {children}
             </main>
             <Footer />
         </>
-    )
-}
+    );
+};

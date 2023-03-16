@@ -1,61 +1,41 @@
-import { ProductDescriptionProp } from '../../type.store'
-import { Rating } from '../rating/rating'
-import css from './productDescription.module.css'
+import { Product } from '../../type.store';
+import { Rating } from '../rating/rating';
+import css from './productDescription.module.css';
 
 const CharacteristicsPiece = ({
-    characteristics,
-}: Pick<ProductDescriptionProp, 'characteristics'>) => {
+    specifications,
+}: Pick<Product, 'specifications'>) => {
     return (
         <>
-            {characteristics.map((c) => (
-                <div className={css.characteristics__piece} key={c.text}>
-                    <span className={css.characteristics__title}>
-                        {c.title}
-                    </span>
+            {specifications.map((c) => (
+                <div className={css.characteristics__piece} key={c.key}>
+                    <span className={css.characteristics__title}>{c.key}</span>
                     <div className={css.characteristics__dots}></div>
-                    <span>{c.text}</span>
+                    <span>{c.value}</span>
                 </div>
             ))}
         </>
-    )
+    );
+};
+
+interface ProductDescriptionProps {
+    product: Product;
 }
 
-const CHARACTERISTICSPIECE_MOCK = [
-    {
-        title: 'Цвет:',
-        text: 'Тёмный океон в свету луны',
-    },
-    {
-        title: 'Вес',
-        text: '3 года строгого режима',
-    },
-    {
-        title: 'Упаковка',
-        text: 'Блатная',
-    },
-]
-
-export const ProductDescription = () => {
+export const ProductDescription = ({ product }: ProductDescriptionProps) => {
     return (
         <div className={css.wrap}>
             <div className={css.descriptiponWrap}>
                 <h3 className="mb_2">
-                    Description
-                    <Rating rating={3} theme={['ml-2']} />
+                    Описание
+                    <Rating rating={product.avg_stars} theme={['ml-2']} />
                 </h3>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Numquam cumque delectus, esse perferendis exercitationem
-                    inventore iste, nostrum animi error placeat modi libero
-                    reiciendis rerum, vel ducimus soluta saepe veniam nesciunt.
-                </p>
+                <p>{product.description}</p>
             </div>
             <h3 className={'mb_2'}>Характеристики</h3>
             <div className={css.characteristics}>
-                <CharacteristicsPiece
-                    characteristics={CHARACTERISTICSPIECE_MOCK}
-                />
+                <CharacteristicsPiece specifications={product.specifications} />
             </div>
         </div>
-    )
-}
+    );
+};

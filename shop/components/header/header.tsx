@@ -1,33 +1,35 @@
-import { ReactNode } from 'react'
-import Image from 'next/image'
-import { Search } from '../svg/search'
+import { ReactNode } from 'react';
+import Image from 'next/image';
+import { Search } from '../svg/search';
 import {
     useCurrentPathname,
     useHasRoute,
-} from '../../utilsFunctions/routerUtils'
-import { isExists } from '../../utilsFunctions/checkType'
-import { SHOP_NAME } from '../../GlobalVarible/global'
-import cn from 'classnames'
-import logo from '../../public/img/vh_logo.png'
-import { useObservable, useToggler } from '../../utilsFunctions/useHook'
-import { notifications$ } from '../notifications/notifications.view-model'
-import Link from 'next/link'
-import { DropDown } from '../ui-kit/button/dropDown/dropDown'
+} from '../../utilsFunctions/routerUtils';
+import { isExists } from '../../utilsFunctions/checkType';
+import { SHOP_NAME } from '../../GlobalVarible/global';
+import cn from 'classnames';
+import logo from '../../public/img/vh_logo.png';
+import { useObservable, useToggler } from '../../utilsFunctions/useHook';
+import { notifications$ } from '../notifications/notifications.view-model';
+import Link from 'next/link';
+import { DropDown } from '../ui-kit/button/dropDown/dropDown';
 
-import css from './header.module.css'
-import { HeaderPopup } from './header-popup'
+import css from './header.module.css';
+import { HeaderPopup } from './header-popup';
+import { Theme } from '../../type.store';
 
 type RadioButtonProps = {
-    children: ReactNode
-    isActive: boolean
-    count?: number
-}
+    children: ReactNode;
+    isActive: boolean;
+    count?: number;
+    theme?: Theme;
+};
 
-const RadioButton = (props: RadioButtonProps) => {
-    const { children, count, isActive } = props
+export const RadioButton = (props: RadioButtonProps) => {
+    const { children, count, isActive, theme = [] } = props;
 
     return (
-        <div>
+        <div className={cn(...theme)}>
             <div className={cn(css.button, { [css.button_active]: isActive })}>
                 {children}
             </div>
@@ -35,24 +37,24 @@ const RadioButton = (props: RadioButtonProps) => {
                 <div className={css['button-count-wrap']}>{count}</div>
             ) : null}
         </div>
-    )
-}
+    );
+};
 RadioButton.defaultProps = {
     isActive: false,
-}
+};
 
 export const Header = () => {
-    const [popupState, setPopupState] = useToggler()
-    const router = useCurrentPathname()
-    const isActiveBasket = router == 'basket'
-    const isActiveFavorites = router == 'favorites'
+    const [popupState, setPopupState] = useToggler();
+    const router = useCurrentPathname();
+    const isActiveBasket = router == 'basket';
+    const isActiveFavorites = router == 'favorites';
     const isActiveProfile =
         useHasRoute('profile') && (isActiveFavorites || isActiveBasket)
             ? false
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            : useHasRoute('profile')
+            : // eslint-disable-next-line react-hooks/rules-of-hooks
+              useHasRoute('profile');
 
-    const notifications = useObservable<Array<string>>(notifications$) ?? []
+    const notifications = useObservable<Array<string>>(notifications$) ?? [];
 
     return (
         <>
@@ -138,5 +140,5 @@ export const Header = () => {
                 </div>
             </header>
         </>
-    )
-}
+    );
+};

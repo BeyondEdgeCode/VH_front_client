@@ -1,28 +1,33 @@
-import css from './reviews.module.css'
+import { Reviews } from '../../type.store';
+import { Rating } from '../rating/rating';
+import css from './reviews.module.css';
 
-const Reviw = () => {
+const Reviw = (review: Reviews) => {
     return (
         <div className={css.reviwWrap}>
             <span className={css.reviewName}>
-                Name
-                <span className={css.datePosted}>12.12.2022</span>
+                {review.user.firstName ?? 'Аноним'}
+                <span className={css.datePosted}>{`${new Date(
+                    review.created_at
+                ).toLocaleDateString()}`}</span>
+                <Rating rating={review.stars} theme={['ml-2']} />
             </span>
-            <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe
-                obcaecati magni blanditiis minus accusantium commodi, molestias
-                voluptas esse officiis facere nostrum eligendi temporibus dicta.
-                Sed assumenda libero excepturi similique aliquam.
-            </p>
+            <p>{review.text}</p>
         </div>
-    )
+    );
+};
+
+interface ReviwsProps {
+    reviews: Array<Reviews>;
 }
 
-export const Reviws = () => {
+export const Reviws = ({ reviews }: ReviwsProps) => {
     return (
         <div className={css.wrap}>
             <span className={css.reviwsTitle}>Отзывы</span>
-            <Reviw />
-            <Reviw />
+            {reviews.map((r) => (
+                <Reviw key={r.id} {...r} />
+            ))}
         </div>
-    )
-}
+    );
+};

@@ -12,6 +12,9 @@ const nextConfig = {
     experimental: {
         outputStandalone: true,
     },
-}
+    images: {
+        domains: ['storage.yandexcloud.net'],
+    },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

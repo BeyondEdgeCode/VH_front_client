@@ -11,6 +11,8 @@ const GET_PRODUCT_BY_ID = `${api}/product/`;
 const GET_PRODUCTS_BY_FILTERS = `${api}/product/filters/get_products_by_category`;
 const GET_FILTERS_BY_SUBCATEGORY_ID = `${api}/product/filters/get_by_subcategory?id=`;
 const GET_SUB_PRODUCTS_BY_FILTERS = `${api}/product/filters/get_products_by_subcategory`;
+const ADD_FAVORITS = `${api}/product/favourite`;
+const GET_REVIEWS = `${api}/product/reviews/`;
 
 export const API = {
     base: api,
@@ -25,4 +27,7 @@ export const API = {
     getProductsByFiltersAplyed: GET_PRODUCTS_BY_FILTERS,
     getSubCategoryFilterById: GET_FILTERS_BY_SUBCATEGORY_ID,
     getSubProductsByFiltersAplyed: GET_SUB_PRODUCTS_BY_FILTERS,
+    addProductToFavorite: ADD_FAVORITS,
+    getFavorite: ADD_FAVORITS,
+    getReviews: GET_REVIEWS,
 };

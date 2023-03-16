@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 .el__wrap {
     margin: 32px 48px;
@@ -11,4 +12,16 @@
 .el__wrap_basket {
     margin: 32px 48px;
     width: 100%;
+}
+
+.isEmpty {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 32px;
+    color: rgb(51 51 51 / 28%);
 }

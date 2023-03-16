@@ -1,15 +1,13 @@
+/* eslint-disable @next/next/no-img-element */
 import { isBasket } from '../../utilsFunctions/routerUtils';
-import { useObservable } from '../../utilsFunctions/useHook';
-import {
-    notifications$,
-    setNotifications,
-} from '../notifications/notifications.view-model';
+import { getLocalStorage } from '../../utilsFunctions/useHook';
 import css from './product-card.module.css';
-import cn from 'classnames';
 import { useState } from 'react';
-import { disableNegative } from '../../utilsFunctions/utils';
+import { disableNegative, errorToast } from '../../utilsFunctions/utils';
 import { Button } from '../ui-kit/button/button';
 import { useRouter } from 'next/router';
+import { RadioButton } from '../header/header';
+import { addProductToFavorite } from '../../utilsFunctions/GetFromAPI';
 
 type ProductCard = {
     id: number;
@@ -40,7 +38,15 @@ export const ProductCard = (props: ProductCard) => {
 
     const [countToAdd, setCountToAdd] = useState(0);
 
-    const notifications = useObservable<Array<string>>(notifications$) ?? [];
+    const jwt = getLocalStorage('JWT');
+    const addFavorits = () => {
+        if (!jwt) {
+            errorToast('Необходимо авторизоваться');
+        } else {
+            addProductToFavorite(id, jwt);
+        }
+    };
+
     const isActiveBasket = isBasket();
     const hasLabel = isNew || hasSale;
     const newStatus = hasLabel ? (
@@ -75,18 +81,20 @@ export const ProductCard = (props: ProductCard) => {
         </div>
     );
     const other = (
-        <div
-            style={{ maxWidth, height }}
-            className={css.wrap}
-            onClick={() => router.push(`/product/${id}`)}
-        >
+        <div style={{ maxWidth, height }} className={css.wrap}>
             {newStatus}
             <img
                 src={img}
                 alt="tovar"
                 style={{ width: maxWidth - 2 }}
                 className={css.img}
+                onClick={() => router.push(`/product/${id}`)}
             />
+            <div className={css.heart_wrap} onClick={addFavorits}>
+                <RadioButton theme={[css.heart]}>
+                    <i className="fa-regular fa-heart fa-xl"></i>
+                </RadioButton>
+            </div>
             <div
                 className={css.price}
                 style={{

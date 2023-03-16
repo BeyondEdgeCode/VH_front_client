@@ -1,10 +1,10 @@
+import test from 'node:test';
+import { toast } from 'react-toastify';
 import { BehaviorSubject } from 'rxjs';
 
 export const createSetterStore =
     <A>(store$: BehaviorSubject<A>) =>
     (newValue: A) => {
-        // console.log(newValue)
-
         store$.next(newValue);
     };
 
@@ -41,3 +41,27 @@ export const getPropByValue =
         //@ts-ignore
         return Object.keys(object).find((key) => object[key] === value);
     };
+
+export const successToast = (text: string) =>
+    toast.success(text, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+    });
+
+export const errorToast = (text: string) =>
+    toast.error(text, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+    });

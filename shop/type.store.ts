@@ -21,6 +21,19 @@ export interface HomeProps {
 }
 
 export interface Product {
+    price: number;
+    other_images: Array<{
+        id: number;
+        link: string;
+    }>;
+    image_link: string;
+    avg_stars: number;
+    title: string;
+    specifications: Array<{
+        key: string;
+        value: string;
+    }>;
+    id: number;
     available: Array<{
         amount: number;
         shop: {
@@ -29,11 +42,6 @@ export interface Product {
         };
     }>;
     description: string;
-    id: number;
-    image_link: string;
-    price: number;
-    specifications: string;
-    title: string;
 }
 
 export interface MainSwiper {
@@ -47,14 +55,6 @@ export type BaseSwiperProp = {
     imgs: Array<MainSwiper>;
 };
 
-export type ProductDescriptionProp = {
-    description: string;
-    characteristics: Array<{
-        title: string;
-        text: string;
-    }>;
-};
-
 export interface RatingProps {
     theme?: Theme;
     rating: number;
@@ -63,4 +63,15 @@ export interface RatingProps {
 export interface Auth {
     access_token: string;
     refresh_token: string;
+}
+
+export interface Reviews {
+    product_id: number;
+    stars: number;
+    text: string;
+    created_at: string;
+    id: number;
+    user: {
+        firstName: string | null;
+    };
 }

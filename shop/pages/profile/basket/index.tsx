@@ -4,92 +4,21 @@ import { KategoryScrean } from '../../../components/kategory/kategoryScrean';
 import { Layout } from '../../../components/layout/layout';
 import { ProductCard } from '../../../components/ProductCard/productCard';
 import { setNewCategoryState } from '../../../components/ui-kit/button/dropDown/category.store';
-import img from '../../../public/img/tovar1.jpg';
-import { BasketData, HomeProps } from '../../../type.store';
-import { getBasket, getCategory } from '../../../utilsFunctions/GetFromAPI';
-
-// const MOKE_SLIDE_EL = [
-//     <ProductCard
-//         key={1}
-//         maxWidth={225}
-//         height={400}
-//         description={'Rell Strawberry Watermelon bla bla 30ml'}
-//         price={350}
-//         img={img.src}
-//         onClick={(): void => {
-//             console.log();
-//         }}
-//         id={0}
-//     />,
-//     <ProductCard
-//         key={1}
-//         maxWidth={225}
-//         height={400}
-//         description={'Rell Strawberry Watermelon bla bla 30ml'}
-//         price={350}
-//         img={img.src}
-//         onClick={(): void => {
-//             console.log();
-//         }}
-//         id={0}
-//     />,
-//     <ProductCard
-//         key={1}
-//         maxWidth={225}
-//         height={400}
-//         description={'Rell Strawberry Watermelon bla bla 30ml'}
-//         price={350}
-//         img={img.src}
-//         onClick={(): void => {
-//             console.log();
-//         }}
-//         id={0}
-//     />,
-//     <ProductCard
-//         key={1}
-//         maxWidth={225}
-//         height={400}
-//         description={'Rell Strawberry Watermelon bla bla 30ml'}
-//         price={350}
-//         img={img.src}
-//         onClick={(): void => {
-//             console.log();
-//         }}
-//         id={0}
-//     />,
-//     <ProductCard
-//         key={1}
-//         maxWidth={225}
-//         height={400}
-//         description={'Rell Strawberry Watermelon bla bla 30ml'}
-//         price={350}
-//         img={img.src}
-//         onClick={(): void => {
-//             console.log();
-//         }}
-//         id={0}
-//     />,
-//     <ProductCard
-//         key={1}
-//         maxWidth={225}
-//         height={400}
-//         description={'Rell Strawberry Watermelon bla bla 30ml'}
-//         price={350}
-//         img={img.src}
-//         onClick={(): void => {
-//             console.log();
-//         }}
-//         id={0}
-//     />,
-// ];
+import { BasketData, FilterValues, HomeProps } from '../../../type.store';
+import {
+    getBasket,
+    getCategory,
+    getShops,
+} from '../../../utilsFunctions/GetFromAPI';
+import { useJWT_2 } from '../../../utilsFunctions/useHook';
 
 const mapBasketCards = (basket: BasketData | undefined) =>
     basket
         ? basket.products.map((product) => (
               <ProductCard
                   key={product.id}
-                  maxWidth={225}
-                  height={400}
+                  maxWidth={188}
+                  height={250}
                   description={product.product.title}
                   price={350}
                   img={product.product.image_link}
@@ -99,30 +28,63 @@ const mapBasketCards = (basket: BasketData | undefined) =>
           ))
         : [<></>];
 
-interface BasketProps extends HomeProps {}
+interface BasketProps extends HomeProps {
+    shops: Array<FilterValues>;
+}
 
-const Basket = ({ category }: BasketProps) => {
-    setNewCategoryState(category);
+const Basket = ({ category, shops }: BasketProps) => {
+    const [isLoading, setIsLoading] = useState(true);
     const [basket, setBasket] = useState<BasketData>();
+    const jwt = useJWT_2();
+
+    setNewCategoryState(category);
 
     useEffect(() => {
-        //@ts-ignore
-        getBasket(localStorage.getItem('JWT')).then((e) => setBasket(e));
-    }, []);
+        jwt &&
+            getBasket(jwt).then((e) => {
+                setBasket(e);
+                setIsLoading(false);
+            });
+    }, [jwt, setIsLoading]);
+
+    const newShop = shops
+        .map(
+            (el) =>
+                (el = {
+                    description: el.description,
+                    preview: el.preview,
+                    id: el.id,
+                    title: el.title,
+                    address: el.city
+                        ? `${el.city} ${el.street} ${el.building}`
+                        : el.title,
+                })
+        )
+        .reduce((acc, val, idx) => {
+            // @ts-ignore
+            acc[`${idx}`] = val.address;
+            return acc;
+        }, {});
+    console.log(newShop, shops);
 
     return (
         <Layout mode={'horizontal'}>
-            <BasketAside />
-            <KategoryScrean cards={mapBasketCards(basket)} />
+            <BasketAside total={basket?.total} shops={newShop} />
+            <KategoryScrean
+                cards={mapBasketCards(basket)}
+                isLoading={isLoading}
+            />
         </Layout>
     );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const category = await getCategory();
+    const shops = await getShops();
     return {
         props: {
             category,
+            shops,
         },
     };
 }

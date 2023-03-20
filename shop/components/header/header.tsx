@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Search } from '../svg/search';
 import {
@@ -9,14 +9,19 @@ import { isExists } from '../../utilsFunctions/checkType';
 import { SHOP_NAME } from '../../GlobalVarible/global';
 import cn from 'classnames';
 import logo from '../../public/img/vh_logo.png';
-import { useObservable, useToggler } from '../../utilsFunctions/useHook';
-import { notifications$ } from '../notifications/notifications.view-model';
+import {
+    useJWT,
+    useJWT_2,
+    useObservable,
+    useToggler,
+} from '../../utilsFunctions/useHook';
 import Link from 'next/link';
 import { DropDown } from '../ui-kit/button/dropDown/dropDown';
 
 import css from './header.module.css';
 import { HeaderPopup } from './header-popup';
 import { Theme } from '../../type.store';
+import { useRouter } from 'next/router';
 
 type RadioButtonProps = {
     children: ReactNode;
@@ -46,15 +51,14 @@ RadioButton.defaultProps = {
 export const Header = () => {
     const [popupState, setPopupState] = useToggler();
     const router = useCurrentPathname();
-    const isActiveBasket = router == 'basket';
+
+    const isActiveBasket = router === 'basket';
     const isActiveFavorites = router == 'favorites';
     const isActiveProfile =
         useHasRoute('profile') && (isActiveFavorites || isActiveBasket)
             ? false
             : // eslint-disable-next-line react-hooks/rules-of-hooks
               useHasRoute('profile');
-
-    const notifications = useObservable<Array<string>>(notifications$) ?? [];
 
     return (
         <>
@@ -112,7 +116,7 @@ export const Header = () => {
                     </div>
                 </div>
                 <div className={css['button-group']}>
-                    <Link href={'/profile/favorites'}>
+                    <Link href={'/profile/favorites/'}>
                         <div>
                             <RadioButton isActive={isActiveFavorites}>
                                 <i className="fa-regular fa-heart fa-xl"></i>
@@ -129,10 +133,7 @@ export const Header = () => {
 
                     <Link href={'/profile/basket/'}>
                         <div>
-                            <RadioButton
-                                isActive={isActiveBasket}
-                                count={notifications.length}
-                            >
+                            <RadioButton isActive={isActiveBasket}>
                                 <i className="fa-solid fa-store fa-xl"></i>
                             </RadioButton>
                         </div>

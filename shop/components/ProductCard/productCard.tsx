@@ -10,6 +10,8 @@ import { RadioButton } from '../header/header';
 import {
     addProductToFavorite,
     addToBasket,
+    decBasket,
+    incBasket,
 } from '../../utilsFunctions/GetFromAPI';
 
 type ProductCard = {
@@ -56,26 +58,35 @@ export const ProductCard = (props: ProductCard) => {
 
     const router = useRouter();
 
+    const incProduct = () => {
+        jwt && incBasket(id, jwt, () => setCountToAdd((c) => c + 1));
+    };
+
+    const decProduct = () => {
+        jwt &&
+            decBasket(id, jwt, () => setCountToAdd((c) => disableNegative(c)));
+    };
+
     const basket = (
         <div className={css.wrap_basket}>
             {newStatus}
             <img
                 src={img}
                 alt="tovar"
-                style={{ width: 145, height: 185 }}
+                style={{
+                    maxWidth: maxWidth,
+                    height,
+                }}
                 className={css.img}
             />
             <div className={css.price_basket}>{price} ₽</div>
             <p className={css.description_basket}>{description}</p>
             <div className={css.btnGroup}>
-                <Button isSmall onClick={() => setCountToAdd((c) => c + 1)}>
+                <Button isSmall onClick={incProduct}>
                     +
                 </Button>
                 <span className={css.countToAdd}>{countToAdd}</span>
-                <Button
-                    isSmall
-                    onClick={() => setCountToAdd((c) => disableNegative(c))}
-                >
+                <Button isSmall onClick={decProduct}>
                     -
                 </Button>
             </div>

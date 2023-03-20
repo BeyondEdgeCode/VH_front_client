@@ -1,11 +1,12 @@
-import css from './header-popup.module.css'
-import cn from 'classnames'
-import Link from 'next/link'
+import css from './header-popup.module.css';
+import cn from 'classnames';
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
 
 type HeaderPopupProps = {
-    isOpen: boolean
-    onClose: () => void
-}
+    isOpen: boolean;
+    onClose: () => void;
+};
 
 export const HeaderPopup = ({ isOpen, onClose }: HeaderPopupProps) => {
     return (
@@ -19,7 +20,7 @@ export const HeaderPopup = ({ isOpen, onClose }: HeaderPopupProps) => {
                 ✖
             </span>
             <div className={css.profilLinks}>
-                <Link href={'/profile/favorites'}>
+                <Link href={'/profile/favorites/'}>
                     <span>Избранное</span>
                 </Link>
                 <Link href={'/profile/'}>
@@ -30,5 +31,5 @@ export const HeaderPopup = ({ isOpen, onClose }: HeaderPopupProps) => {
                 </Link>
             </div>
         </aside>
-    )
-}
+    );
+};

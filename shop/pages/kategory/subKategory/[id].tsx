@@ -102,9 +102,6 @@ const mapProductsFromAPI = (data: Array<Product>): Array<ReactNode> => {
             isNew={false}
             img={el.image_link}
             key={el.image_link}
-            // onClick={(): void => {
-            //     console.log(el.image_link);
-            // }}
         />
     ));
 };

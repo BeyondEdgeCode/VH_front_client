@@ -14,6 +14,9 @@ const GET_SUB_PRODUCTS_BY_FILTERS = `${api}/product/filters/get_products_by_subc
 const ADD_FAVORITS = `${api}/product/favourite`;
 const GET_REVIEWS = `${api}/product/reviews/`;
 const ADD_TO_BASKET = `${api}/basket`; // post / get
+const INC_BASKET = `${api}/basket/inc`;
+const DEC_BASKET = `${api}/basket/dec`;
+const SHOPS = `${api}/shop/get`;
 
 export const API = {
     base: api,
@@ -33,4 +36,7 @@ export const API = {
     getReviews: GET_REVIEWS,
     addToBasket: ADD_TO_BASKET,
     getBasket: ADD_TO_BASKET,
+    incBasket: INC_BASKET,
+    decBasket: DEC_BASKET,
+    getSops: SHOPS,
 };

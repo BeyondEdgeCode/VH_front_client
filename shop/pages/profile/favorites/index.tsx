@@ -1,13 +1,15 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { KategoryScrean } from '../../components/kategory/kategoryScrean';
-import { LoyoutProfile } from '../../components/layout/loyoutProfile';
-import { ProductCard } from '../../components/ProductCard/productCard';
-import { setNewCategoryState } from '../../components/ui-kit/button/dropDown/category.store';
-import { HomeProps, Product } from '../../type.store';
-import { getCategory, getFavorite } from '../../utilsFunctions/GetFromAPI';
-import { useJWT } from '../../utilsFunctions/useHook';
+import { KategoryScrean } from '../../../components/kategory/kategoryScrean';
+import { LoyoutProfile } from '../../../components/layout/loyoutProfile';
+import { ProductCard } from '../../../components/ProductCard/productCard';
+import { setNewCategoryState } from '../../../components/ui-kit/button/dropDown/category.store';
+import { HomeProps, Product } from '../../../type.store';
+import { getCategory, getFavorite } from '../../../utilsFunctions/GetFromAPI';
+import { useJWT_2 } from '../../../utilsFunctions/useHook';
 
-interface FavoritesProps extends HomeProps {}
+interface FavoritesProps extends HomeProps {
+    favorites: Array<{ id: number; product: Product }>;
+}
 
 const mapProductsFromAPI = (
     data: Array<{ id: number; product: Product }>
@@ -28,23 +30,28 @@ const mapProductsFromAPI = (
 };
 
 const Favorites = ({ category }: FavoritesProps) => {
-    setNewCategoryState(category);
+    const [isLoading, setIsLoading] = useState(true);
     const [favorites, setFavorites] = useState<
         Array<{ id: number; product: Product }>
     >([]);
+    const jwt = useJWT_2();
+
+    setNewCategoryState(category);
 
     useEffect(() => {
-        //@ts-ignore
-        const favorite = getFavorite(localStorage.getItem('JWT')).then((e) =>
-            setFavorites(e)
-        );
-    }, []);
+        jwt &&
+            getFavorite(jwt).then((e) => {
+                setFavorites(e);
+                setIsLoading(false);
+            });
+    }, [jwt, setIsLoading]);
 
     return (
         <LoyoutProfile>
             <KategoryScrean
                 cards={mapProductsFromAPI(favorites)}
                 plug={'избранное пустое'}
+                isLoading={isLoading}
             />
         </LoyoutProfile>
     );

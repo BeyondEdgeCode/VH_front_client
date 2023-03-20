@@ -219,3 +219,31 @@ export const getBasket = async (jwt: string) => {
 
     return basket;
 };
+
+export const incBasket = async (id: number, jwt: string, cb?: () => void) => {
+    try {
+        const res = await axios.patch(API.incBasket, { id }, OPTIONS(jwt));
+        if (res.status === 200 && !!cb) {
+            cb();
+        }
+    } catch (error) {
+        errorToast('Что-то пошло не так!');
+    }
+};
+
+export const decBasket = async (id: number, jwt: string, cb?: () => void) => {
+    try {
+        const res = await axios.patch(API.decBasket, { id }, OPTIONS(jwt));
+        if (res.status === 200 && !!cb) {
+            cb();
+        }
+    } catch (error) {
+        errorToast('Что-то пошло не так!');
+    }
+};
+
+export const getShops = async () => {
+    const res = await axios.get(API.getSops);
+    const shops = await res.data;
+    return shops;
+};

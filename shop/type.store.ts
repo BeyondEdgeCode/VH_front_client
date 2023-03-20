@@ -92,4 +92,5 @@ export interface BasketData {
         };
         amount: number;
     }>;
+    total: number;
 }

@@ -1,4 +1,6 @@
 // const api = 'http://dockerbackend'
+// const api = 'http://100.115.34.49:80';
+// const api = '/api';
 const api = 'http://100.115.34.49:80';
 const GET_CATEGORY = `${api}/product/category`;
 const GET_PRODUCTS_BY_ID = `${api}/product/get_by_category?id=`;

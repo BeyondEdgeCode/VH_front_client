@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import { StatemanjsAPI, StatemanjsComputedAPI } from '@persevie/statemanjs';
 import { parseCookies, setCookie } from 'nookies';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Observable } from 'rxjs';
 import { setNewUserObserver } from '../components/stors/is-new-user.store';
 import { UserAuthKeyData$ } from '../components/stors/user-auth.store';
@@ -88,4 +89,33 @@ export const useToggler = (
     const [t, sT] = useState<boolean>(init);
     const newST = () => sT((t) => !t);
     return [t, newST, sT];
+};
+
+type UnknownVMStreams = {
+    [key: string]: Observable<unknown>;
+};
+
+export interface unknownVM<T> {
+    values: T;
+    observers: UnknownVMStreams;
+}
+export const runVM = <A>(data: unknownVM<A>): A => {
+    Object.values(data.observers).forEach((o) => {
+        useObservable(o);
+    });
+    return data.values as A;
+};
+
+export const fromProperty = <T>(
+    poperty: StatemanjsAPI<T> | StatemanjsComputedAPI<T>
+) => {
+    const [state, setStete] = useState<T>(() => poperty.get());
+
+    useEffect(() => {
+        // poperty.subscribe((p) => setStete(p));
+        poperty.subscribe(setStete);
+        return () => poperty.unsubscribeAll();
+    }, [poperty]);
+
+    return state;
 };

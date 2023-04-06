@@ -120,8 +120,9 @@ export const getProductsByFiltersAplyed = async (
         method: 'POST' as Method,
         headers: {
             'content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
         },
-        origin: API,
+        origin: API.base,
     };
     const res = await axios.post<Array<Product>>(
         !isSub
@@ -147,8 +148,9 @@ const OPTIONS = (jwt?: string) => ({
     headers: {
         'content-type': 'application/json',
         Authorization: 'Bearer ' + jwt,
+        'Access-Control-Allow-Origin': '*',
     },
-    origin: API,
+    origin: API.base,
 });
 
 export const addProductToFavorite = async (id: number, jwt?: string) => {
@@ -223,8 +225,16 @@ export const getBasket = async (jwt: string) => {
 export const incBasket = async (id: number, jwt: string, cb?: () => void) => {
     try {
         const res = await axios.patch(API.incBasket, { id }, OPTIONS(jwt));
-        if (res.status === 200 && !!cb) {
-            cb();
+        switch (res.data.status) {
+            case 200:
+                cb && cb();
+                successToast('Количество товара изменилось');
+                break;
+            case 400:
+                errorToast('Товара неосталось на складе');
+                break;
+            default:
+                break;
         }
     } catch (error) {
         errorToast('Что-то пошло не так!');

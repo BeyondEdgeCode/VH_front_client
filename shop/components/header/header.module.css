@@ -6,7 +6,9 @@
 }
 
 .logo-text {
-    font-family: 'AmaticSC-Bold';
+    font-family: 'AmaticSC-Bold', -apple-system, BlinkMacSystemFont, Segoe UI,
+        Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+        sans-serif;
     font-size: 64px;
 }
 

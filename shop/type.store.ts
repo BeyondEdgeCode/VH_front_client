@@ -82,7 +82,6 @@ export interface BasketData {
         shop_id: number;
     }>;
     products: Array<{
-        id: number;
         product: {
             avg_stars: number;
             id: number;

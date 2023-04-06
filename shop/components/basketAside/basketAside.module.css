@@ -13,6 +13,8 @@
     display: flex;
     flex-direction: column;
     min-width: 271px;
+    margin-top: 40px;
+    margin-left: 64px;
 }
 
 .button {

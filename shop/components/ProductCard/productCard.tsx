@@ -2,8 +2,12 @@
 import { isBasket } from '../../utilsFunctions/routerUtils';
 import { getLocalStorage } from '../../utilsFunctions/useHook';
 import css from './product-card.module.css';
-import { useCallback, useState } from 'react';
-import { disableNegative, errorToast } from '../../utilsFunctions/utils';
+import { useCallback, useEffect, useState } from 'react';
+import {
+    disableNegative,
+    errorToast,
+    successToast,
+} from '../../utilsFunctions/utils';
 import { Button } from '../ui-kit/button/button';
 import { useRouter } from 'next/router';
 import { RadioButton } from '../header/header';
@@ -13,6 +17,7 @@ import {
     decBasket,
     incBasket,
 } from '../../utilsFunctions/GetFromAPI';
+import cn from 'classnames';
 
 type ProductCard = {
     id: number;
@@ -24,6 +29,9 @@ type ProductCard = {
     hasSale?: boolean;
     isNew?: boolean;
     img: string;
+    isAvailible?: boolean;
+    incCb?: (id: number, newCount: number) => void;
+    decCb?: (id: number, newCount: number) => void;
 };
 
 export const ProductCard = (props: ProductCard) => {
@@ -37,6 +45,9 @@ export const ProductCard = (props: ProductCard) => {
         isNew,
         img,
         id,
+        isAvailible,
+        incCb,
+        decCb,
     } = props;
 
     const [countToAdd, setCountToAdd] = useState(count ?? 0);
@@ -59,13 +70,33 @@ export const ProductCard = (props: ProductCard) => {
     const router = useRouter();
 
     const incProduct = () => {
-        jwt && incBasket(id, jwt, () => setCountToAdd((c) => c + 1));
+        jwt &&
+            incBasket(id, jwt, () => {
+                setCountToAdd((c) => c + 1);
+                if (incCb) {
+                    incCb(id, countToAdd + 1);
+                }
+            });
     };
 
     const decProduct = () => {
         jwt &&
-            decBasket(id, jwt, () => setCountToAdd((c) => disableNegative(c)));
+            decBasket(id, jwt, () => {
+                setCountToAdd((c) => disableNegative(c));
+                if (decCb) {
+                    decCb(id, countToAdd - 1);
+                }
+            });
+        successToast('Количество товара изменилось');
     };
+
+    const onClick = useCallback(() => {
+        if (jwt) {
+            addToBasket(id, jwt);
+        } else {
+            errorToast('Необходимо авторизоваться');
+        }
+    }, [id, jwt]);
 
     const basket = (
         <div className={css.wrap_basket}>
@@ -77,29 +108,42 @@ export const ProductCard = (props: ProductCard) => {
                     maxWidth: maxWidth,
                     height,
                 }}
-                className={css.img}
+                className={cn(css.img, {
+                    [css.img_notAvailible]: !isAvailible,
+                    [css.img_basket]: true,
+                })}
             />
-            <div className={css.price_basket}>{price} ₽</div>
-            <p className={css.description_basket}>{description}</p>
-            <div className={css.btnGroup}>
-                <Button isSmall onClick={incProduct}>
-                    +
-                </Button>
-                <span className={css.countToAdd}>{countToAdd}</span>
-                <Button isSmall onClick={decProduct}>
-                    -
-                </Button>
+            <div className={css.description_basket_wrap}>
+                <p className={css.description_basket}>{description}</p>
+                {!isAvailible && (
+                    <p className={css.description_basket_notAvailible}>
+                        Товар недоступен в магазине
+                    </p>
+                )}
+            </div>
+            <span className={css.total_product}>{countToAdd * price} руб</span>
+            <div className={css.wrap_control}>
+                <div className={css.btnGroup}>
+                    <button
+                        className={css.btn_control}
+                        onClick={() => incProduct()}
+                    >
+                        +
+                    </button>
+                    {/* <span className={css.countToAdd}>{count}</span> */}
+                    <span className={css.countToAdd}>{countToAdd}</span>
+                    <button
+                        className={css.btn_control}
+                        onClick={() => decProduct()}
+                    >
+                        -
+                    </button>
+                </div>
+                <div className={css.price_basket}>{price} ₽ / шт</div>
             </div>
         </div>
     );
 
-    const onClick = useCallback(() => {
-        if (jwt) {
-            addToBasket(id, jwt);
-        } else {
-            errorToast('Необходимо авторизоваться');
-        }
-    }, [id, jwt]);
     const other = (
         <div style={{ maxWidth, height }} className={css.wrap}>
             {newStatus}

@@ -2,7 +2,7 @@ import css from './select-box.module.css';
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
 import { useToggler } from '../../../utilsFunctions/useHook';
-import { ArrayFromObj, getPropByValue } from '../../../utilsFunctions/utils';
+import { ArrayFromObj } from '../../../utilsFunctions/utils';
 import { SmallArrow } from '../../svg/smallArrow';
 import { CollapsedList } from '../../ui-kit/collaps-list/collaps-list';
 import { FilterValues } from '../../../type.store';
@@ -14,12 +14,14 @@ interface SelectBoxFolterProps {
     label: string; // key
     values: FilterValues;
     setState: (data: StorData) => void;
+    activeId?: number;
 }
 
 const mapToRadio = (
     values: FilterValues,
     name: string,
-    setState: (s: string) => void
+    setState: (s: string) => void,
+    activeId?: number
 ) => {
     const data = ArrayFromObj(values);
 
@@ -31,6 +33,8 @@ const mapToRadio = (
                 value={data[1][i]}
                 key={`${i}-${name}-${data[1][i]}`}
                 setValueToState={() => setState(el)}
+                id={data[0][i]}
+                activeId={activeId}
             />
         );
     });
@@ -56,7 +60,12 @@ export const SelectBoxFilter = (props: SelectBoxFolterProps) => {
             </span>
             <CollapsedList
                 isCollaps={isCollaps}
-                list={mapToRadio(props.values, props.label, setFilterState)}
+                list={mapToRadio(
+                    props.values,
+                    props.label,
+                    setFilterState,
+                    props.activeId
+                )}
             />
         </div>
     );

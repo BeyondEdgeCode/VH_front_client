@@ -6,13 +6,24 @@
     width: 100%;
     min-height: 70vh;
 }
+.wrap_kategory {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-weight: 400;
+    font-size: 36px;
+}
+
 .el__wrap {
     margin: 32px 48px;
 }
 
 .el__wrap_basket {
-    margin: 32px 48px;
+    margin: 32px 0;
     width: 100%;
+    max-width: 1200px;
 }
 
 .isEmpty {

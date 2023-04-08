@@ -6,15 +6,18 @@ import { Button } from '../ui-kit/button/button';
 import css from './basketAside.module.css';
 
 interface BasketAsideProps {
-    // total?: number;
-    // total: StatemanjsAPI<number>;
     total: StatemanjsComputedAPI<number>;
     shops: FilterValues;
     isAuth?: boolean;
     setActiveShopId: (id: number) => void;
-    // activeId: StatemanjsAPI<number>;
     activeId: number;
 }
+
+const PATMENT_OPTIONS: FilterValues = {
+    '0': 'Картой онлайн',
+    '1': 'Картой при получении',
+    '2': 'Наличными',
+};
 
 export const BasketAside = ({
     total,
@@ -24,7 +27,6 @@ export const BasketAside = ({
     activeId,
 }: BasketAsideProps) => {
     const totalVM = total ? fromProperty(total) : 0;
-    // const id = fromProperty(activeId);
 
     return isAuth ? (
         <div className={css.wrap}>
@@ -36,6 +38,14 @@ export const BasketAside = ({
                     setActiveShopId(s.specs[0]);
                 }}
                 activeId={activeId}
+            />
+
+            <SelectBoxFilter
+                values={PATMENT_OPTIONS}
+                id={'1'}
+                label={'Способ оплаты'}
+                setState={(s) => {}}
+                activeId={0}
             />
             <h3 className={css.total}>
                 Итого: <span className={css.totalPrice}>{totalVM} ₽</span>

@@ -29,7 +29,11 @@ export const KategoryScrean = ({
             return <span className={css.isEmpty}>Вы не автаризованны</span>;
         }
         if (isLoading) {
-            return <Lading />;
+            return (
+                <div className={css.loadingWrap}>
+                    <Lading />;
+                </div>
+            );
         }
         if (isEmptyState) {
             return <span className={css.isEmpty}>{plug}</span>;
@@ -47,9 +51,13 @@ export const KategoryScrean = ({
     };
 
     return (
-        <div className={css.wrap_kategory}>
+        <div
+            className={cn(css.wrap_kategory, {
+                [css.wrap_kategory_basket]: isActiveBasket,
+            })}
+        >
             <span className={css.label}>{label}</span>
-            <div className={css.wrap}>{UI()}</div>
+            {UI()}
         </div>
     );
 };

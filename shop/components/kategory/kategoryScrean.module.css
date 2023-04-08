@@ -1,4 +1,4 @@
-.wrap {
+.wrap_kategory_basket {
     display: flex;
     justify-content: flex-start;
     width: 60vw;
@@ -7,7 +7,8 @@
 }
 .wrap_kategory {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .label {
@@ -35,4 +36,13 @@
     font-weight: 700;
     font-size: 32px;
     color: rgb(51 51 51 / 28%);
+}
+
+.loadingWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 70vh;
+    margin: 0 auto;
 }

@@ -7,10 +7,12 @@ import {
 import { FilterValues } from '../../../type.store';
 import { unknownVM } from '../../../utilsFunctions/useHook';
 import { BasketData as InitBasketData } from '../../../type.store';
+import { deleteProductFromBusket } from '../../../utilsFunctions/GetFromAPI';
 
 interface newBasketVMProps {
     initShops: Array<FilterValues>;
     basket: InitBasketData;
+    setBasketState: (s: InitBasketData) => void;
 }
 
 export type AvalibleProducts = Array<{
@@ -33,11 +35,13 @@ export interface BasketData {
     basketTotal: StatemanjsComputedAPI<number>;
     incBasketTotal: (id: number, newCount: number) => void;
     decBasketTotal: (id: number, newCount: number) => void;
+    onDelete: (id: number) => void;
 }
 
 export const newBasketVM = ({
     initShops,
     basket,
+    setBasketState,
 }: newBasketVMProps): unknownVM<BasketData> => {
     const newShop = initShops.map(
         (el) =>
@@ -92,19 +96,52 @@ export const newBasketVM = ({
         const t2 = t.map((el) =>
             el.product.id === id ? { ...el, amount: newCount } : el
         );
+        const t3 = notAvailableProducts.unwrap();
+        setBasketState({
+            ...basket,
+            products: [...t2, ...t3],
+        });
 
         availableProducts.set(t2);
     };
 
     const decBasketTotal = (id: number, newCount: number) => {
         const t = availableProducts.unwrap();
-        const t2 = t.map((el) =>
-            el.product.id === id ? { ...el, amount: newCount } : el
-        );
+        const t2 = t
+            .map((el) =>
+                el.product.id === id ? { ...el, amount: newCount } : el
+            )
+            .filter((el) => el.amount !== 0);
+        const t3 = notAvailableProducts.unwrap();
+        setBasketState({
+            ...basket,
+            products: [...t2, ...t3],
+        });
+
         availableProducts.set(t2);
     };
 
-    const test = createComputedState(() => {
+    const jwt = localStorage.getItem('JWT');
+    const onDelete = (id: number) => {
+        if (jwt) {
+            deleteProductFromBusket(id, jwt);
+            setBasketState({
+                ...basket,
+                products: basket.products.filter((el) => el.product.id !== id),
+            });
+
+            const available = availableProducts
+                .unwrap()
+                .filter((el) => el.product.id !== id);
+            const notAvailable = notAvailableProducts
+                .unwrap()
+                .filter((el) => el.product.id !== id);
+            availableProducts.set(available);
+            notAvailableProducts.set(notAvailable);
+        }
+    };
+
+    const basketTotal = createComputedState(() => {
         const t = availableProducts.get();
         const t2 = t.reduce(
             (prev, cur) => prev + cur.product.price * cur.amount,
@@ -124,10 +161,10 @@ export const newBasketVM = ({
             notAvailableProducts,
             setActiveShopId,
             activeShopId,
-            // basketTotal,
-            basketTotal: test,
+            basketTotal,
             incBasketTotal,
             decBasketTotal,
+            onDelete,
         },
         observers: {},
     };

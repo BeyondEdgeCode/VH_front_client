@@ -244,8 +244,16 @@ export const incBasket = async (id: number, jwt: string, cb?: () => void) => {
 export const decBasket = async (id: number, jwt: string, cb?: () => void) => {
     try {
         const res = await axios.patch(API.decBasket, { id }, OPTIONS(jwt));
-        if (res.status === 200 && !!cb) {
-            cb();
+        switch (res.data.status) {
+            case 200:
+                cb && cb();
+                successToast('Количество товара изменилось');
+                break;
+            case 400:
+                errorToast('Товара неосталось на складе');
+                break;
+            default:
+                break;
         }
     } catch (error) {
         errorToast('Что-то пошло не так!');
@@ -256,4 +264,22 @@ export const getShops = async () => {
     const res = await axios.get(API.getSops);
     const shops = await res.data;
     return shops;
+};
+
+export const deleteProductFromBusket = async (id: number, jwt: string) => {
+    try {
+        const res = await axios.delete(API.delFromBasket + id, OPTIONS(jwt));
+        switch (res.data.status) {
+            case 200:
+                successToast('Товар Успешно удалён');
+                break;
+            case 400:
+                errorToast('Что-то пошло не так!');
+                break;
+            default:
+                break;
+        }
+    } catch (error) {
+        errorToast('Что-то пошло не так!');
+    }
 };

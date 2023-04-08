@@ -19,6 +19,7 @@ const ADD_TO_BASKET = `${api}/basket`; // post / get
 const INC_BASKET = `${api}/basket/inc`;
 const DEC_BASKET = `${api}/basket/dec`;
 const SHOPS = `${api}/shop/get`;
+const DEL_PRODUCT_BASKET = `${api}/basket/delete?id=`;
 
 export const API = {
     base: api,
@@ -41,4 +42,5 @@ export const API = {
     incBasket: INC_BASKET,
     decBasket: DEC_BASKET,
     getSops: SHOPS,
+    delFromBasket: DEL_PRODUCT_BASKET,
 };

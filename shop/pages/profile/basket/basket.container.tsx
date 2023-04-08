@@ -15,12 +15,14 @@ interface BasketContainerProps {
     jwt: string | null;
     basket: InitBasketData;
     isLoading: boolean;
+    setBasketState: (s: InitBasketData) => void;
 }
 
 const mapBasketCards = (
     availableProducts: AvalibleProducts,
     inc?: (id: number, newCount: number) => void,
-    dec?: (id: number, newCount: number) => void
+    dec?: (id: number, newCount: number) => void,
+    onDelete?: (id: number) => void
 ) =>
     availableProducts
         ? availableProducts.map(({ product, amount }) => (
@@ -36,11 +38,15 @@ const mapBasketCards = (
                   isAvailible={true}
                   incCb={inc}
                   decCb={dec}
+                  onDelete={onDelete}
               />
           ))
         : [<></>];
 
-const mapBasketCardsNotAvaileble = (availableProducts: AvalibleProducts) =>
+const mapBasketCardsNotAvaileble = (
+    availableProducts: AvalibleProducts,
+    onDelete?: (id: number) => void
+) =>
     availableProducts
         ? availableProducts.map(({ product, amount }) => (
               <ProductCard
@@ -53,6 +59,7 @@ const mapBasketCardsNotAvaileble = (availableProducts: AvalibleProducts) =>
                   id={product.id}
                   count={amount}
                   isAvailible={false}
+                  onDelete={onDelete}
               />
           ))
         : [<></>];
@@ -68,8 +75,9 @@ interface BasketComponent {
     activeId: number;
     incBasketTotal: (id: number, newCount: number) => void;
     decBasketTotal: (id: number, newCount: number) => void;
+    onDelete: (id: number) => void;
 }
-// eslint-disable-next-line react/display-name
+
 const BasketComponent = ({
     isLoading,
     isAuth,
@@ -81,6 +89,7 @@ const BasketComponent = ({
     activeId,
     incBasketTotal,
     decBasketTotal,
+    onDelete,
 }: BasketComponent) => {
     return (
         <div className={css.wrap}>
@@ -88,8 +97,11 @@ const BasketComponent = ({
                 cards={mapBasketCards(
                     availableProducts,
                     incBasketTotal,
-                    decBasketTotal
-                ).concat(mapBasketCardsNotAvaileble(notAvailableProducts))}
+                    decBasketTotal,
+                    onDelete
+                ).concat(
+                    mapBasketCardsNotAvaileble(notAvailableProducts, onDelete)
+                )}
                 isLoading={isLoading}
                 isAuth={!isAuth}
                 label={'Корзина'}
@@ -105,8 +117,16 @@ const BasketComponent = ({
     );
 };
 export const BasketContainer = memo(
-    ({ shops, basket, jwt, isLoading }: BasketContainerProps) => {
-        const vm = runVM<BasketData>(newBasketVM({ initShops: shops, basket }));
+    ({
+        shops,
+        basket,
+        jwt,
+        isLoading,
+        setBasketState,
+    }: BasketContainerProps) => {
+        const vm = runVM<BasketData>(
+            newBasketVM({ initShops: shops, basket, setBasketState })
+        );
         const products = fromProperty(vm.availableProducts);
         const activeShopId = fromProperty(vm.activeShopId);
         const notAvailableProducts = fromProperty(vm.notAvailableProducts);
@@ -124,6 +144,7 @@ export const BasketContainer = memo(
                 vm.incBasketTotal(id, newCount),
             decBasketTotal: (id: number, newCount: number) =>
                 vm.decBasketTotal(id, newCount),
+            onDelete: vm.onDelete,
         });
     }
 );

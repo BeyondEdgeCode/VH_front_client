@@ -17,7 +17,7 @@ export const dinamicStore = <A>(s: A) => {
 };
 
 export const disableNegative = (e: number) => {
-    if (e > 0 && e - 1 != -1) {
+    if (e > 0 && e - 1 != 0) {
         return e - 1;
     } else {
         return e;

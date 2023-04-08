@@ -39,6 +39,7 @@ const Basket = ({ category, shops }: BasketProps) => {
                     jwt={jwt}
                     basket={basket}
                     isLoading={isLoading}
+                    setBasketState={setBasket}
                 />
             ) : (
                 <div className={css.wrap_loader}>

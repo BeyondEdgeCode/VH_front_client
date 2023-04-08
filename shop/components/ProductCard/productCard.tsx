@@ -32,6 +32,7 @@ type ProductCard = {
     isAvailible?: boolean;
     incCb?: (id: number, newCount: number) => void;
     decCb?: (id: number, newCount: number) => void;
+    onDelete?: (id: number) => void;
 };
 
 export const ProductCard = (props: ProductCard) => {
@@ -48,6 +49,7 @@ export const ProductCard = (props: ProductCard) => {
         isAvailible,
         incCb,
         decCb,
+        onDelete,
     } = props;
 
     const [countToAdd, setCountToAdd] = useState(count ?? 0);
@@ -87,7 +89,6 @@ export const ProductCard = (props: ProductCard) => {
                     decCb(id, countToAdd - 1);
                 }
             });
-        successToast('Количество товара изменилось');
     };
 
     const onClick = useCallback(() => {
@@ -101,18 +102,31 @@ export const ProductCard = (props: ProductCard) => {
     const basket = (
         <div className={css.wrap_basket}>
             {newStatus}
-            <img
-                src={img}
-                alt="tovar"
+            <div
                 style={{
                     maxWidth: maxWidth,
-                    height,
                 }}
-                className={cn(css.img, {
-                    [css.img_notAvailible]: !isAvailible,
-                    [css.img_basket]: true,
-                })}
-            />
+                className={css.img_basket_wrap}
+            >
+                <img
+                    src={img}
+                    alt="tovar"
+                    style={{
+                        maxWidth: maxWidth,
+                        height,
+                    }}
+                    className={cn(css.img, {
+                        [css.img_notAvailible]: !isAvailible,
+                        [css.img_basket]: true,
+                    })}
+                />
+                <span
+                    className={css.delete_label}
+                    onClick={() => onDelete && onDelete(id)}
+                >
+                    Удалить
+                </span>
+            </div>
             <div className={css.description_basket_wrap}>
                 <p className={css.description_basket}>{description}</p>
                 {!isAvailible && (

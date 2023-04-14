@@ -12,3 +12,4 @@ export const useHasRoute = (r: string) => {
 };
 
 export const isBasket = () => useRouter().asPath.includes('basket');
+export const isFavorites = () => useRouter().asPath.includes('favorites');

@@ -148,7 +148,6 @@ const OPTIONS = (jwt?: string) => ({
     headers: {
         'content-type': 'application/json',
         Authorization: 'Bearer ' + jwt,
-        'Access-Control-Allow-Origin': '*',
     },
     origin: API.base,
 });
@@ -167,6 +166,26 @@ export const addProductToFavorite = async (id: number, jwt?: string) => {
                 break;
             case 400:
                 errorToast('Уже в избранном!');
+                break;
+            default:
+                errorToast('Что-то пошло не так!');
+                break;
+        }
+    } catch (error) {
+        errorToast('Что-то пошло не так!');
+    }
+};
+
+export const remoweProductFromFavorite = async (id: number, jwt?: string) => {
+    try {
+        const res = await axios.delete(
+            API.removeProductFavorite + id,
+            OPTIONS(jwt)
+        );
+
+        switch (res.data.status) {
+            case 200:
+                successToast(res.data.msg);
                 break;
             default:
                 errorToast('Что-то пошло не так!');

@@ -12,11 +12,12 @@ interface FavoritesProps extends HomeProps {
 }
 
 const mapProductsFromAPI = (
-    data: Array<{ id: number; product: Product }>
+    data: Array<{ id: number; product: Product }>,
+    onDelite: Function
 ): Array<ReactNode> => {
     return data.map((el) => (
         <ProductCard
-            id={el.id}
+            id={el.product.id}
             maxWidth={225}
             height={400}
             description={el.product.title}
@@ -25,6 +26,7 @@ const mapProductsFromAPI = (
             isNew={false}
             img={el.product.image_link}
             key={el.id}
+            onDelete={onDelite}
         />
     ));
 };
@@ -49,7 +51,7 @@ const Favorites = ({ category }: FavoritesProps) => {
     return (
         <LoyoutProfile>
             <KategoryScrean
-                cards={mapProductsFromAPI(favorites)}
+                cards={mapProductsFromAPI(favorites, setFavorites)}
                 plug={'избранное пустое'}
                 isLoading={isLoading}
             />

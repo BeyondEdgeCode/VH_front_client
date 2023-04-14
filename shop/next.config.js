@@ -9,8 +9,6 @@ const securityHeaders = [
 const nextConfig = {
     reactStrictMode: true,
     eslint: {
-        // Warning: This allows production builds to successfully complete even if
-        // your project has ESLint errors.
         ignoreDuringBuilds: true,
     },
     typescript: {
@@ -22,28 +20,15 @@ const nextConfig = {
     images: {
         domains: ['storage.yandexcloud.net'],
     },
-    // headers: {
-    //     key: 'Referrer-Policy',
-    //     value: 'unsafe-url',
-    // },
-    async headers() {
-        return [
-            {
-                // Apply these headers to all routes in your application.
-                source: '/:path*',
-                headers: securityHeaders,
-            },
-        ];
-    },
-    // async rewrites() {
+    // async headers() {
     //     return [
     //         {
-    //             source: '/api/:path*',
-    //             destination: 'http://100.115.34.49/:path*',
+    //             // Apply these headers to all routes in your application.
+    //             source: '/:path*',
+    //             headers: securityHeaders,
     //         },
     //     ];
     // },
 };
-//100.115.34.49/:path*
 
 module.exports = nextConfig;

@@ -42,16 +42,17 @@ const filtersFromAPI = (filters: Array<ProductFilterWithStore>) => {
                         key={f.id}
                     />
                 );
-            case 'selectbox':
-                return (
-                    <SelectBoxFilter
-                        id={f.id}
-                        key={f.id}
-                        label={f.key}
-                        values={f.values}
-                        setState={f.setterStore}
-                    />
-                );
+            // case 'selectbox':
+            //     return (
+            //         <SelectBoxFilter
+            //             id={f.id}
+            //             key={f.id}
+            //             label={f.key}
+            //             values={f.values}
+            //             setState={f.setterStore}
+
+            //         />
+            //     );
             case 'range':
                 return (
                     <Price
@@ -72,6 +73,8 @@ const filtersFromAPI = (filters: Array<ProductFilterWithStore>) => {
                     />
                 );
             default:
+                console.log(f);
+
                 console.log(new Error('FUCK'));
                 break;
         }

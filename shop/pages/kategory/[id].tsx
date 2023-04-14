@@ -74,6 +74,7 @@ const Kategory = ({
             <FilterCollectorContainer
                 filters={[TOGL_FILTER, ...filters]}
                 category_id={category_id}
+                isSub={false}
             />
             <KategoryScrean cards={cards} />
         </Layout>

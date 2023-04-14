@@ -82,11 +82,13 @@ export const newFilterCollectorVM = ({
             data = { ...data, max };
         }
 
-        if (isSub) {
+        if (!isSub) {
             const products = await getProductsByFiltersAplyed({
                 ...data,
                 category_id,
             });
+            console.log(category_id, 'category_id');
+
             setNewKategoryProduct(products);
         } else {
             const products = await getProductsByFiltersAplyed(

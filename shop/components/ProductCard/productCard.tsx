@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { isBasket } from '../../utilsFunctions/routerUtils';
+import { isBasket, isFavorites } from '../../utilsFunctions/routerUtils';
 import { getLocalStorage } from '../../utilsFunctions/useHook';
 import css from './product-card.module.css';
 import { useCallback, useEffect, useState } from 'react';
@@ -16,8 +16,10 @@ import {
     addToBasket,
     decBasket,
     incBasket,
+    remoweProductFromFavorite,
 } from '../../utilsFunctions/GetFromAPI';
 import cn from 'classnames';
+import { Product } from '../../type.store';
 
 type ProductCard = {
     id: number;
@@ -25,14 +27,14 @@ type ProductCard = {
     height: number;
     description: string;
     price: number;
-    count?: number;
-    hasSale?: boolean;
-    isNew?: boolean;
     img: string;
+    isNew?: boolean;
+    hasSale?: boolean;
     isAvailible?: boolean;
+    count?: number;
     incCb?: (id: number, newCount: number) => void;
     decCb?: (id: number, newCount: number) => void;
-    onDelete?: (id: number) => void;
+    onDelete?: Function;
 };
 
 export const ProductCard = (props: ProductCard) => {
@@ -53,13 +55,23 @@ export const ProductCard = (props: ProductCard) => {
     } = props;
 
     const [countToAdd, setCountToAdd] = useState(count ?? 0);
+    const isFavoritePage = isFavorites();
 
     const jwt = getLocalStorage('JWT');
     const addFavorits = () => {
         if (!jwt) {
             errorToast('Необходимо авторизоваться');
         } else {
-            addProductToFavorite(id, jwt);
+            if (isFavoritePage) {
+                const isSuccess = remoweProductFromFavorite(id, jwt);
+                !!isSuccess &&
+                    !!onDelete &&
+                    onDelete((s: Array<{ id: number; product: Product }>) =>
+                        s.filter((data) => data.product.id !== id)
+                    );
+            } else {
+                addProductToFavorite(id, jwt);
+            }
         }
     };
 

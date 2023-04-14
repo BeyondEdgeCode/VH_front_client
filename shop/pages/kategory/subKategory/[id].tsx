@@ -11,85 +11,13 @@ import { setNewCategoryState } from '../../../components/ui-kit/button/dropDown/
 import { KategoryScrean } from '../../../components/kategory/kategoryScrean';
 import { FilterCollectorContainer } from '../../../components/filters/filter-collector/filter-collector.container';
 
-const filterTogle = {
-    type: 'togle',
-    value: [
-        {
-            value: 'Все товары',
-            state: true,
-        },
-        {
-            value: 'В наличии',
-            state: false,
-        },
-    ],
-};
-
-const priceSeparation = {
-    type: 'price',
-    value: [
-        {
-            value: 'от',
-            state: 0,
-        },
-        {
-            value: 'до',
-            state: null,
-        },
-    ],
-};
-
-const selectboxFilter = {
-    type: 'selectbox',
-    label: 'Срок доставки',
-    value: [
-        {
-            value: 'Сегодня или завтра',
-            state: true,
-        },
-        {
-            value: 'До 5 дней',
-            state: false,
-        },
-        {
-            value: 'Любая',
-            state: false,
-        },
-    ],
-};
-
-const checkBoxFilter = {
-    type: 'checkbox',
-    label: 'Объем',
-    value: [
-        {
-            value: '10ml',
-            state: false,
-        },
-        {
-            value: '20ml',
-            state: false,
-        },
-        {
-            value: '30ml',
-            state: false,
-        },
-        {
-            value: '40ml',
-            state: false,
-        },
-    ],
-};
-
-const filters = [filterTogle, priceSeparation, selectboxFilter, checkBoxFilter];
-
 interface KategoryProps extends HomeProps {
     products: Array<Product>;
     filters: Array<ProductFilter>;
     category_id: number;
 }
 
-// set description when it was
+// set description when it was-
 const mapProductsFromAPI = (data: Array<Product>): Array<ReactNode> => {
     return data.map((el) => (
         <ProductCard

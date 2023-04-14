@@ -1,7 +1,5 @@
-// const api = 'http://dockerbackend'
+const api = 'http://dockerbackend';
 // const api = 'http://100.115.34.49:80';
-// const api = '/api';
-const api = 'http://100.115.34.49:80';
 const GET_CATEGORY = `${api}/product/category`;
 const GET_PRODUCTS_BY_ID = `${api}/product/get_by_category?id=`;
 const GET_MAIN_SWIPER = `${api}/ic/get_active`;
@@ -20,6 +18,7 @@ const INC_BASKET = `${api}/basket/inc`;
 const DEC_BASKET = `${api}/basket/dec`;
 const SHOPS = `${api}/shop/get`;
 const DEL_PRODUCT_BASKET = `${api}/basket/delete?id=`;
+const DEL_PRODUCT_FAVORITE = `${api}/product/favourite?id=`;
 
 export const API = {
     base: api,
@@ -43,4 +42,5 @@ export const API = {
     decBasket: DEC_BASKET,
     getSops: SHOPS,
     delFromBasket: DEL_PRODUCT_BASKET,
+    removeProductFavorite: DEL_PRODUCT_FAVORITE,
 };

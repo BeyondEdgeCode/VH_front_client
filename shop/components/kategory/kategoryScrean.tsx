@@ -31,7 +31,7 @@ export const KategoryScrean = ({
         if (isLoading) {
             return (
                 <div className={css.loadingWrap}>
-                    <Lading />;
+                    <Lading />
                 </div>
             );
         }

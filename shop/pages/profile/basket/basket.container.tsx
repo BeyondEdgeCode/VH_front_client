@@ -5,7 +5,7 @@ import { BasketData as InitBasketData } from '../../../type.store';
 import { FilterValues } from '../../../type.store';
 import { fromProperty, runVM } from '../../../utilsFunctions/useHook';
 import { AvalibleProducts, BasketData, newBasketVM } from './basket.view-model';
-import { StatemanjsComputedAPI } from '@persevie/statemanjs';
+import { StatemanjsAPI, StatemanjsComputedAPI } from '@persevie/statemanjs';
 import { mapBasketCards, mapBasketCardsNotAvaileble } from './basket.utils';
 
 import css from './basket.module.css';
@@ -22,6 +22,11 @@ interface BasketComponent {
     incBasketTotal: (id: number, newCount: number) => void;
     decBasketTotal: (id: number, newCount: number) => void;
     onDelete: (id: number) => void;
+    activePaymentId: number;
+    setActivePaymentId: (id: number) => void;
+    promoOnChange: (promo: string) => void;
+    applyPromo: () => void;
+    totalAfterPromo: StatemanjsAPI<number | null>;
 }
 
 const BasketComponent = ({
@@ -36,6 +41,11 @@ const BasketComponent = ({
     incBasketTotal,
     decBasketTotal,
     onDelete,
+    activePaymentId,
+    setActivePaymentId,
+    promoOnChange,
+    applyPromo,
+    totalAfterPromo,
 }: BasketComponent) => {
     return (
         <div className={css.wrap}>
@@ -58,6 +68,11 @@ const BasketComponent = ({
                 shops={shops}
                 setActiveShopId={setActiveShopId}
                 activeId={activeId}
+                activePaymentId={activePaymentId}
+                setActivePaymentId={setActivePaymentId}
+                promoOnChange={promoOnChange}
+                applyPromo={applyPromo}
+                totalAfterPromo={totalAfterPromo}
             />
         </div>
     );
@@ -84,6 +99,7 @@ export const BasketContainer = memo(
         );
         const products = fromProperty(vm.availableProducts);
         const activeShopId = fromProperty(vm.activeShopId);
+        const activePaymentId = fromProperty(vm.activePaymentId);
         const notAvailableProducts = fromProperty(vm.notAvailableProducts);
 
         return React.createElement(BasketComponent, {
@@ -100,6 +116,11 @@ export const BasketContainer = memo(
             decBasketTotal: (id: number, newCount: number) =>
                 vm.decBasketTotal(id, newCount),
             onDelete: vm.onDelete,
+            activePaymentId,
+            setActivePaymentId: vm.setActivePaymentId,
+            promoOnChange: vm.promoOnChange,
+            applyPromo: vm.applyPromo,
+            totalAfterPromo: vm.totalAfterPromo,
         });
     }
 );

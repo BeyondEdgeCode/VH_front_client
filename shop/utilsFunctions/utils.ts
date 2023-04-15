@@ -1,4 +1,3 @@
-import test from 'node:test';
 import { toast } from 'react-toastify';
 import { BehaviorSubject } from 'rxjs';
 
@@ -28,8 +27,6 @@ export const hasInStore = (key: string): boolean => !!localStorage.getItem(key);
 
 export const getFromStore = (key: string) =>
     JSON.parse(`${localStorage.getItem(key)}`);
-
-// export const getCategoryWithCash = async () => hasInStore('category') ? getFromStore('category') : await getCategory();
 
 export const ArrayFromObj = <O extends object>(o: O) => {
     return [Object.keys(o), Object.values(o)];
@@ -65,3 +62,17 @@ export const errorToast = (text: string) =>
         progress: undefined,
         theme: 'dark',
     });
+
+interface Response {
+    status: number;
+    msg: string;
+}
+
+export const isResponse = <A extends any>(
+    data: A | Response
+): data is Response => {
+    return (
+        (data as Response).status !== undefined &&
+        (data as Response).msg !== undefined
+    );
+};

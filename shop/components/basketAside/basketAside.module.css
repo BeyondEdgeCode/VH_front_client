@@ -31,3 +31,33 @@
     line-height: 19px;
     margin-top: 24px;
 }
+
+.promo_wrap {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 24px auto;
+    font-size: 16px;
+}
+
+.promo_input {
+    padding: 13px;
+    height: 55px;
+    background: var(--white);
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    margin-top: 12px;
+    outline: none;
+    font-size: 18px;
+    color: var(--grey-fonts);
+}
+
+.promo_label {
+    font-family: 'Inter-Regular';
+    font-size: 17px;
+}
+
+.promoApply {
+    text-decoration: line-through;
+    margin-right: 16px;
+}

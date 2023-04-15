@@ -93,3 +93,11 @@ export interface BasketData {
     }>;
     total: number;
 }
+
+export type ResponsePromo = {
+    promocode: string;
+    intersection_sum: number;
+    intersection: Array<number>;
+    type: 'fixed' | 'percent';
+    value: number;
+};

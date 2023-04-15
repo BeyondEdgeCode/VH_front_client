@@ -8,10 +8,11 @@ import {
     MainSwiper,
     Product,
     ProductFilter,
+    ResponsePromo,
     Reviews,
 } from '../type.store';
 import { setLocalStorage } from './useHook';
-import { errorToast, successToast } from './utils';
+import { errorToast, isResponse, successToast } from './utils';
 
 export const getCategory = async () => {
     const res = await axios.get<Array<Category>>(API.getCategory);
@@ -186,10 +187,10 @@ export const remoweProductFromFavorite = async (id: number, jwt?: string) => {
         switch (res.data.status) {
             case 200:
                 successToast(res.data.msg);
-                break;
+                return true;
             default:
                 errorToast('Что-то пошло не так!');
-                break;
+                return false;
         }
     } catch (error) {
         errorToast('Что-то пошло не так!');
@@ -299,6 +300,26 @@ export const deleteProductFromBusket = async (id: number, jwt: string) => {
                 break;
         }
     } catch (error) {
+        errorToast('Что-то пошло не так!');
+    }
+};
+
+export const checkPromo = async (promo: string, jwt: string) => {
+    try {
+        const res = await axios.post<ResponsePromo | Response>(
+            API.promoCheck,
+            {
+                promocode: promo,
+            },
+            OPTIONS(jwt)
+        );
+
+        if (isResponse(res.data) && res.data.status === 404) {
+            errorToast('Промокод не активен');
+        }
+
+        return await res.data;
+    } catch {
         errorToast('Что-то пошло не так!');
     }
 };

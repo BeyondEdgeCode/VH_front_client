@@ -7,7 +7,11 @@ import {
 import { FilterValues } from '../../../type.store';
 import { unknownVM } from '../../../utilsFunctions/useHook';
 import { BasketData as InitBasketData } from '../../../type.store';
-import { deleteProductFromBusket } from '../../../utilsFunctions/GetFromAPI';
+import {
+    checkPromo,
+    deleteProductFromBusket,
+} from '../../../utilsFunctions/GetFromAPI';
+import { errorToast, isResponse } from '../../../utilsFunctions/utils';
 
 interface newBasketVMProps {
     initShops: Array<FilterValues>;
@@ -29,13 +33,19 @@ export type AvalibleProducts = Array<{
 export interface BasketData {
     shopAdress: FilterValues;
     setActiveShopId: (id: number) => void;
+    setActivePaymentId: (id: number) => void;
     availableProducts: StatemanjsAPI<AvalibleProducts>;
     notAvailableProducts: StatemanjsAPI<AvalibleProducts>;
     activeShopId: StatemanjsAPI<number>;
+    activePaymentId: StatemanjsAPI<number>;
     basketTotal: StatemanjsComputedAPI<number>;
+    totalAfterPromo: StatemanjsAPI<number | null>;
     incBasketTotal: (id: number, newCount: number) => void;
     decBasketTotal: (id: number, newCount: number) => void;
     onDelete: (id: number) => void;
+    promoOnChange: (promo: string) => void;
+    applyPromo: () => void;
+    promo: StatemanjsAPI<string>;
 }
 
 export const newBasketVM = ({
@@ -70,6 +80,8 @@ export const newBasketVM = ({
     );
     const notAvailableProducts = createState<AvalibleProducts>([]);
     const activeShopId = createState(0);
+    const activePaymentId = createState(0);
+    const promo = createState<string>('');
 
     const setActiveShopId = (id: number) => {
         activeShopId.set(id);
@@ -89,6 +101,11 @@ export const newBasketVM = ({
         notAvailableProducts.set(
             notAvalible.sort((a, b) => a.product.id - b.product.id)
         );
+        totalAfterPromo.set(null);
+    };
+
+    const setActivePaymentId = (id: number) => {
+        activePaymentId.set(id);
     };
 
     const incBasketTotal = (id: number, newCount: number) => {
@@ -103,6 +120,7 @@ export const newBasketVM = ({
         });
 
         availableProducts.set(t2);
+        totalAfterPromo.set(null);
     };
 
     const decBasketTotal = (id: number, newCount: number) => {
@@ -119,6 +137,7 @@ export const newBasketVM = ({
         });
 
         availableProducts.set(t2);
+        totalAfterPromo.set(null);
     };
 
     const jwt = localStorage.getItem('JWT');
@@ -138,6 +157,63 @@ export const newBasketVM = ({
                 .filter((el) => el.product.id !== id);
             availableProducts.set(available);
             notAvailableProducts.set(notAvailable);
+            totalAfterPromo.set(null);
+        }
+    };
+
+    const promoOnChange = (promoChange: string) => {
+        promo.set(promoChange);
+    };
+
+    const totalAfterPromo = createState<number | null>(null);
+
+    const applyPromo = async () => {
+        if (jwt) {
+            const promoResponce = await checkPromo(promo.unwrap(), jwt);
+            if (isResponse(promoResponce) && promoResponce.status !== 200) {
+                errorToast(promoResponce.msg);
+            } else if (promoResponce && !isResponse(promoResponce)) {
+                switch (promoResponce.type) {
+                    case 'fixed':
+                        const curBasketTotal = basketTotal.unwrap();
+                        totalAfterPromo.set(
+                            curBasketTotal - promoResponce.value
+                        );
+                        break;
+                    case 'percent':
+                        const curAvalibleProduct = availableProducts.unwrap();
+                        const percentOfScelle =
+                            (100 - promoResponce.value) / 100;
+                        const productWithScell = promoResponce.intersection;
+
+                        const newTotal = curAvalibleProduct.reduce(
+                            (prev, cur) => {
+                                console.log(prev, cur.product.id);
+
+                                if (productWithScell.includes(cur.product.id)) {
+                                    return (
+                                        // (prev +
+                                        //     cur.product.price * cur.amount) *
+                                        // percentOfScelle
+                                        prev +
+                                        cur.product.price *
+                                            cur.amount *
+                                            percentOfScelle
+                                    );
+                                } else {
+                                    return (
+                                        prev + cur.product.price * cur.amount
+                                    );
+                                }
+                            },
+                            0
+                        );
+                        totalAfterPromo.set(newTotal);
+
+                    default:
+                        break;
+                }
+            }
         }
     };
 
@@ -165,6 +241,12 @@ export const newBasketVM = ({
             incBasketTotal,
             decBasketTotal,
             onDelete,
+            activePaymentId,
+            setActivePaymentId,
+            promoOnChange,
+            applyPromo,
+            totalAfterPromo,
+            promo,
         },
         observers: {},
     };

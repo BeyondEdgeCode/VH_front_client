@@ -1,4 +1,6 @@
 import { StatemanjsAPI, StatemanjsComputedAPI } from '@persevie/statemanjs';
+import classNames from 'classnames';
+import { useEffect, useState } from 'react';
 import { FilterValues } from '../../type.store';
 import { fromProperty } from '../../utilsFunctions/useHook';
 import { SelectBoxFilter } from '../filters/select-box/select-box';
@@ -11,6 +13,11 @@ interface BasketAsideProps {
     isAuth?: boolean;
     setActiveShopId: (id: number) => void;
     activeId: number;
+    activePaymentId: number;
+    setActivePaymentId: (id: number) => void;
+    promoOnChange: (promo: string) => void;
+    applyPromo: () => void;
+    totalAfterPromo: StatemanjsAPI<number | null>;
 }
 
 const PATMENT_OPTIONS: FilterValues = {
@@ -25,8 +32,18 @@ export const BasketAside = ({
     isAuth = false,
     setActiveShopId,
     activeId,
+    activePaymentId,
+    setActivePaymentId,
+    promoOnChange,
+    applyPromo,
+    totalAfterPromo,
 }: BasketAsideProps) => {
     const totalVM = total ? fromProperty(total) : 0;
+    const promoTotal = fromProperty(totalAfterPromo);
+    const [promo, setPromo] = useState('');
+    useEffect(() => {
+        setPromo('');
+    }, [totalVM]);
 
     return isAuth ? (
         <div className={css.wrap}>
@@ -37,6 +54,7 @@ export const BasketAside = ({
                 setState={(s) => {
                     setActiveShopId(s.specs[0]);
                 }}
+                effectFunc={() => setPromo('')}
                 activeId={activeId}
             />
 
@@ -44,13 +62,41 @@ export const BasketAside = ({
                 values={PATMENT_OPTIONS}
                 id={'1'}
                 label={'Способ оплаты'}
-                setState={(s) => {}}
-                activeId={0}
+                setState={(s) => {
+                    setActivePaymentId(s.specs[0]);
+                }}
+                effectFunc={() => setPromo('')}
+                activeId={activePaymentId}
             />
             <h3 className={css.total}>
-                Итого: <span className={css.totalPrice}>{totalVM} ₽</span>
+                Итого:{' '}
+                <span
+                    className={classNames(css.totalPrice, {
+                        [css.promoApply]: promoTotal,
+                    })}
+                >
+                    {totalVM} ₽
+                </span>
+                {promoTotal && (
+                    <span className={css.totalPrice}>{promoTotal} ₽</span>
+                )}
             </h3>
             <Button>Оформить</Button>
+
+            <div className={css.promo_wrap}>
+                <span className={css.promo_label}>Использовать промокод:</span>
+                <input
+                    type="text"
+                    className={css.promo_input}
+                    placeholder={'PROMO'}
+                    value={promo}
+                    onChange={(e) => {
+                        setPromo(e.currentTarget.value);
+                        promoOnChange(e.currentTarget.value);
+                    }}
+                />
+                <Button onClick={() => applyPromo()}>Применить</Button>
+            </div>
         </div>
     ) : null;
 };

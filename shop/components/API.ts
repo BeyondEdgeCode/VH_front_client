@@ -19,6 +19,7 @@ const DEC_BASKET = `${api}/basket/dec`;
 const SHOPS = `${api}/shop/get`;
 const DEL_PRODUCT_BASKET = `${api}/basket/delete?id=`;
 const DEL_PRODUCT_FAVORITE = `${api}/product/favourite?id=`;
+const PROMO_CHEK = `${api}/promocode/check`;
 
 export const API = {
     base: api,
@@ -43,4 +44,5 @@ export const API = {
     getSops: SHOPS,
     delFromBasket: DEL_PRODUCT_BASKET,
     removeProductFavorite: DEL_PRODUCT_FAVORITE,
+    promoCheck: PROMO_CHEK,
 };

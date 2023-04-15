@@ -15,6 +15,7 @@ interface SelectBoxFolterProps {
     values: FilterValues;
     setState: (data: StorData) => void;
     activeId?: number;
+    effectFunc?: Function;
 }
 
 const mapToRadio = (
@@ -48,6 +49,11 @@ export const SelectBoxFilter = (props: SelectBoxFolterProps) => {
         filterState &&
             props.setState(newStoreData(props.id, [Number(filterState)]));
     }, [filterState, props]);
+
+    const newFilterState = (data: string) => {
+        setFilterState(data);
+        props.effectFunc && props.effectFunc();
+    };
     return (
         <div className={cn(css.wrap)}>
             <span className={cn(css.label)} onClick={setIsCollaps}>
@@ -63,7 +69,8 @@ export const SelectBoxFilter = (props: SelectBoxFolterProps) => {
                 list={mapToRadio(
                     props.values,
                     props.label,
-                    setFilterState,
+                    // setFilterState,
+                    newFilterState,
                     props.activeId
                 )}
             />

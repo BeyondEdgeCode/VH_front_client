@@ -108,7 +108,6 @@ export const newBasketVM = ({
         notAvailableProducts.set(
             notAvalible.sort((a, b) => a.product.id - b.product.id)
         );
-        // totalAfterPromo.set(null);
     };
 
     const setActivePaymentId = (id: number) => {
@@ -127,7 +126,6 @@ export const newBasketVM = ({
         });
 
         availableProducts.set(t2);
-        // totalAfterPromo.set(null);
         setTotalAfterPromo(null);
     };
 
@@ -145,7 +143,6 @@ export const newBasketVM = ({
         });
 
         availableProducts.set(t2);
-        // totalAfterPromo.set(null);
         setTotalAfterPromo(null);
     };
 
@@ -175,8 +172,6 @@ export const newBasketVM = ({
         setInitPromo(promoChange);
     };
 
-    // const totalAfterPromo = createState<number | null>(null);
-    // totalAfterPromo.subscribe(console.log);
     const applyPromo = async () => {
         if (jwt) {
             const promoResponce = await checkPromo(promo.unwrap(), jwt);
@@ -186,9 +181,6 @@ export const newBasketVM = ({
                 switch (promoResponce.type) {
                     case 'fixed':
                         const curBasketTotal = basketTotal.unwrap();
-                        // totalAfterPromo.set(
-                        //     curBasketTotal - promoResponce.value
-                        // );
                         setTotalAfterPromo(
                             curBasketTotal - promoResponce.value
                         );

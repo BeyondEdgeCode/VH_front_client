@@ -1,6 +1,10 @@
 import { StatemanjsAPI, StatemanjsComputedAPI } from '@persevie/statemanjs';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
+import {
+    setTotalAfterPromo,
+    totalAfterPromo,
+} from '../../pages/profile/basket/basket.view-model';
 import { FilterValues } from '../../type.store';
 import { fromProperty } from '../../utilsFunctions/useHook';
 import { SelectBoxFilter } from '../filters/select-box/select-box';
@@ -17,7 +21,6 @@ interface BasketAsideProps {
     setActivePaymentId: (id: number) => void;
     promoOnChange: (promo: string) => void;
     applyPromo: () => void;
-    totalAfterPromo: StatemanjsAPI<number | null>;
 }
 
 const PATMENT_OPTIONS: FilterValues = {
@@ -36,7 +39,6 @@ export const BasketAside = ({
     setActivePaymentId,
     promoOnChange,
     applyPromo,
-    totalAfterPromo,
 }: BasketAsideProps) => {
     const totalVM = total ? fromProperty(total) : 0;
     const promoTotal = fromProperty(totalAfterPromo);
@@ -54,7 +56,10 @@ export const BasketAside = ({
                 setState={(s) => {
                     setActiveShopId(s.specs[0]);
                 }}
-                effectFunc={() => setPromo('')}
+                effectFunc={() => {
+                    setPromo('');
+                    setTotalAfterPromo(null);
+                }}
                 activeId={activeId}
             />
 
@@ -65,7 +70,10 @@ export const BasketAside = ({
                 setState={(s) => {
                     setActivePaymentId(s.specs[0]);
                 }}
-                effectFunc={() => setPromo('')}
+                effectFunc={() => {
+                    setPromo('');
+                    setTotalAfterPromo(null);
+                }}
                 activeId={activePaymentId}
             />
             <h3 className={css.total}>

@@ -17,6 +17,8 @@ interface newBasketVMProps {
     initShops: Array<FilterValues>;
     basket: InitBasketData;
     setBasketState: (s: InitBasketData) => void;
+    initPromo: string;
+    setInitPromo: (s: string) => void;
 }
 
 export type AvalibleProducts = Array<{
@@ -39,7 +41,6 @@ export interface BasketData {
     activeShopId: StatemanjsAPI<number>;
     activePaymentId: StatemanjsAPI<number>;
     basketTotal: StatemanjsComputedAPI<number>;
-    totalAfterPromo: StatemanjsAPI<number | null>;
     incBasketTotal: (id: number, newCount: number) => void;
     decBasketTotal: (id: number, newCount: number) => void;
     onDelete: (id: number) => void;
@@ -48,10 +49,16 @@ export interface BasketData {
     promo: StatemanjsAPI<string>;
 }
 
+export const totalAfterPromo = createState<number | null>(null);
+export const setTotalAfterPromo = (propmo: number | null) =>
+    totalAfterPromo.set(propmo);
+
 export const newBasketVM = ({
     initShops,
     basket,
     setBasketState,
+    initPromo,
+    setInitPromo,
 }: newBasketVMProps): unknownVM<BasketData> => {
     const newShop = initShops.map(
         (el) =>
@@ -81,7 +88,7 @@ export const newBasketVM = ({
     const notAvailableProducts = createState<AvalibleProducts>([]);
     const activeShopId = createState(0);
     const activePaymentId = createState(0);
-    const promo = createState<string>('');
+    const promo = createState<string>(initPromo);
 
     const setActiveShopId = (id: number) => {
         activeShopId.set(id);
@@ -101,7 +108,7 @@ export const newBasketVM = ({
         notAvailableProducts.set(
             notAvalible.sort((a, b) => a.product.id - b.product.id)
         );
-        totalAfterPromo.set(null);
+        // totalAfterPromo.set(null);
     };
 
     const setActivePaymentId = (id: number) => {
@@ -120,7 +127,8 @@ export const newBasketVM = ({
         });
 
         availableProducts.set(t2);
-        totalAfterPromo.set(null);
+        // totalAfterPromo.set(null);
+        setTotalAfterPromo(null);
     };
 
     const decBasketTotal = (id: number, newCount: number) => {
@@ -137,7 +145,8 @@ export const newBasketVM = ({
         });
 
         availableProducts.set(t2);
-        totalAfterPromo.set(null);
+        // totalAfterPromo.set(null);
+        setTotalAfterPromo(null);
     };
 
     const jwt = localStorage.getItem('JWT');
@@ -163,10 +172,11 @@ export const newBasketVM = ({
 
     const promoOnChange = (promoChange: string) => {
         promo.set(promoChange);
+        setInitPromo(promoChange);
     };
 
-    const totalAfterPromo = createState<number | null>(null);
-
+    // const totalAfterPromo = createState<number | null>(null);
+    // totalAfterPromo.subscribe(console.log);
     const applyPromo = async () => {
         if (jwt) {
             const promoResponce = await checkPromo(promo.unwrap(), jwt);
@@ -176,9 +186,13 @@ export const newBasketVM = ({
                 switch (promoResponce.type) {
                     case 'fixed':
                         const curBasketTotal = basketTotal.unwrap();
-                        totalAfterPromo.set(
+                        // totalAfterPromo.set(
+                        //     curBasketTotal - promoResponce.value
+                        // );
+                        setTotalAfterPromo(
                             curBasketTotal - promoResponce.value
                         );
+
                         break;
                     case 'percent':
                         const curAvalibleProduct = availableProducts.unwrap();
@@ -188,13 +202,8 @@ export const newBasketVM = ({
 
                         const newTotal = curAvalibleProduct.reduce(
                             (prev, cur) => {
-                                console.log(prev, cur.product.id);
-
                                 if (productWithScell.includes(cur.product.id)) {
                                     return (
-                                        // (prev +
-                                        //     cur.product.price * cur.amount) *
-                                        // percentOfScelle
                                         prev +
                                         cur.product.price *
                                             cur.amount *
@@ -208,7 +217,7 @@ export const newBasketVM = ({
                             },
                             0
                         );
-                        totalAfterPromo.set(newTotal);
+                        setTotalAfterPromo(newTotal);
 
                     default:
                         break;
@@ -245,7 +254,6 @@ export const newBasketVM = ({
             setActivePaymentId,
             promoOnChange,
             applyPromo,
-            totalAfterPromo,
             promo,
         },
         observers: {},

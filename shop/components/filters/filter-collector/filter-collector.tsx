@@ -73,8 +73,6 @@ const filtersFromAPI = (filters: Array<ProductFilterWithStore>) => {
                     />
                 );
             default:
-                console.log(f);
-
                 console.log(new Error('FUCK'));
                 break;
         }

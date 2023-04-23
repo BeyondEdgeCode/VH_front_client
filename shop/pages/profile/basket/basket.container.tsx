@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { BasketAside } from '../../../components/basketAside/basketAside';
 import { KategoryScrean } from '../../../components/kategory/kategoryScrean';
 import { BasketData as InitBasketData } from '../../../type.store';
@@ -26,7 +26,6 @@ interface BasketComponent {
     setActivePaymentId: (id: number) => void;
     promoOnChange: (promo: string) => void;
     applyPromo: () => void;
-    totalAfterPromo: StatemanjsAPI<number | null>;
 }
 
 const BasketComponent = ({
@@ -45,7 +44,6 @@ const BasketComponent = ({
     setActivePaymentId,
     promoOnChange,
     applyPromo,
-    totalAfterPromo,
 }: BasketComponent) => {
     return (
         <div className={css.wrap}>
@@ -72,7 +70,6 @@ const BasketComponent = ({
                 setActivePaymentId={setActivePaymentId}
                 promoOnChange={promoOnChange}
                 applyPromo={applyPromo}
-                totalAfterPromo={totalAfterPromo}
             />
         </div>
     );
@@ -94,8 +91,15 @@ export const BasketContainer = memo(
         isLoading,
         setBasketState,
     }: BasketContainerProps) => {
+        const [initPromo, setInitPromo] = useState('');
         const vm = runVM<BasketData>(
-            newBasketVM({ initShops: shops, basket, setBasketState })
+            newBasketVM({
+                initShops: shops,
+                basket,
+                setBasketState,
+                initPromo,
+                setInitPromo,
+            })
         );
         const products = fromProperty(vm.availableProducts);
         const activeShopId = fromProperty(vm.activeShopId);
@@ -120,7 +124,6 @@ export const BasketContainer = memo(
             setActivePaymentId: vm.setActivePaymentId,
             promoOnChange: vm.promoOnChange,
             applyPromo: vm.applyPromo,
-            totalAfterPromo: vm.totalAfterPromo,
         });
     }
 );

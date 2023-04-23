@@ -1,6 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { isBasket, isFavorites } from '../../utilsFunctions/routerUtils';
-import { getLocalStorage } from '../../utilsFunctions/useHook';
+import {
+    fromProperty,
+    getLocalStorage,
+    useToggler,
+} from '../../utilsFunctions/useHook';
 import css from './product-card.module.css';
 import { useCallback, useEffect, useState } from 'react';
 import {
@@ -20,6 +24,7 @@ import {
 } from '../../utilsFunctions/GetFromAPI';
 import cn from 'classnames';
 import { Product } from '../../type.store';
+import { responsePromo } from '../../pages/profile/basket/basket.view-model';
 
 type ProductCard = {
     id: number;
@@ -55,7 +60,14 @@ export const ProductCard = (props: ProductCard) => {
     } = props;
 
     const [countToAdd, setCountToAdd] = useState(count ?? 0);
+    const [promoActive, setPromoActive] = useToggler();
     const isFavoritePage = isFavorites();
+
+    const responcePromo = fromProperty(responsePromo);
+
+    useEffect(() => {
+        setPromoActive();
+    }, [responcePromo]);
 
     const jwt = getLocalStorage('JWT');
     const addFavorits = () => {
@@ -147,7 +159,14 @@ export const ProductCard = (props: ProductCard) => {
                     </p>
                 )}
             </div>
-            <span className={css.total_product}>{countToAdd * price} руб</span>
+            <span
+                className={cn(css.total_product, {
+                    [css.total_product_promo]: promoActive,
+                })}
+            >
+                {countToAdd * price} руб
+            </span>
+            <PromoPrice countToAdd={countToAdd} price={price} id={id} />
             <div className={css.wrap_control}>
                 <div className={css.btnGroup}>
                     <button
@@ -156,7 +175,6 @@ export const ProductCard = (props: ProductCard) => {
                     >
                         +
                     </button>
-                    {/* <span className={css.countToAdd}>{count}</span> */}
                     <span className={css.countToAdd}>{countToAdd}</span>
                     <button
                         className={css.btn_control}
@@ -200,4 +218,30 @@ export const ProductCard = (props: ProductCard) => {
     );
 
     return isActiveBasket ? basket : other;
+};
+
+interface PromoPrice {
+    countToAdd: number;
+    price: number;
+    id: number;
+}
+
+const PromoPrice = ({ countToAdd, price, id }: PromoPrice) => {
+    const responcePromo = fromProperty(responsePromo);
+    if (responcePromo && responcePromo.intersection.includes(id)) {
+        switch (responcePromo.type) {
+            case 'percent':
+                return (
+                    <span className={css.total_promo}>
+                        {(countToAdd * price * (100 - responcePromo.value)) /
+                            100}{' '}
+                        руб
+                    </span>
+                );
+            default:
+                return null;
+        }
+    } else {
+        return null;
+    }
 };

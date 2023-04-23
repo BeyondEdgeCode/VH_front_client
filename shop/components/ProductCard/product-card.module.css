@@ -127,6 +127,19 @@
     line-height: 29px;
 }
 
+.total_product_promo {
+    text-decoration: line-through;
+    font-size: 16px;
+}
+
+.total_promo {
+    font-family: 'Inter-Regular';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+}
+
 .button {
     width: 90%;
     margin: 0 auto;

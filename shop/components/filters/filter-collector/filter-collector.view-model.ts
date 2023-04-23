@@ -87,7 +87,6 @@ export const newFilterCollectorVM = ({
                 ...data,
                 category_id,
             });
-            console.log(category_id, 'category_id');
 
             setNewKategoryProduct(products);
         } else {

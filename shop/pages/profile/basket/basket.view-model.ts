@@ -4,7 +4,7 @@ import {
     StatemanjsAPI,
     StatemanjsComputedAPI,
 } from '@persevie/statemanjs';
-import { FilterValues } from '../../../type.store';
+import { FilterValues, ResponsePromo } from '../../../type.store';
 import { unknownVM } from '../../../utilsFunctions/useHook';
 import { BasketData as InitBasketData } from '../../../type.store';
 import {
@@ -52,6 +52,10 @@ export interface BasketData {
 export const totalAfterPromo = createState<number | null>(null);
 export const setTotalAfterPromo = (propmo: number | null) =>
     totalAfterPromo.set(propmo);
+
+export const responsePromo = createState<ResponsePromo | null>(null);
+export const setResponsePromo = (data: ResponsePromo | null) =>
+    responsePromo.set(data);
 
 export const newBasketVM = ({
     initShops,
@@ -178,6 +182,7 @@ export const newBasketVM = ({
             if (isResponse(promoResponce) && promoResponce.status !== 200) {
                 errorToast(promoResponce.msg);
             } else if (promoResponce && !isResponse(promoResponce)) {
+                setResponsePromo(promoResponce);
                 switch (promoResponce.type) {
                     case 'fixed':
                         const curBasketTotal = basketTotal.unwrap();

@@ -2,6 +2,7 @@ import { StatemanjsAPI, StatemanjsComputedAPI } from '@persevie/statemanjs';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import {
+    setResponsePromo,
     setTotalAfterPromo,
     totalAfterPromo,
 } from '../../pages/profile/basket/basket.view-model';
@@ -59,6 +60,7 @@ export const BasketAside = ({
                 effectFunc={() => {
                     setPromo('');
                     setTotalAfterPromo(null);
+                    setResponsePromo(null);
                 }}
                 activeId={activeId}
             />
@@ -73,6 +75,7 @@ export const BasketAside = ({
                 effectFunc={() => {
                     setPromo('');
                     setTotalAfterPromo(null);
+                    setResponsePromo(null);
                 }}
                 activeId={activePaymentId}
             />
@@ -103,7 +106,14 @@ export const BasketAside = ({
                         promoOnChange(e.currentTarget.value);
                     }}
                 />
-                <Button onClick={() => applyPromo()}>Применить</Button>
+                <Button
+                    onClick={() => {
+                        setPromo('');
+                        applyPromo();
+                    }}
+                >
+                    Применить
+                </Button>
             </div>
         </div>
     ) : null;

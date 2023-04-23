@@ -131,6 +131,7 @@ export const newBasketVM = ({
 
         availableProducts.set(t2);
         setTotalAfterPromo(null);
+        setResponsePromo(null);
     };
 
     const decBasketTotal = (id: number, newCount: number) => {
@@ -148,6 +149,7 @@ export const newBasketVM = ({
 
         availableProducts.set(t2);
         setTotalAfterPromo(null);
+        setResponsePromo(null);
     };
 
     const jwt = localStorage.getItem('JWT');
@@ -168,6 +170,7 @@ export const newBasketVM = ({
             availableProducts.set(available);
             notAvailableProducts.set(notAvailable);
             totalAfterPromo.set(null);
+            setResponsePromo(null);
         }
     };
 

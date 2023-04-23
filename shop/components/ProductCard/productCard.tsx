@@ -63,11 +63,11 @@ export const ProductCard = (props: ProductCard) => {
     const [promoActive, setPromoActive] = useToggler();
     const isFavoritePage = isFavorites();
 
-    const responcePromo = fromProperty(responsePromo);
+    // const responcePromo = fromProperty(responsePromo);
 
-    useEffect(() => {
-        setPromoActive();
-    }, [responcePromo]);
+    // useEffect(() => {
+    //     setPromoActive();
+    // }, [responcePromo]);
 
     const jwt = getLocalStorage('JWT');
     const addFavorits = () => {
@@ -166,7 +166,12 @@ export const ProductCard = (props: ProductCard) => {
             >
                 {countToAdd * price} руб
             </span>
-            <PromoPrice countToAdd={countToAdd} price={price} id={id} />
+            <PromoPrice
+                countToAdd={countToAdd}
+                price={price}
+                id={id}
+                setPromoActive={setPromoActive}
+            />
             <div className={css.wrap_control}>
                 <div className={css.btnGroup}>
                     <button
@@ -224,13 +229,15 @@ interface PromoPrice {
     countToAdd: number;
     price: number;
     id: number;
+    setPromoActive: () => void;
 }
 
-const PromoPrice = ({ countToAdd, price, id }: PromoPrice) => {
+const PromoPrice = ({ countToAdd, price, id, setPromoActive }: PromoPrice) => {
     const responcePromo = fromProperty(responsePromo);
     if (responcePromo && responcePromo.intersection.includes(id)) {
         switch (responcePromo.type) {
             case 'percent':
+                setPromoActive();
                 return (
                     <span className={css.total_promo}>
                         {(countToAdd * price * (100 - responcePromo.value)) /

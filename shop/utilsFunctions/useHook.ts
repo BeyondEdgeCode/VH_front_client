@@ -112,7 +112,6 @@ export const fromProperty = <T>(
     const [state, setStete] = useState<T>(() => poperty.get());
 
     useEffect(() => {
-        // poperty.subscribe((p) => setStete(p));
         poperty.subscribe(setStete);
         return () => poperty.unsubscribeAll();
     }, [poperty]);

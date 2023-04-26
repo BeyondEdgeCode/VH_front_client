@@ -1,4 +1,4 @@
-import axios, { Method } from 'axios';
+import axios, { AxiosError, Method } from 'axios';
 import { API } from '../components/API';
 import { StorData } from '../components/filters/filter-collector/filter-collector';
 import { setNewUserAuthKey } from '../components/stors/user-auth.store';
@@ -12,7 +12,7 @@ import {
     Reviews,
 } from '../type.store';
 import { setLocalStorage } from './useHook';
-import { errorToast, isResponse, successToast } from './utils';
+import { errorToast, isResponse, logout, successToast } from './utils';
 
 export const getCategory = async () => {
     const res = await axios.get<Array<Category>>(API.getCategory);
@@ -236,10 +236,19 @@ export const addToBasket = async (id: number, jwt: string) => {
 };
 
 export const getBasket = async (jwt: string) => {
-    const res = await axios.get<BasketData>(API.getBasket, OPTIONS(jwt));
-    const basket = await res.data;
+    try {
+        const res = await axios.get<BasketData>(API.getBasket, OPTIONS(jwt));
+        const basket = await res.data;
+        console.log(basket, 'basket');
 
-    return basket;
+        return basket;
+        //@ts-ignore
+    } catch (error: AxiosError) {
+        if (error.response && error.response.status === 403) {
+            console.log('error.response.status');
+            logout();
+        }
+    }
 };
 
 export const incBasket = async (id: number, jwt: string, cb?: () => void) => {

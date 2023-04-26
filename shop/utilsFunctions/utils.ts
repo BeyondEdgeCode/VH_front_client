@@ -76,3 +76,7 @@ export const isResponse = <A extends any>(
         (data as Response).msg !== undefined
     );
 };
+
+export const logout = () => {
+    localStorage.clear();
+};

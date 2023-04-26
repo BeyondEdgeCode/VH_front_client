@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { KategoryScrean } from '../../../components/kategory/kategoryScrean';
 import { Layout } from '../../../components/layout/layout';
 import { Lading } from '../../../components/loading-spin/loading';
 import { setNewCategoryState } from '../../../components/ui-kit/button/dropDown/category.store';
@@ -33,7 +34,9 @@ const Basket = ({ category, shops }: BasketProps) => {
 
     return (
         <Layout mode={'horizontal'}>
-            {basket ? (
+            {!jwt ? (
+                <KategoryScrean cards={[]} isAuth={true} />
+            ) : basket ? (
                 <BasketContainer
                     shops={shops}
                     jwt={jwt}

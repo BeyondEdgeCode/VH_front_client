@@ -7,6 +7,7 @@ import {
     totalAfterPromo,
 } from '../../pages/profile/basket/basket.view-model';
 import { FilterValues } from '../../type.store';
+import { confirmOrder } from '../../utilsFunctions/GetFromAPI';
 import { fromProperty } from '../../utilsFunctions/useHook';
 import { SelectBoxFilter } from '../filters/select-box/select-box';
 import { Button } from '../ui-kit/button/button';
@@ -22,6 +23,7 @@ interface BasketAsideProps {
     setActivePaymentId: (id: number) => void;
     promoOnChange: (promo: string) => void;
     applyPromo: () => void;
+    comfirmOrder: () => void;
 }
 
 const PATMENT_OPTIONS: FilterValues = {
@@ -40,6 +42,7 @@ export const BasketAside = ({
     setActivePaymentId,
     promoOnChange,
     applyPromo,
+    comfirmOrder,
 }: BasketAsideProps) => {
     const totalVM = total ? fromProperty(total) : 0;
     const promoTotal = fromProperty(totalAfterPromo);
@@ -92,7 +95,13 @@ export const BasketAside = ({
                     <span className={css.totalPrice}>{promoTotal} ₽</span>
                 )}
             </h3>
-            <Button>Оформить</Button>
+            <Button
+                onClick={() => {
+                    comfirmOrder();
+                }}
+            >
+                Оформить
+            </Button>
 
             <div className={css.promo_wrap}>
                 <span className={css.promo_label}>Использовать промокод:</span>

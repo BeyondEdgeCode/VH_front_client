@@ -26,6 +26,7 @@ interface BasketComponent {
     setActivePaymentId: (id: number) => void;
     promoOnChange: (promo: string) => void;
     applyPromo: () => void;
+    comfirmOrder: () => void;
 }
 
 const BasketComponent = ({
@@ -44,6 +45,7 @@ const BasketComponent = ({
     setActivePaymentId,
     promoOnChange,
     applyPromo,
+    comfirmOrder,
 }: BasketComponent) => {
     return (
         <div className={css.wrap}>
@@ -70,6 +72,7 @@ const BasketComponent = ({
                 setActivePaymentId={setActivePaymentId}
                 promoOnChange={promoOnChange}
                 applyPromo={applyPromo}
+                comfirmOrder={comfirmOrder}
             />
         </div>
     );
@@ -124,6 +127,7 @@ export const BasketContainer = memo(
             setActivePaymentId: vm.setActivePaymentId,
             promoOnChange: vm.promoOnChange,
             applyPromo: vm.applyPromo,
+            comfirmOrder: vm.comfirmOrder,
         });
     }
 );

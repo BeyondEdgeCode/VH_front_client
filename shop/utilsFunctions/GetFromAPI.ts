@@ -239,8 +239,6 @@ export const getBasket = async (jwt: string) => {
     try {
         const res = await axios.get<BasketData>(API.getBasket, OPTIONS(jwt));
         const basket = await res.data;
-        console.log(basket, 'basket');
-
         return basket;
         //@ts-ignore
     } catch (error: AxiosError) {
@@ -330,5 +328,26 @@ export const checkPromo = async (promo: string, jwt: string) => {
         return await res.data;
     } catch {
         errorToast('Что-то пошло не так!');
+    }
+};
+export interface ConfirmOrderData {
+    promocode?: string;
+    shop_id: number;
+}
+export const confirmOrder = async (data: ConfirmOrderData, jwt: string) => {
+    try {
+        const res = await axios.post<Response>(
+            API.createOrder,
+            data,
+            OPTIONS(jwt)
+        );
+        if (res.data.status === 200) {
+            successToast(res.data.msg);
+        }
+        //@ts-ignore
+    } catch (error: AxiosError) {
+        if (error.response && error.response.status === 403) {
+            errorToast('Что то пошло не так');
+        }
     }
 };

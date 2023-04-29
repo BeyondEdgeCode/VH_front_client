@@ -9,6 +9,7 @@ import { unknownVM } from '../../../utilsFunctions/useHook';
 import { BasketData as InitBasketData } from '../../../type.store';
 import {
     checkPromo,
+    confirmOrder,
     deleteProductFromBusket,
 } from '../../../utilsFunctions/GetFromAPI';
 import { errorToast, isResponse } from '../../../utilsFunctions/utils';
@@ -47,6 +48,7 @@ export interface BasketData {
     promoOnChange: (promo: string) => void;
     applyPromo: () => void;
     promo: StatemanjsAPI<string>;
+    comfirmOrder: () => void;
 }
 
 export const totalAfterPromo = createState<number | null>(null);
@@ -235,6 +237,17 @@ export const newBasketVM = ({
         return t2;
     }, [availableProducts]);
 
+    const comfirmOrder = () => {
+        const shop_id = Number(newShop[activeShopId.get()].id);
+        const promocode = responsePromo.get()?.promocode;
+
+        if (jwt) {
+            confirmOrder({ shop_id, promocode }, jwt);
+            setBasketState({ availability: [], products: [], total: 0 });
+            availableProducts.set(null);
+        }
+    };
+
     return {
         values: {
             shopAdress: newShopState.get().reduce((acc, val, idx) => {
@@ -255,6 +268,7 @@ export const newBasketVM = ({
             promoOnChange,
             applyPromo,
             promo,
+            comfirmOrder,
         },
         observers: {},
     };

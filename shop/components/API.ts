@@ -20,6 +20,7 @@ const SHOPS = `${api}/shop/get`;
 const DEL_PRODUCT_BASKET = `${api}/basket/delete?id=`;
 const DEL_PRODUCT_FAVORITE = `${api}/product/favourite?id=`;
 const PROMO_CHEK = `${api}/promocode/check`;
+const ORDER_CREATE = `${api}/order/create`;
 
 export const API = {
     base: api,
@@ -45,4 +46,5 @@ export const API = {
     delFromBasket: DEL_PRODUCT_BASKET,
     removeProductFavorite: DEL_PRODUCT_FAVORITE,
     promoCheck: PROMO_CHEK,
+    createOrder: ORDER_CREATE,
 };

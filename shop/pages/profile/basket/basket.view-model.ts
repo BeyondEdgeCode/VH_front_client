@@ -244,7 +244,7 @@ export const newBasketVM = ({
         if (jwt) {
             confirmOrder({ shop_id, promocode }, jwt);
             setBasketState({ availability: [], products: [], total: 0 });
-            availableProducts.set(null);
+            availableProducts.set([]);
         }
     };
 

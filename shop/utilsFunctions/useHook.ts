@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { StatemanjsAPI, StatemanjsComputedAPI } from '@persevie/statemanjs';
 import { parseCookies, setCookie } from 'nookies';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Observable } from 'rxjs';
 import { setNewUserObserver } from '../components/stors/is-new-user.store';
 import { UserAuthKeyData$ } from '../components/stors/user-auth.store';
 
-export const useMergeState = <A>(init: A): [A, (chenge: A) => void] => {
+export const useMergeState = <A>(
+    init: A
+): [A, (chenge: Partial<A>) => void] => {
     const [state, setStete] = useState(init);
-    const setChenges = (chenge: A) => {
+    const setChenges = (chenge: Partial<A>) => {
         setStete((a) => ({
             ...a,
             ...chenge,

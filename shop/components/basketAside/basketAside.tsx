@@ -1,4 +1,4 @@
-import { StatemanjsAPI, StatemanjsComputedAPI } from '@persevie/statemanjs';
+import { StatemanjsComputedAPI } from '@persevie/statemanjs';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import {
@@ -7,7 +7,6 @@ import {
     totalAfterPromo,
 } from '../../pages/profile/basket/basket.view-model';
 import { FilterValues } from '../../type.store';
-import { confirmOrder } from '../../utilsFunctions/GetFromAPI';
 import { fromProperty } from '../../utilsFunctions/useHook';
 import { SelectBoxFilter } from '../filters/select-box/select-box';
 import { Button } from '../ui-kit/button/button';

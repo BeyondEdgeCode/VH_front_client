@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 import { Layout } from './layout';
 
 import css from './loyout.module.css';
@@ -13,26 +13,30 @@ type Layout = {
 };
 
 type ButtonGroupProps = {
-    buttons: Array<{ text: string; route: string }>;
+    buttons: Array<{ text: string; route: string; icon: string }>;
 };
 
 const ButtonGroupTitles = [
     {
-        text: 'Личные даннные',
-        route: 'profile',
-    },
-    {
-        text: 'Изменить пароль',
-        route: 'change-password',
-    },
-    {
         text: 'Мои заказы',
         route: 'orders',
+        icon: 'fa-box',
     },
     {
         text: 'Избранное',
         route: 'favorites/',
+        icon: 'fa-heart',
     },
+    {
+        text: 'Личные даннные',
+        route: 'profile',
+        icon: 'fa-cogs',
+    },
+    // {
+    //     text: 'Изменить пароль',
+    //     route: 'change-password',
+    //     icon: 'fa-box',
+    // },
 ];
 
 const ButtonGroup = ({ buttons }: ButtonGroupProps) => {
@@ -46,18 +50,22 @@ const ButtonGroup = ({ buttons }: ButtonGroupProps) => {
                     href={`/profile/${b.route == 'profile' ? '' : b.route}`}
                     key={b.text}
                 >
-                    <Button
-                        isActiveState={
-                            router !== b.route &&
-                            (b.route !== 'profile'
-                                ? !allRoute.asPath.includes(
-                                      b.route.split('/')[0]
-                                  )
-                                : true)
-                        }
+                    <div
+                        className={cn(css.navWrap, {
+                            [css.navWrapActive]:
+                                router == b.route &&
+                                (b.route == 'profile'
+                                    ? allRoute.asPath.includes(
+                                          b.route.split('/')[0]
+                                      )
+                                    : true),
+                        })}
                     >
-                        {b.text}
-                    </Button>
+                        <i
+                            className={cn('fa-solid', 'fa-2x', 'mr-2', b.icon)}
+                        ></i>
+                        <span>{b.text}</span>
+                    </div>
                 </Link>
             ))}
         </div>
@@ -66,7 +74,7 @@ const ButtonGroup = ({ buttons }: ButtonGroupProps) => {
 
 export const LoyoutProfile = ({ children }: Layout) => {
     return (
-        <Layout mode={'vertical'}>
+        <Layout mode={'horizontal'}>
             <ButtonGroup buttons={ButtonGroupTitles} />
             {children}
         </Layout>

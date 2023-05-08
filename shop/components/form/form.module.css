@@ -2,6 +2,7 @@
     border-radius: 12px;
     width: 70%;
     padding: 48px;
+    max-width: 55vw;
 }
 
 .title {
@@ -46,6 +47,17 @@
     margin: 32px auto;
     border: 1px solid var(--grey-fonts);
 }
+.errorLogin {
+    text-align: center;
+    color: red;
+}
+.inputWrap {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: flex-start;
+    width: 100%;
+}
 
 /*  */
 .changePasswordForm {
@@ -57,7 +69,7 @@
     display: flex;
     flex-direction: column;
     font-size: 18px;
-    margin: 16px;
+    margin: 16px 0;
 }
 /*  */
 .grey {
@@ -66,7 +78,13 @@
 
 .mr_1 {
     margin-right: 8px;
-} 
+}
+.ml_1 {
+    margin-left: 8px;
+}
+.ml_2 {
+    margin-left: 16px;
+}
 .mt_1 {
     margin-top: 8px;
 }

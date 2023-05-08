@@ -26,6 +26,20 @@
     font-weight: normal;
 }
 
+@font-face {
+    font-family: 'HelveticaNeueCyr-Regular';
+    src: url('../public/helveticaneuecyr_roman.otf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueCyr-Bold';
+    src: url('../public/helveticaneuecyr_black.otf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
 html,
 body {
     padding: 0;
@@ -77,6 +91,10 @@ body::-webkit-scrollbar-thumb {
 
 .mr-1 {
     margin-right: 8px;
+}
+
+.mr-2 {
+    margin-right: 16px;
 }
 
 .mt-1 {

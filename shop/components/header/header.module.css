@@ -102,6 +102,10 @@
     display: none;
 }
 
+.wrapRadio {
+    margin: 0 4px;
+}
+
 /* media */
 
 @media screen and (max-width: 745px) {

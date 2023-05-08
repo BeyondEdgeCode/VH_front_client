@@ -9,32 +9,28 @@ import { isExists } from '../../utilsFunctions/checkType';
 import { SHOP_NAME } from '../../GlobalVarible/global';
 import cn from 'classnames';
 import logo from '../../public/img/vh_logo.png';
-import {
-    useJWT,
-    useJWT_2,
-    useObservable,
-    useToggler,
-} from '../../utilsFunctions/useHook';
+import { useJWT, useJWT_2, useToggler } from '../../utilsFunctions/useHook';
 import Link from 'next/link';
 import { DropDown } from '../ui-kit/button/dropDown/dropDown';
 
 import css from './header.module.css';
 import { HeaderPopup } from './header-popup';
 import { Theme } from '../../type.store';
-import { useRouter } from 'next/router';
+import { logout } from '../../utilsFunctions/utils';
 
 type RadioButtonProps = {
     children: ReactNode;
     isActive: boolean;
     count?: number;
     theme?: Theme;
+    onClick?: () => void;
 };
 
 export const RadioButton = (props: RadioButtonProps) => {
-    const { children, count, isActive, theme = [] } = props;
+    const { children, count, isActive, theme = [], onClick } = props;
 
     return (
-        <div className={cn(...theme)}>
+        <div className={cn(...theme)} onClick={onClick}>
             <div className={cn(css.button, { [css.button_active]: isActive })}>
                 {children}
             </div>
@@ -51,6 +47,7 @@ RadioButton.defaultProps = {
 export const Header = () => {
     const [popupState, setPopupState] = useToggler();
     const router = useCurrentPathname();
+    const jwt = useJWT_2();
 
     const isActiveBasket = router === 'basket';
     const isActiveFavorites = router == 'favorites';
@@ -117,14 +114,14 @@ export const Header = () => {
                 </div>
                 <div className={css['button-group']}>
                     <Link href={'/profile/favorites/'}>
-                        <div>
+                        <div className={css.wrapRadio}>
                             <RadioButton isActive={isActiveFavorites}>
                                 <i className="fa-regular fa-heart fa-xl"></i>
                             </RadioButton>
                         </div>
                     </Link>
                     <Link href={'/profile/'}>
-                        <div>
+                        <div className={css.wrapRadio}>
                             <RadioButton isActive={isActiveProfile}>
                                 <i className="fa-regular fa-user fa-xl"></i>
                             </RadioButton>
@@ -132,12 +129,25 @@ export const Header = () => {
                     </Link>
 
                     <Link href={'/profile/basket/'}>
-                        <div>
+                        <div className={css.wrapRadio}>
                             <RadioButton isActive={isActiveBasket}>
                                 <i className="fa-solid fa-store fa-xl"></i>
                             </RadioButton>
                         </div>
                     </Link>
+
+                    {jwt && (
+                        <div className={css.wrapRadio}>
+                            <RadioButton
+                                onClick={() => {
+                                    logout();
+                                    location.reload();
+                                }}
+                            >
+                                <i className="fa-solid fa-sign-out fa-xl"></i>
+                            </RadioButton>
+                        </div>
+                    )}
                 </div>
             </header>
         </>

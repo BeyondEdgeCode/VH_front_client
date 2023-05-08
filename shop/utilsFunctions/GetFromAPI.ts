@@ -1,6 +1,7 @@
 import axios, { AxiosError, Method } from 'axios';
 import { API } from '../components/API';
 import { StorData } from '../components/filters/filter-collector/filter-collector';
+import { ChangePersonForm } from '../components/form/form.model';
 import { setNewUserAuthKey } from '../components/stors/user-auth.store';
 import {
     BasketData,
@@ -72,38 +73,39 @@ export const getSubCategoryFilterById = async (id: number) => {
     return filters;
 };
 
-export const auth = async () => {
-    // TODO: Вынести в в параметры
-    const data = {
-        email: 'dev@evgeniy.host',
-        password: 'testpassword123',
-        remember: 1,
-    };
-    // TODO: Вынести в функцию
-    const options = {
-        method: 'POST' as Method,
-        headers: {
-            'content-type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-        },
-        data: data,
-        url: API.auth,
-        origin: API,
-    };
-    const res = await axios.post<any>(
-        API.auth,
-        {
-            email: 'me@evgeniy.host',
-            password: 'test1234',
-            remember: 1,
-        },
-        options
-    );
+interface Auth {
+    email: string;
+    password: string;
+}
 
-    const access_token = await res.data;
+export const auth = async (data: Auth, cb: () => void) => {
+    try {
+        const options = {
+            method: 'POST' as Method,
+            headers: {
+                'content-type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            data,
+            url: API.auth,
+            origin: API,
+        };
+        const res = await axios.post<any>(API.auth, data, options);
 
-    setNewUserAuthKey(access_token.access_token);
-    setLocalStorage('JWT', access_token.access_token);
+        const access_token = await res.data;
+
+        setNewUserAuthKey(access_token.access_token);
+        setLocalStorage('JWT', access_token.access_token);
+        //@ts-ignore
+    } catch (error: AxiosError) {
+        if (
+            (error.response && error.response.status === 400) ||
+            (error.response && error.response.status === 401)
+        ) {
+            errorToast('Что то пошло не так');
+            cb();
+        }
+    }
 };
 export interface getProductsByFiltersAplyedArguments {
     filters: StorData[];
@@ -144,8 +146,8 @@ interface Response {
     msg: string;
 }
 
-const OPTIONS = (jwt?: string) => ({
-    method: 'POST' as Method,
+const OPTIONS = (jwt?: string | null, method: Method = 'POST') => ({
+    method: method,
     headers: {
         'content-type': 'application/json',
         Authorization: 'Bearer ' + jwt,
@@ -243,7 +245,6 @@ export const getBasket = async (jwt: string) => {
         //@ts-ignore
     } catch (error: AxiosError) {
         if (error.response && error.response.status === 403) {
-            console.log('error.response.status');
             logout();
         }
     }
@@ -340,6 +341,31 @@ export const confirmOrder = async (data: ConfirmOrderData, jwt: string) => {
             API.createOrder,
             data,
             OPTIONS(jwt)
+        );
+        if (res.data.status === 200) {
+            successToast(res.data.msg);
+        }
+        //@ts-ignore
+    } catch (error: AxiosError) {
+        if (error.response && error.response.status === 403) {
+            errorToast('Что то пошло не так');
+        }
+    }
+};
+
+export const setUserData = async (
+    data: Partial<ChangePersonForm>,
+    jwt: string | null
+) => {
+    try {
+        const res = await axios.patch<Response>(
+            API.setUserData,
+            {
+                ...data,
+                //@ts-ignore
+                birthday: new Date(data?.birthday).toISOString(),
+            },
+            OPTIONS(jwt, 'PATCH')
         );
         if (res.data.status === 200) {
             successToast(res.data.msg);

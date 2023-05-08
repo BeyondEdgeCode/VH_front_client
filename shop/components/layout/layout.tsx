@@ -11,6 +11,7 @@ import cn from 'classnames';
 import { BanerContainer } from '../baner/baner.container';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useHasRoute } from '../../utilsFunctions/routerUtils';
 
 type Layout = {
     children: ReactNode;
@@ -20,6 +21,7 @@ type Layout = {
 
 export const Layout = ({ children, title = SHOP_NAME, mode }: Layout) => {
     useCookieisNewUser();
+    const isProfile = useHasRoute('profile');
 
     return (
         <>
@@ -40,6 +42,7 @@ export const Layout = ({ children, title = SHOP_NAME, mode }: Layout) => {
             <main
                 className={cn(css.wrap, {
                     [css.horizontal]: mode == 'horizontal',
+                    [css.wrapProfile]: isProfile,
                 })}
             >
                 <ToastContainer

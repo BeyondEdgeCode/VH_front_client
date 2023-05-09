@@ -79,12 +79,11 @@ export const isResponse = <A extends any>(
 
 export const logout = () => {
     localStorage.clear();
+    location.assign(location.origin);
+    console.log(location.origin + '/profile');
 };
 
 export const isMobilePhone = (str: string) => {
-    // const regex = new RegExp('^((8|+7)[- ]?)?((?d{3})?[- ]?)?[d- ]{7,10}$');
-    // return regex.test(str);
-
     const regex = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/;
     return regex.test(str);
 };

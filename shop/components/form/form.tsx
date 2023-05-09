@@ -179,8 +179,10 @@ export const ChangePasswordForm = () => {
     });
 
     return (
-        <form className={cn(css.form, css.changePasswordForm, css.w40p)}>
-            <span className={css.title}>Смена пароля</span>
+        <form className={cn(css.form, css.changePasswordForm)}>
+            <span className={css.title}>
+                {!jwt ? 'Авторизация' : 'Смена пароля'}
+            </span>
             <label className={css.changePasswordLabel}>
                 Логин
                 <FormInput
@@ -200,12 +202,17 @@ export const ChangePasswordForm = () => {
                     onChange={(e) => {
                         setFormState({ password: e.currentTarget.value });
                     }}
+                    type={'password'}
                 />
             </label>
             {jwt ? (
                 <label className={css.changePasswordLabel}>
                     Новый пароль
-                    <FormInput placeholder={'Ваш пароль'} theme={[css.mt_1]} />
+                    <FormInput
+                        placeholder={'Ваш пароль'}
+                        theme={[css.mt_1]}
+                        type={'password'}
+                    />
                 </label>
             ) : null}
             {!jwt ? (

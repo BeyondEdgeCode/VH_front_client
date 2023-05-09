@@ -54,6 +54,7 @@ const Favorites = ({ category }: FavoritesProps) => {
                 cards={mapProductsFromAPI(favorites, setFavorites)}
                 plug={'избранное пустое'}
                 isLoading={isLoading}
+                isAuth={!jwt}
             />
         </LoyoutProfile>
     );

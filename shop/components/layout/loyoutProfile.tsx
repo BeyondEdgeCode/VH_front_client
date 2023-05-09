@@ -7,6 +7,7 @@ import { useCurrentPathname } from '../../utilsFunctions/routerUtils';
 import { Button } from '../ui-kit/button/button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useJWT_2 } from '../../utilsFunctions/useHook';
 
 type Layout = {
     children: ReactNode;
@@ -73,9 +74,11 @@ const ButtonGroup = ({ buttons }: ButtonGroupProps) => {
 };
 
 export const LoyoutProfile = ({ children }: Layout) => {
+    const jwt = useJWT_2();
+
     return (
         <Layout mode={'horizontal'}>
-            <ButtonGroup buttons={ButtonGroupTitles} />
+            {jwt && <ButtonGroup buttons={ButtonGroupTitles} />}
             {children}
         </Layout>
     );

@@ -68,12 +68,29 @@ interface Response {
     msg: string;
 }
 
+interface ErrorResponse {
+    error: number;
+    msg: string;
+}
+
 export const isResponse = <A extends any>(
-    data: A | Response
+    data: A | Response | null
 ): data is Response => {
+    if (data === null) {
+        return false;
+    }
     return (
         (data as Response).status !== undefined &&
         (data as Response).msg !== undefined
+    );
+};
+
+export const isErrorResponse = <A extends any>(
+    data: A | ErrorResponse
+): data is ErrorResponse => {
+    return (
+        (data as ErrorResponse).error !== undefined &&
+        (data as ErrorResponse).msg !== undefined
     );
 };
 

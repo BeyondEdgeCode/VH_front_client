@@ -25,7 +25,7 @@ const ButtonGroupTitles = [
     },
     {
         text: 'Избранное',
-        route: 'favorites/',
+        route: 'favorites',
         icon: 'fa-heart',
     },
     {
@@ -54,8 +54,8 @@ const ButtonGroup = ({ buttons }: ButtonGroupProps) => {
                     <div
                         className={cn(css.navWrap, {
                             [css.navWrapActive]:
-                                router == b.route &&
-                                (b.route == 'profile'
+                                router === b.route &&
+                                (b.route === 'profile'
                                     ? allRoute.asPath.includes(
                                           b.route.split('/')[0]
                                       )
@@ -63,7 +63,7 @@ const ButtonGroup = ({ buttons }: ButtonGroupProps) => {
                         })}
                     >
                         <i
-                            className={cn('fa-solid', 'fa-2x', 'mr-2', b.icon)}
+                            className={cn('fa-solid', 'fa-xl', 'mr-2', b.icon)}
                         ></i>
                         <span>{b.text}</span>
                     </div>
@@ -74,11 +74,12 @@ const ButtonGroup = ({ buttons }: ButtonGroupProps) => {
 };
 
 export const LoyoutProfile = ({ children }: Layout) => {
-    const jwt = useJWT_2();
+    // const jwt = useJWT_2();
 
     return (
         <Layout mode={'horizontal'}>
-            {jwt && <ButtonGroup buttons={ButtonGroupTitles} />}
+            {/* {jwt && <ButtonGroup buttons={ButtonGroupTitles} />} */}
+            <ButtonGroup buttons={ButtonGroupTitles} />
             {children}
         </Layout>
     );

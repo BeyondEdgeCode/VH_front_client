@@ -121,15 +121,16 @@ export const newFilterCollectorVM = ({
 
     const togglFilterEffect$ = rangeTogleStor
         .filter((f) => f.type === 'toggle')[0]
-        .store.pipe(tap(mapToIsAvalible));
+        .store.pipe(tap(mapToIsAvalible))
+        .subscribe();
 
     const mergedFilters = merge(...stors);
     const t$ = mergedFilters.pipe(tap(mapFiltertoSendAPI)).subscribe();
-
     return {
         onAply,
         filtersWithStore,
         mapFiltertoSendAPI,
         effects: [t$, priceFilterEffect$, togglFilterEffect$],
+        // effects: [mergedFilters, togglFilterEffect$],
     };
 };

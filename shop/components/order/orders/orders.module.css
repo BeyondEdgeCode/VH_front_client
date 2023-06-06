@@ -1,0 +1,164 @@
+.orderWrap {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 28px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.orderWrap:last-child {
+    border-radius: 0 0 8px 8px;
+}
+.orderImg {
+    width: 100px;
+    height: 100px;
+}
+
+.orderItemsHeader {
+    background: #a520e3;
+    border-radius: 8px 8px 0px 0px;
+    padding: 16px;
+    font-family: 'HelveticaNeueCyr-Regular';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--white);
+}
+
+.orderItemsInfo {
+    background-color: var(--white);
+    padding: 26px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.orderStatus {
+    font-family: 'HelveticaNeueCyr-Regular';
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--white);
+    padding: 4px 8px;
+    border-radius: 3px;
+}
+
+.progressOrder {
+    background-color: var(--violet);
+}
+.errorOrder {
+    background-color: var(--error);
+}
+.sucessOrder {
+    background-color: var(--sucess);
+}
+
+.orderItemsInfoGap {
+    margin-bottom: 14px;
+}
+.orderTitle {
+    flex-grow: 2;
+    margin-left: 14px;
+    font-family: 'HelveticaNeueCyr-Regular';
+    font-weight: 400;
+    font-size: 16px;
+    color: #333333;
+}
+.orderWrapPriceInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.orderWrapPriceInfoSumWrap {
+    font-family: 'HelveticaNeueCyr-Regular';
+    font-weight: 400;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    color: #333333;
+}
+
+.orderWrapPriceInfoSumWrapNum {
+    font-family: 'HelveticaNeueCyr-Bold';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+
+    color: #333333;
+    margin-left: 5px;
+}
+
+.orderWrapPriceInfoPrice {
+    font-family: 'HelveticaNeueCyr-Regular';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    color: #4e4e4e;
+}
+
+.totalPriceWrap {
+    display: flex;
+}
+
+.totalPrice {
+    font-family: 'HelveticaNeueCyr';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    color: #333333;
+}
+
+.cancelButton {
+    width: 130px;
+    height: 36px;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 8px;
+    background-color: inherit;
+    margin-top: 14px;
+}
+
+.cancelButton:hover {
+    border: 1px solid var(--violet);
+    border-radius: 8px;
+    color: var(--violet);
+}
+
+/* orderItems */
+.orderItemsWrap {
+    max-width: 1000px;
+    width: 100%;
+    background-color: var(--white);
+    margin-bottom: 20px;
+}
+
+.orderItemsWrap {
+    border-radius: 0 0 8px 8px;
+}
+
+/* userOrdersWrap */
+.userOrdersWrap {
+    width: 100%;
+    max-width: 1000px;
+    margin-left: 24px;
+    margin-top: 28px;
+}
+.ordersTitle {
+    margin-bottom: 12px;
+    font-family: 'HelveticaNeueCyr-Bold';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+/* Utils */
+.orderLabelThin {
+    font-weight: 400;
+    font-family: 'HelveticaNeueCyr-Thin';
+}
+
+.greyFont {
+    color: var(--grey-font-order);
+}

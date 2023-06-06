@@ -16,6 +16,7 @@ export const FilterCollectorContainer = ({
     const vm = newFilterCollectorVM({ filters, category_id, isSub });
     useEffect(
         () => () => {
+            // return vm.effects.forEach((e) => e.unsubscribe());
             return vm.effects.forEach((e) => e.unsubscribe());
         },
         [vm]

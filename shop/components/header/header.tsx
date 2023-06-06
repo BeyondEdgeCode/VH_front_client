@@ -49,6 +49,8 @@ export const Header = () => {
     const router = useCurrentPathname();
     const jwt = useJWT_2();
 
+    const [btnGroup, toggllBtnGroup] = useToggler();
+
     const isActiveBasket = router === 'basket';
     const isActiveFavorites = router == 'favorites';
     const isActiveProfile =
@@ -112,16 +114,36 @@ export const Header = () => {
                         />
                     </div>
                 </div>
-                <div className={css['button-group']}>
+                <div
+                    className={cn(css['button-group'], {
+                        [css.buttonGroupActive]: btnGroup,
+                    })}
+                >
+                    <div
+                        className={(css.wrapRadio, css.controllBtn)}
+                        onClick={toggllBtnGroup}
+                    >
+                        <RadioButton isActive={isActiveFavorites}>
+                            X
+                        </RadioButton>
+                    </div>
                     <Link href={'/profile/favorites/'}>
-                        <div className={css.wrapRadio}>
+                        <div
+                            className={cn(css.wrapRadio, {
+                                [css.linkAdaptivState]: btnGroup,
+                            })}
+                        >
                             <RadioButton isActive={isActiveFavorites}>
                                 <i className="fa-regular fa-heart fa-xl"></i>
                             </RadioButton>
                         </div>
                     </Link>
                     <Link href={'/profile/'}>
-                        <div className={css.wrapRadio}>
+                        <div
+                            className={cn(css.wrapRadio, {
+                                [css.linkAdaptivState]: btnGroup,
+                            })}
+                        >
                             <RadioButton isActive={isActiveProfile}>
                                 <i className="fa-regular fa-user fa-xl"></i>
                             </RadioButton>
@@ -129,7 +151,11 @@ export const Header = () => {
                     </Link>
 
                     <Link href={'/profile/basket/'}>
-                        <div className={css.wrapRadio}>
+                        <div
+                            className={cn(css.wrapRadio, {
+                                [css.linkAdaptivState]: btnGroup,
+                            })}
+                        >
                             <RadioButton isActive={isActiveBasket}>
                                 <i className="fa-solid fa-store fa-xl"></i>
                             </RadioButton>
@@ -137,7 +163,11 @@ export const Header = () => {
                     </Link>
 
                     {jwt && (
-                        <div className={css.wrapRadio}>
+                        <div
+                            className={cn(css.wrapRadio, {
+                                [css.linkAdaptivState]: btnGroup,
+                            })}
+                        >
                             <RadioButton
                                 onClick={() => {
                                     logout();

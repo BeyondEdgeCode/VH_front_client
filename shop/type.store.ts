@@ -1,3 +1,5 @@
+import { ChangePersonForm } from './components/form/form.model';
+
 export type Theme = Array<string>;
 
 export type FilterValues = { [key: string]: string };
@@ -101,3 +103,45 @@ export type ResponsePromo = {
     type: 'fixed' | 'percent';
     value: number;
 };
+
+export interface Orders {
+    id: number;
+    user: ChangePersonForm;
+    status:
+        | 'awaiting_payment'
+        | 'forming'
+        | 'waiting_to_receive'
+        | 'in_delivery'
+        | 'finished'
+        | 'canceled_by_system'
+        | 'canceled_by_user';
+    delivery_type: 'pickup' | 'delivery';
+    payment_type: 'postpayment' | 'postpayment';
+    sum: number;
+    promocode_ref: string | null;
+    shop: {
+        street: string | null;
+        title: string;
+        description: string | null;
+        id: number;
+        building: string | null;
+        city: string | null;
+        preview: string | null;
+    };
+    items: [
+        {
+            item_sum: number;
+            product: {
+                id: number;
+                title: string;
+                description: string | null;
+                price: number;
+                image_link: string;
+                avg_stars: number;
+            };
+            amount: number;
+            price: number;
+        }
+    ];
+    created_at: string;
+}

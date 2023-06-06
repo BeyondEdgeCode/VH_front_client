@@ -67,3 +67,9 @@
     color: var(--white);
     background-color: var(--violet);
 }
+
+@media screen and (max-width: 850px) {
+    .buttonWrap {
+        display: none;
+    }
+}

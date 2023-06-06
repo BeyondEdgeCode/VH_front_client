@@ -179,7 +179,11 @@ export const ChangePasswordForm = () => {
     });
 
     return (
-        <form className={cn(css.form, css.changePasswordForm)}>
+        <form
+            className={cn(css.form, css.changePasswordForm, {
+                [css.resetMargin]: jwt,
+            })}
+        >
             <span className={css.title}>
                 {!jwt ? 'Авторизация' : 'Смена пароля'}
             </span>

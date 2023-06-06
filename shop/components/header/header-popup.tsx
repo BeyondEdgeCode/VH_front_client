@@ -1,7 +1,6 @@
 import css from './header-popup.module.css';
 import cn from 'classnames';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 
 type HeaderPopupProps = {
     isOpen: boolean;
@@ -20,14 +19,17 @@ export const HeaderPopup = ({ isOpen, onClose }: HeaderPopupProps) => {
                 ✖
             </span>
             <div className={css.profilLinks}>
-                <Link href={'/profile/favorites/'}>
-                    <span>Избранное</span>
-                </Link>
                 <Link href={'/profile/'}>
-                    <span>Профиль</span>
+                    <span className={css.link}>Профиль</span>
                 </Link>
                 <Link href={'/profile/basket/'}>
-                    <span>Корзина</span>
+                    <span className={css.link}>Корзина</span>
+                </Link>
+                <Link href={'/profile/orders'}>
+                    <span className={css.link}>Мои заказы</span>
+                </Link>
+                <Link href={'/profile/favorites/'}>
+                    <span className={css.link}>Избранное</span>
                 </Link>
             </div>
         </aside>

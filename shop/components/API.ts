@@ -1,4 +1,4 @@
-const api = 'http://dockerbackend';
+const api = 'https://api.beyondedge.ru';
 const GET_CATEGORY = `${api}/product/category`;
 const GET_PRODUCTS_BY_ID = `${api}/product/get_by_category?id=`;
 const GET_MAIN_SWIPER = `${api}/ic/get_active`;
@@ -21,6 +21,8 @@ const DEL_PRODUCT_FAVORITE = `${api}/product/favourite?id=`;
 const PROMO_CHEK = `${api}/promocode/check`;
 const ORDER_CREATE = `${api}/order/create`;
 const USER_DATA = `${api}/user/auth/me`;
+const GET_ORDER = `${api}/order/get`;
+const CANCEL_ORDER = `${api}/order/cancel?id=`;
 
 export const API = {
     base: api,
@@ -48,4 +50,6 @@ export const API = {
     promoCheck: PROMO_CHEK,
     createOrder: ORDER_CREATE,
     setUserData: USER_DATA,
+    getOrder: GET_ORDER,
+    cancelOrder: CANCEL_ORDER,
 };

@@ -7,13 +7,20 @@ import {
     BasketData,
     Category,
     MainSwiper,
+    Orders,
     Product,
     ProductFilter,
     ResponsePromo,
     Reviews,
 } from '../type.store';
 import { setLocalStorage } from './useHook';
-import { errorToast, isResponse, logout, successToast } from './utils';
+import {
+    errorToast,
+    isErrorResponse,
+    isResponse,
+    logout,
+    successToast,
+} from './utils';
 
 export const getCategory = async () => {
     const res = await axios.get<Array<Category>>(API.getCategory);
@@ -322,8 +329,15 @@ export const checkPromo = async (promo: string, jwt: string) => {
             OPTIONS(jwt)
         );
 
+        if (isErrorResponse(res.data) && res.data.error === 400) {
+            errorToast(res.data.msg);
+            console.log('F');
+
+            return null;
+        }
         if (isResponse(res.data) && res.data.status === 404) {
             errorToast('Промокод не активен');
+            return null;
         }
 
         return await res.data;
@@ -375,5 +389,35 @@ export const setUserData = async (
         if (error.response && error.response.status === 403) {
             errorToast('Что то пошло не так');
         }
+    }
+};
+
+export const getOrder = async (jwt: string) => {
+    try {
+        const res = await axios.get<Array<Orders>>(API.getOrder, OPTIONS(jwt));
+        const orders = await res.data;
+        return orders;
+        //@ts-ignore
+    } catch (error: AxiosError) {
+        if (error.response && error.response.status === 403) {
+            logout();
+        }
+        return [];
+    }
+};
+
+export const cancelOrder = async (jwt: string, id: number, cb: Function) => {
+    try {
+        const res = await axios.delete<Response>(
+            API.cancelOrder + id,
+            OPTIONS(jwt, 'DELETE')
+        );
+        if (res.data.status === 200) {
+            successToast(res.data.msg);
+            cb();
+        }
+        //@ts-ignore
+    } catch (error: AxiosError) {
+        errorToast('Что то пошло не так');
     }
 };

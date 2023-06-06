@@ -67,6 +67,10 @@
     width: 570px;
 }
 
+.resetMargin {
+    margin: unset;
+}
+
 .changePasswordLabel {
     display: flex;
     flex-direction: column;

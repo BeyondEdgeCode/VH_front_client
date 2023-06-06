@@ -10,6 +10,9 @@
     --light-durk: rgba(0, 0, 0, 0.2);
     --grey-fonts-active: hsl(0, 0%, 40%);
     --grey-fonts: hsl(0, 0%, 60%);
+    --grey-font-order: #4e4e4e;
+    --error: #f95757;
+    --sucess: #41d172;
 }
 
 @font-face {
@@ -29,6 +32,13 @@
 @font-face {
     font-family: 'HelveticaNeueCyr-Regular';
     src: url('../public/helveticaneuecyr_roman.otf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueCyr-Thin';
+    src: url('../public/helveticaneuecyr_thin.otf') format('truetype');
     font-style: normal;
     font-weight: normal;
 }
